@@ -8,7 +8,8 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="MainWindow" WindowStyle="None" Height="450" Width="800">
+        Title="MainWindow" WindowStyle="None" Height="450" Width="800"
+        d:DataContext="{d:DesignData  MainWindowViewModel |(in Binary.Misfit.Bethesda)}">
     <Canvas>
         <Label Canvas.Left="10" Canvas.Top="10" Content="{Binding Path=Summary}" />
         <Label Canvas.Left="10" Canvas.Top="30" Content="{Binding Path=Status }" />

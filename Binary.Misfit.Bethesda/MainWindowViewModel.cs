@@ -4,19 +4,21 @@ namespace Binary.Misfit.Bethesda
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using Microsoft.Toolkit.Mvvm.ComponentModel;
+    using Microsoft.Toolkit.Mvvm.Input;
 
-    public sealed class MainWindowViewModel : ViewModelBase
+    public sealed class MainWindowViewModel : ObservableObject
     {
-        private readonly DelegateCommand _performAction;
-        private readonly DelegateCommand _exitCommand;
+        private readonly RelayCommand _performAction;
+        private readonly RelayCommand _exitCommand;
         private string _log;
         private string _status;
         private string _summary;
 
         public MainWindowViewModel()
         {
-            _performAction = new DelegateCommand(executeAction: OnPerformAction, canExecuteAction: CanPerformAction);
-            _exitCommand = new DelegateCommand(executeAction: OnExitApp, canExecuteAction: CanExitApp);
+            _performAction = new RelayCommand(OnPerformAction, CanPerformAction);
+            _exitCommand = new RelayCommand(OnExitApp, CanExitApp);
         }
 
         public string Log
@@ -49,7 +51,7 @@ namespace Binary.Misfit.Bethesda
         public ICommand ExitApp =>
             _exitCommand;
 
-        private void OnPerformAction(object command)
+        private void OnPerformAction()
         {
             var stageFolders = Directory.EnumerateDirectories(@"D:\Mods\fallout4", "*.*").ToList();
             Summary = $"{stageFolders.Count()} folder(s) found";
@@ -64,13 +66,13 @@ namespace Binary.Misfit.Bethesda
                 });
         }
 
-        private bool CanPerformAction(object command) =>
+        private bool CanPerformAction() =>
             true;
 
-        private void OnExitApp(object command) =>
+        private void OnExitApp() =>
             Application.Current.Shutdown();
 
-        private bool CanExitApp(object command) =>
+        private bool CanExitApp() =>
             true;
     }
 }
