@@ -7,7 +7,9 @@ namespace Binary.Misfit.Bethesda
     public sealed class MainWindowViewModel : INotifyPropertyChanged
     {
         public string Status { get; set; }
-        
+
+        public string Summary { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

@@ -20,7 +20,8 @@
             RoutedEventArgs e)
         {
             var stageFolders = Directory.EnumerateDirectories(@"D:\Mods\fallout4", "*.*").ToList();
-            DirectoryCount.Content = $"{stageFolders.Count()} folder(s) found";
+            _mainWindowViewModel.Summary = $"{stageFolders.Count()} folder(s) found";
+            _mainWindowViewModel.OnPropertyChanged(nameof(_mainWindowViewModel.Summary));
             stageFolders.OrderBy(stageFolder => stageFolder)
                 .ToList()
                 .ForEach(stageFolder =>
