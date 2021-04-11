@@ -8,18 +8,19 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="MainWindow" WindowStyle="None" Height="450" Width="800"
-        d:DataContext="{d:DesignData  MainWindowViewModel |(in Binary.Misfit.Bethesda)}">
+        Title="MainWindow" WindowStyle="None" Height="450" Width="800">
     <Canvas>
-        <Label Name="DirectoryCount" Canvas.Left="10" Canvas.Top="10" Content="{Binding Path=Summary}" />
+        <Label Canvas.Left="10" Canvas.Top="10" Content="{Binding Path=Summary}" />
         <Label Canvas.Left="10" Canvas.Top="30" Content="{Binding Path=Status }" />
         <ScrollViewer Canvas.Left="15" Canvas.Top="60"
                       Height="300"
                       Width="Auto"
                       VerticalScrollBarVisibility="Auto">
-            <TextBlock Name="ModPath" />
+            <TextBlock Text="{Binding Path=Log}" />
         </ScrollViewer>
-        <Button Width="Auto" Height="Auto" Canvas.Left="10" Canvas.Bottom="10" Click="ActionClick" Content="Action" />
-        <Button Width="Auto" Height="Auto" Canvas.Right="10" Canvas.Bottom="10" Click="ExitClick" Content="Exit" />
+        <Button Width="Auto" Height="Auto" Canvas.Left="10" Canvas.Bottom="10" Command="{Binding Path=PerformAction}"
+                Content="Action" />
+        <Button Width="Auto" Height="Auto" Canvas.Right="10" Canvas.Bottom="10" Command="{Binding Path=ExitApp}"
+                Content="Exit" />
     </Canvas>
 </Window>
