@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Binary.Misfit.Bethesda
 {
@@ -20,7 +9,7 @@ namespace Binary.Misfit.Bethesda
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -30,17 +19,23 @@ namespace Binary.Misfit.Bethesda
         private void ActionClick(object sender,
             RoutedEventArgs e)
         {
-            var stageFolders = Directory.EnumerateDirectories(@"D:\Mods\fallout4", "*.*");
-            directoryCount.Content = $"{stageFolders.Count()} folder(s) found";
+            var stageFolders = Directory.EnumerateDirectories(@"D:\Mods\fallout4", "*.*").ToList();
+            DirectoryCount.Content = $"{stageFolders.Count()} folder(s) found";
             stageFolders.OrderBy(stageFolder => stageFolder)
                 .ToList()
                 .ForEach(stageFolder =>
                 {
-                    status.Content = $"{stageFolder}";
+                    Status.Content = $"{stageFolder}";
                     var stageFolderInfo = new DirectoryInfo(stageFolder);
                     var stageFiles = Directory.EnumerateFileSystemEntries(stageFolder);
-                    modPath.Text += $"{stageFolderInfo.Name}\n";
+                    ModPath.Text += $"{stageFolderInfo.Name}\n";
                 });
+        }
+
+        private void ExitClick(object sender,
+            EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
