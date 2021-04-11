@@ -1,18 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-
-namespace Binary.Misfit.Bethesda
+﻿namespace Binary.Misfit.Bethesda
 {
+    using System;
+    using System.Linq;
+    using System.Windows;
     using System.IO;
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
+        private readonly MainWindowViewModel _mainWindowViewModel;
+
         public MainWindow()
         {
+            _mainWindowViewModel = new MainWindowViewModel();
+            DataContext = _mainWindowViewModel;
             InitializeComponent();
         }
 
@@ -25,7 +25,8 @@ namespace Binary.Misfit.Bethesda
                 .ToList()
                 .ForEach(stageFolder =>
                 {
-                    Status.Content = $"{stageFolder}";
+                    _mainWindowViewModel.Status = $"{stageFolder}";
+                    _mainWindowViewModel.OnPropertyChanged(nameof(_mainWindowViewModel.Status));
                     var stageFolderInfo = new DirectoryInfo(stageFolder);
                     var stageFiles = Directory.EnumerateFileSystemEntries(stageFolder);
                     ModPath.Text += $"{stageFolderInfo.Name}\n";
