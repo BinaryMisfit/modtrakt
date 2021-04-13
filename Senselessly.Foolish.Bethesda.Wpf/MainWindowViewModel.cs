@@ -19,6 +19,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         private string _status;
         private string _summary;
         private List<ModSource> _modSources;
+        private Settings _settings;
 
         public MainWindowViewModel()
         {
@@ -26,6 +27,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
             _exitApp = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
             _summary = "0";
+            _settings = Settings.Load(Settings.SettingsPath);
         }
 
         public string Status
@@ -72,16 +74,24 @@ namespace Senselessly.Foolish.Bethesda.Wpf
 
         private void OnExitApp()
         {
-            if (_canLoad)
+            if (!_canLoad)
             {
-                Application.Current.Shutdown();
+                return;
             }
+
+            Settings.Save(settings: _settings, settingsFile: Settings.SettingsPath);
+            Application.Current.Shutdown();
         }
 
         private void OnLoadFolder()
         {
+            if (!Directory.Exists(_settings.StagingFolder))
+            {
+                return;
+            }
+
             _canLoad = false;
-            var sourceFolders = new DirectoryInfo(@"D:\Mods\fallout4").GetDirectories();
+            var sourceFolders = new DirectoryInfo(_settings.StagingFolder).GetDirectories();
             Summary = $"{sourceFolders.Length}";
             ModSources = new List<ModSource>();
             sourceFolders.OrderBy(folder => folder.Name)
@@ -212,13 +222,21 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             }
 
             _canOpen = false;
+            var viewModel = new SettingsViewModel()
+            {
+                Settings = _settings,
+            };
             var settings = new SettingsDialog
             {
-                DataContext = new SettingsViewModel(),
+                DataContext = viewModel,
             };
             var result = await DialogHost.Show(content: settings,
                 dialogIdentifier: "RootDialog",
                 closingEventHandler: SettingsCloseEventArgs);
+            if (result != null)
+            {
+                Settings.Save(settings: result as Settings, settingsFile: Settings.SettingsPath);
+            }
         }
 
         private void SettingsCloseEventArgs(object sender,

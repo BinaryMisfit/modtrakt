@@ -12,6 +12,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         private readonly RelayCommand _browseWorking;
         private string _stagingFolder;
         private string _workingFolder;
+        private Settings _settings;
 
         public SettingsViewModel()
         {
@@ -29,16 +30,33 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         {
             get =>
                 _stagingFolder;
-            set =>
+            set
+            {
                 SetProperty(field: ref _stagingFolder, newValue: value);
+                Settings.StagingFolder = value;
+            }
         }
 
         public string WorkingFolder
         {
             get =>
                 _workingFolder;
-            set =>
+            set
+            {
                 SetProperty(field: ref _workingFolder, newValue: value);
+                Settings.WorkingFolder = value;
+            }
+        }
+
+        public Settings Settings
+        {
+            get =>
+                _settings;
+            set
+            {
+                _settings = value;
+                LoadSettings(_settings);
+            }
         }
 
         private async void OnLoadStaging()
@@ -46,9 +64,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             _canBrowse = false;
             var dialogArgs = new OpenDirectoryDialogArguments()
             {
-                Width = 600, Height = 400, CreateNewDirectoryEnabled = false,
+                Width = 600, Height = 400, CreateNewDirectoryEnabled = false, CurrentDirectory = _stagingFolder,
             };
-
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
@@ -68,9 +85,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             _canBrowse = false;
             var dialogArgs = new OpenDirectoryDialogArguments()
             {
-                Width = 600, Height = 400, CreateNewDirectoryEnabled = true,
+                Width = 600, Height = 400, CreateNewDirectoryEnabled = true, CurrentDirectory = _workingFolder,
             };
-
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
@@ -83,6 +99,17 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         private bool CanLoadWorking()
         {
             return _canBrowse;
+        }
+
+        private void LoadSettings(Settings settings)
+        {
+            if (settings == null)
+            {
+                return;
+            }
+
+            StagingFolder = settings.StagingFolder;
+            WorkingFolder = settings.WorkingFolder;
         }
     }
 }

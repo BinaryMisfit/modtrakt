@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sfb="clr-namespace:Senselessly.Foolish.Bethesda.Wpf"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              MaxHeight="600" Width="600">
     <UserControl.DataContext>
@@ -77,18 +76,11 @@
                 <Canvas Height="30" Margin="10">
                     <Button Canvas.Left="0" Content="Save" Width="Auto" IsDefault="True"
                             Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{x:Static md:DialogHost.CloseDialogCommand}">
-                        <Button.CommandParameter>
-                            <system:Boolean>True</system:Boolean>
-                        </Button.CommandParameter>
-                    </Button>
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            CommandParameter="{Binding Settings}" />
                     <Button Canvas.Right="0" Content="Close" Width="Auto"
                             Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{x:Static md:DialogHost.CloseDialogCommand}">
-                        <Button.CommandParameter>
-                            <system:Boolean>False</system:Boolean>
-                        </Button.CommandParameter>
-                    </Button>
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}" />
                 </Canvas>
             </md:ColorZone>
         </StackPanel>
