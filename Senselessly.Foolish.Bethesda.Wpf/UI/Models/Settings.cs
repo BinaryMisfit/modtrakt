@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.UI.Models
 {
     using System;
-    using SharpConfig;
     using System.IO;
+    using SharpConfig;
 
     public class Settings
     {

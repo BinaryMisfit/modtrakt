@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.Mod.Enum
 {
     using System;
 

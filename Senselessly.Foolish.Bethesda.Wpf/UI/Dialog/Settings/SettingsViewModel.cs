@@ -1,9 +1,10 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 {
     using System.Windows.Input;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
+    using Models;
 
     public class SettingsViewModel : ObservableObject
     {

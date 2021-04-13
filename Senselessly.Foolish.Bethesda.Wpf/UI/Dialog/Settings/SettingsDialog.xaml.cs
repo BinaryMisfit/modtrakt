@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 {
     public partial class SettingsDialog
     {

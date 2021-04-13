@@ -1,13 +1,17 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
 {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using Dialog.Settings;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
+    using Mod.Enum;
+    using Mod.Source;
+    using Models;
 
     public sealed class MainWindowViewModel : ObservableObject
     {
@@ -18,7 +22,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         private bool _canOpen = true;
         private string _status;
         private string _summary;
-        private List<ModSource> _modSources;
+        private List<Plugin> _modSources;
         private Settings _settings;
 
         public MainWindowViewModel()
@@ -46,7 +50,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
                 SetProperty(field: ref _summary, newValue: value);
         }
 
-        public List<ModSource> ModSources
+        public List<Plugin> ModSources
         {
             get =>
                 _modSources;
@@ -93,7 +97,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             _canLoad = false;
             var sourceFolders = new DirectoryInfo(_settings.StagingFolder).GetDirectories();
             Summary = $"{sourceFolders.Length}";
-            ModSources = new List<ModSource>();
+            ModSources = new List<Plugin>();
             sourceFolders.OrderBy(folder => folder.Name)
                 .ToList()
                 .ForEach(folder =>
@@ -101,7 +105,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf
                     Status = $"{folder.FullName}";
                     var folders = folder.GetDirectories();
                     var files = folder.GetFiles();
-                    var modSource = new ModSource(folder.Name);
+                    var modSource = new Plugin(folder.Name);
                     var esl = files.Count(fi => fi.Extension.ToLowerInvariant().EndsWith("esl"));
                     var esm = files.Count(fi => fi.Extension.ToLowerInvariant().EndsWith("esm"));
                     var esp = files.Count(fi => fi.Extension.ToLowerInvariant().EndsWith("esp"));

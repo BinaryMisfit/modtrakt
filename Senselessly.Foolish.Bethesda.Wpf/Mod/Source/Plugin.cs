@@ -1,11 +1,12 @@
-namespace Senselessly.Foolish.Bethesda.Wpf
+namespace Senselessly.Foolish.Bethesda.Wpf.Mod.Source
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Enum;
 
-    public class ModSource
+    public class Plugin
     {
-        public ModSource(string folderName)
+        public Plugin(string folderName)
         {
             FolderName = folderName;
             ModName = ParseModName(folderName);
