@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.Senselessly.Foolish.Bethesda.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\BinaryMisfit\Source\rider\windows\core3-bethesda\.idea\.idea.Senselessly.Foolish.Bethesda\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
