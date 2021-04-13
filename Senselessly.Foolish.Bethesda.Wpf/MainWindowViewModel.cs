@@ -5,14 +5,17 @@ namespace Senselessly.Foolish.Bethesda.Wpf
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using MaterialDesignThemes.Wpf;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
 
     public sealed class MainWindowViewModel : ObservableObject
     {
         private readonly RelayCommand _loadFolder;
-        private readonly RelayCommand _exitCommand;
+        private readonly RelayCommand _showSettings;
+        private readonly RelayCommand _exitApp;
         private bool _canLoad = true;
+        private bool _canOpen = true;
         private string _status;
         private string _summary;
         private List<ModSource> _modSources;
@@ -20,7 +23,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf
         public MainWindowViewModel()
         {
             _loadFolder = new RelayCommand(execute: OnLoadFolder, canExecute: CanLoadFolder);
-            _exitCommand = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
+            _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
+            _exitApp = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
             _summary = "0";
         }
 
@@ -48,11 +52,31 @@ namespace Senselessly.Foolish.Bethesda.Wpf
                 SetProperty(field: ref _modSources, newValue: value);
         }
 
+        public ICommand ExitApp =>
+            _exitApp;
+
         public ICommand LoadFolder =>
             _loadFolder;
 
-        public ICommand ExitApp =>
-            _exitCommand;
+        public ICommand ShowSettings =>
+            _showSettings;
+
+        private bool CanLoadFolder() =>
+            _canLoad && _canOpen;
+
+        private bool CanShowSettings() =>
+            _canLoad && _canOpen;
+
+        private bool CanExitApp() =>
+            _canLoad && _canOpen;
+
+        private void OnExitApp()
+        {
+            if (_canLoad)
+            {
+                Application.Current.Shutdown();
+            }
+        }
 
         private void OnLoadFolder()
         {
@@ -180,18 +204,27 @@ namespace Senselessly.Foolish.Bethesda.Wpf
             _canLoad = true;
         }
 
-        private bool CanLoadFolder() =>
-            _canLoad;
-
-        private void OnExitApp()
+        private async void OnShowSettings()
         {
-            if (_canLoad)
+            if (!_canLoad)
             {
-                Application.Current.Shutdown();
+                return;
             }
+
+            _canOpen = false;
+            var settings = new SettingsDialog
+            {
+                DataContext = new SettingsViewModel(),
+            };
+            var result = await DialogHost.Show(content: settings,
+                dialogIdentifier: "RootDialog",
+                closingEventHandler: SettingsCloseEventArgs);
         }
 
-        private bool CanExitApp() =>
-            _canLoad;
+        private void SettingsCloseEventArgs(object sender,
+            DialogClosingEventArgs eventArgs)
+        {
+            _canOpen = true;
+        }
     }
 }
