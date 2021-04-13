@@ -3,25 +3,106 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Binary.Misfit.Bethesda"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         FontFamily="{materialDesign:MaterialDesignFont}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="MainWindow" WindowStyle="None" Height="450" Width="800"
-        d:DataContext="{d:DesignData  MainWindowViewModel |(in Binary.Misfit.Bethesda)}">
-    <Canvas>
-        <Label Canvas.Left="10" Canvas.Top="10" Content="{Binding Path=Summary}" />
-        <Label Canvas.Left="10" Canvas.Top="30" Content="{Binding Path=Status }" />
-        <ScrollViewer Canvas.Left="15" Canvas.Top="60"
-                      Height="300"
-                      Width="Auto"
-                      VerticalScrollBarVisibility="Auto">
-            <TextBlock Text="{Binding Path=Log}" />
-        </ScrollViewer>
-        <Button Width="Auto" Height="Auto" Canvas.Left="10" Canvas.Bottom="10" Command="{Binding Path=PerformAction}"
-                Content="Action" />
-        <Button Width="Auto" Height="Auto" Canvas.Right="10" Canvas.Bottom="10" Command="{Binding Path=ExitApp}"
-                Content="Exit" />
-    </Canvas>
+        Title="MainWindow" WindowStyle="None" Width="1280" Height="720" MinHeight="500" MinWidth="1000">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <Canvas DockPanel.Dock="Top" Margin="10" Height="30">
+            <materialDesign:PackIcon Canvas.Left="0" Canvas.Top="2" Kind="InformationOutline" />
+            <Label Canvas.Left="20" Content="{Binding Path=Status }" />
+            <materialDesign:PackIcon Canvas.Right="50" Canvas.Top="2" Kind="Counter" />
+            <Label Canvas.Right="0" Content="{Binding Path=Summary}" />
+        </Canvas>
+        <Canvas DockPanel.Dock="Bottom" Margin="10" Height="25">
+            <Button Width="Auto" Height="Auto" Canvas.Left="0"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{Binding Path=LoadFolder}"
+                    Content="Load" />
+            <Button Width="Auto" Height="Auto" Canvas.Right="10" Command="{Binding Path=ExitApp}"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Content="Exit" />
+        </Canvas>
+        <ListView Margin="10"
+                  ItemsSource="{Binding Path=ModSources}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="IdCardOutline" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"
+                               VerticalAlignment="Center" Content="{Binding ModId}" />
+                        <Label Grid.Row="0" Grid.Column="2">
+                            <materialDesign:PackIcon Kind="EvPlugType1" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"
+                               Content="{Binding ModName}" />
+                        <Label Grid.Row="1" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="EvPlugType2" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                               Content="{Binding Types}" />
+                        <Label Grid.Row="2" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="PackageUp" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                               Content="{Binding Archives}" />
+                        <Label Grid.Row="3" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="FolderHeartOutline" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="{Binding Loose}" />
+                        <Label Grid.Row="4" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="FolderRemoveOutline" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                               Content="{Binding ExtraFolders}" />
+                        <Label Grid.Row="5" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="FileRemoveOutline" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                               Content="{Binding ExtraFiles}" />
+                        <Label Grid.Row="6" Grid.Column="0">
+                            <materialDesign:PackIcon Kind="FolderOutline" Width="24" Height="24" />
+                        </Label>
+                        <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                               Content="{Binding FolderName}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
 </Window>
