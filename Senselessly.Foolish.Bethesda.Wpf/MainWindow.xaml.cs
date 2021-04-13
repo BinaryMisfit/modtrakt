@@ -1,4 +1,4 @@
-﻿namespace Binary.Misfit.Bethesda
+﻿namespace Senselessly.Foolish.Bethesda.Wpf
 {
     public partial class MainWindow
     {

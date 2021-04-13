@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binary.Misfit.Bethesda", "Binary.Misfit.Bethesda\Binary.Misfit.Bethesda.csproj", "{3A8F76D5-D2C3-4795-953D-29E11204BE21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Wpf", "Senselessly.Foolish.Bethesda.Wpf\Senselessly.Foolish.Bethesda.Wpf.csproj", "{3A8F76D5-D2C3-4795-953D-29E11204BE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

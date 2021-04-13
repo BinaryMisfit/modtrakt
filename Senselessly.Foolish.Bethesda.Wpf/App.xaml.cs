@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Binary.Misfit.Bethesda
+namespace Senselessly.Foolish.Bethesda.Wpf
 {
     /// <summary>
     /// Interaction logic for App.xaml

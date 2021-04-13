@@ -1,4 +1,4 @@
-namespace Binary.Misfit.Bethesda
+namespace Senselessly.Foolish.Bethesda.Wpf
 {
     using System.Collections.Generic;
     using System.Linq;
