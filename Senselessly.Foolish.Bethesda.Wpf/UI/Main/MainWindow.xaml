@@ -3,7 +3,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:sfb="clr-namespace:Senselessly.Foolish.Bethesda.Wpf"
                     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                     xmlns:main="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Main"
@@ -11,10 +10,8 @@
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignBackground}"
-                    Title="ModTrakt" Width="1280" Height="720" MinHeight="500" MinWidth="1000">
-    <Window.DataContext>
-        <main:MainWindowViewModel />
-    </Window.DataContext>
+                    Title="ModTrakt" Width="1280" Height="720" MinHeight="500" MinWidth="1000"
+                    d:DesignSource="{d:DesignInstance main:MainWindowViewModel}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,6 +24,10 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListView.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBlock}" x:Key="HeaderTextBlock">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
     <md:DialogHost Identifier="RootDialog" DialogTheme="Inherit">
@@ -57,66 +58,77 @@
                             Content="Exit" />
                 </Canvas>
             </md:ColorZone>
-            <ListView Margin="16"
+            <ListView Margin="8"
+                      HorizontalContentAlignment="Stretch"
                       ItemsSource="{Binding Path=ModSources}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0">
-                                <md:PackIcon Kind="IdCardOutline" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"
-                                   VerticalAlignment="Center" Content="{Binding ModId}" />
-                            <Label Grid.Row="0" Grid.Column="2">
-                                <md:PackIcon Kind="EvPlugType1" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"
-                                   Content="{Binding ModName}" />
-                            <Label Grid.Row="1" Grid.Column="0">
-                                <md:PackIcon Kind="EvPlugType2" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                                   Content="{Binding Types}" />
-                            <Label Grid.Row="2" Grid.Column="0">
-                                <md:PackIcon Kind="PackageUp" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                                   Content="{Binding Archives}" />
-                            <Label Grid.Row="3" Grid.Column="0">
-                                <md:PackIcon Kind="FolderHeartOutline" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="{Binding Loose}" />
-                            <Label Grid.Row="4" Grid.Column="0">
-                                <md:PackIcon Kind="FolderRemoveOutline" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                                   Content="{Binding ExtraFolders}" />
-                            <Label Grid.Row="5" Grid.Column="0">
-                                <md:PackIcon Kind="FileRemoveOutline" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                                   Content="{Binding ExtraFiles}" />
-                            <Label Grid.Row="6" Grid.Column="0">
-                                <md:PackIcon Kind="FolderOutline" Width="24" Height="24" />
-                            </Label>
-                            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
-                                   Content="{Binding FolderName}" />
-                        </Grid>
+                        <Expander>
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="EvPlugType1" Width="32" Height="32" Margin="0, 0, 8,0" />
+                                    <TextBlock Style="{StaticResource HeaderTextBlock}"
+                                               Text="{Binding ModName}" />
+                                </StackPanel>
+                            </Expander.Header>
+                            <Grid Margin="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0">
+                                    <md:PackIcon Kind="IdCardOutline" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center"
+                                       VerticalAlignment="Center" Content="{Binding ModId}" />
+                                <Label Grid.Row="0" Grid.Column="2">
+                                    <md:PackIcon Kind="EvPlugType1" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="0" Grid.Column="3" VerticalAlignment="Center"
+                                       Content="{Binding ModName}" />
+                                <Label Grid.Row="1" Grid.Column="0">
+                                    <md:PackIcon Kind="EvPlugType2" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding Types}" />
+                                <Label Grid.Row="2" Grid.Column="0">
+                                    <md:PackIcon Kind="PackageUp" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding Archives}" />
+                                <Label Grid.Row="3" Grid.Column="0">
+                                    <md:PackIcon Kind="FolderHeartOutline" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding Loose}" />
+                                <Label Grid.Row="4" Grid.Column="0">
+                                    <md:PackIcon Kind="FolderRemoveOutline" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding ExtraFolders}" />
+                                <Label Grid.Row="5" Grid.Column="0">
+                                    <md:PackIcon Kind="FileRemoveOutline" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding ExtraFiles}" />
+                                <Label Grid.Row="6" Grid.Column="0">
+                                    <md:PackIcon Kind="FolderOutline" Width="24" Height="24" />
+                                </Label>
+                                <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center"
+                                       Content="{Binding FolderName}" />
+                            </Grid>
+                        </Expander>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

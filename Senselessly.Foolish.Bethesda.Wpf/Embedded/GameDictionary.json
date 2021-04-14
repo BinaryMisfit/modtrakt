@@ -1,0 +1,12 @@
+[
+  {
+    "Game": "Fallout 4",
+    "Publisher": "Bethesda",
+    "Registry": [
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Fallout4",
+        "Key": "installed path"
+      }
+    ]
+  }
+]

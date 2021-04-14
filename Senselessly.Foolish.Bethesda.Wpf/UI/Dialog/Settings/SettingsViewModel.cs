@@ -1,24 +1,24 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 {
     using System.Windows.Input;
+    using AppData.Interface;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
-    using Models;
 
-    public class SettingsViewModel : ObservableObject
+    public sealed class SettingsViewModel : ObservableObject
     {
         private bool _canBrowse = true;
         private readonly RelayCommand _browseStaging;
         private readonly RelayCommand _browseWorking;
         private string _stagingFolder;
         private string _workingFolder;
-        private Settings _settings;
 
-        public SettingsViewModel()
+        public SettingsViewModel(ISettings settings)
         {
             _browseStaging = new RelayCommand(execute: OnLoadStaging, canExecute: CanLoadStaging);
             _browseWorking = new RelayCommand(execute: OnLoadWorking, canExecute: CanLoadWorking);
+            LoadSettings(settings);
         }
 
         public ICommand BrowseStaging =>
@@ -31,34 +31,19 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
         {
             get =>
                 _stagingFolder;
-            set
-            {
+            set =>
                 SetProperty(field: ref _stagingFolder, newValue: value);
-                Settings.StagingFolder = value;
-            }
         }
 
         public string WorkingFolder
         {
             get =>
                 _workingFolder;
-            set
-            {
+            set =>
                 SetProperty(field: ref _workingFolder, newValue: value);
-                Settings.WorkingFolder = value;
-            }
         }
 
-        public Settings Settings
-        {
-            get =>
-                _settings;
-            set
-            {
-                _settings = value;
-                LoadSettings(_settings);
-            }
-        }
+        public ISettings Settings { get; private set; }
 
         private async void OnLoadStaging()
         {
@@ -70,7 +55,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                StagingFolder = result.Directory;
+                Settings.StagingFolder = result.Directory;
+                StagingFolder = Settings.StagingFolder;
             }
 
             _canBrowse = true;
@@ -91,7 +77,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                WorkingFolder = result.Directory;
+                Settings.WorkingFolder = result.Directory;
+                WorkingFolder = Settings.WorkingFolder;
             }
 
             _canBrowse = true;
@@ -102,13 +89,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             return _canBrowse;
         }
 
-        private void LoadSettings(Settings settings)
+        private void LoadSettings(ISettings settings)
         {
-            if (settings == null)
-            {
-                return;
-            }
-
+            Settings = settings;
             StagingFolder = settings.StagingFolder;
             WorkingFolder = settings.WorkingFolder;
         }

@@ -5,13 +5,16 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using AppData.Default;
+    using AppData.Interface;
+    using AppData.Modules;
     using Dialog.Settings;
     using MaterialDesignThemes.Wpf;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Mod.Enum;
     using Mod.Source;
-    using Models;
 
     public sealed class MainWindowViewModel : ObservableObject
     {
@@ -23,15 +26,15 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
         private string _status;
         private string _summary;
         private List<Plugin> _modSources;
-        private Settings _settings;
+        private readonly ISettings _settings;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ISettings settings)
         {
             _loadFolder = new RelayCommand(execute: OnLoadFolder, canExecute: CanLoadFolder);
             _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
             _exitApp = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
             _summary = "0";
-            _settings = Settings.Load(Settings.SettingsPath);
+            _settings = settings;
         }
 
         public string Status
@@ -83,7 +86,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
                 return;
             }
 
-            Settings.Save(settings: _settings, settingsFile: Settings.SettingsPath);
             Application.Current.Shutdown();
         }
 
@@ -226,25 +228,22 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
             }
 
             _canOpen = false;
-            var viewModel = new SettingsViewModel()
+            var settings = Shared.Provider.GetService<SettingsDialog>();
+            if (settings == null)
             {
-                Settings = _settings,
-            };
-            var settings = new SettingsDialog
-            {
-                DataContext = viewModel,
-            };
+                return;
+            }
+
             var result = await DialogHost.Show(content: settings,
                 dialogIdentifier: "RootDialog",
                 closingEventHandler: SettingsCloseEventArgs);
             if (result != null)
             {
-                Settings.Save(settings: result as Settings, settingsFile: Settings.SettingsPath);
+                ConfigFile.SaveIni(config: _settings, filePath: Config.SettingsPath);
             }
         }
 
-        private void SettingsCloseEventArgs(object sender,
-            DialogClosingEventArgs eventArgs)
+        private void SettingsCloseEventArgs(object sender, DialogClosingEventArgs eventArgs)
         {
             _canOpen = true;
         }

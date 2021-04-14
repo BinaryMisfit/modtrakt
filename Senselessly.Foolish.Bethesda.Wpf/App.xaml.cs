@@ -1,17 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace Senselessly.Foolish.Bethesda.Wpf
+﻿namespace Senselessly.Foolish.Bethesda.Wpf
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    using System.Windows;
+    using AppData.Default;
+    using AppData.Interface;
+    using AppData.Modules;
+    using Microsoft.Extensions.DependencyInjection;
+    using UI.Dialog.Settings;
+    using UI.Main;
+    using UI.Models;
+
+    public partial class App
     {
+        public App()
+        {
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            Shared.Provider = services.BuildServiceProvider();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            var settings = LoadSettings();
+            services.AddSingleton(settings);
+            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<SettingsViewModel>();
+            services.AddSingleton<SettingsDialog>();
+        }
+
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            var mainWindow = Shared.Provider.GetService<MainWindow>();
+            mainWindow?.Show();
+        }
+
+        private static ISettings LoadSettings()
+        {
+            return ConfigFile.LoadIni<Settings>(Config.SettingsPath);
+        }
     }
 }

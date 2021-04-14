@@ -4,14 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:sfb="clr-namespace:Senselessly.Foolish.Bethesda.Wpf"
-             xmlns:dialog="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Dialog"
              xmlns:settings="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings"
              mc:Ignorable="d"
-             MaxHeight="600" Width="600">
-    <UserControl.DataContext>
-        <settings:SettingsViewModel />
-    </UserControl.DataContext>
+             MaxHeight="600" Width="600"
+             d:DataContext="{d:DesignInstance settings:SettingsViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

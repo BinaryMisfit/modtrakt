@@ -2,8 +2,9 @@
 {
     public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
     }
