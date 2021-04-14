@@ -1,7 +1,10 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 {
+    using System.Collections.Generic;
     using System.Windows.Input;
     using AppData.Interface;
+    using AppData.Models;
+    using AppData.Modules;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
@@ -13,12 +16,14 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
         private readonly RelayCommand _browseWorking;
         private string _stagingFolder;
         private string _workingFolder;
+        private IEnumerable<IGameSettings> _gameList;
 
         public SettingsViewModel(ISettings settings)
         {
             _browseStaging = new RelayCommand(execute: OnLoadStaging, canExecute: CanLoadStaging);
             _browseWorking = new RelayCommand(execute: OnLoadWorking, canExecute: CanLoadWorking);
-            LoadSettings(settings);
+            _gameList = LoadGameDictionary();
+            Settings = LoadSettings(settings);
         }
 
         public ICommand BrowseStaging =>
@@ -43,7 +48,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
                 SetProperty(field: ref _workingFolder, newValue: value);
         }
 
-        public ISettings Settings { get; private set; }
+        public ISettings Settings { get; }
 
         private async void OnLoadStaging()
         {
@@ -89,11 +94,16 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             return _canBrowse;
         }
 
-        private void LoadSettings(ISettings settings)
+        private static IEnumerable<IGameSettings> LoadGameDictionary()
         {
-            Settings = settings;
+            return JsonFile.LoadResource<IEnumerable<GameSettings>>("GameDictionary");
+        }
+
+        private ISettings LoadSettings(ISettings settings)
+        {
             StagingFolder = settings.StagingFolder;
             WorkingFolder = settings.WorkingFolder;
+            return settings;
         }
     }
 }

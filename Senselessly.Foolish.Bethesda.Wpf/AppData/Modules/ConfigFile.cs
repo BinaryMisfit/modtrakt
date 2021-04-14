@@ -27,7 +27,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
                 file.Directory.Create();
             }
 
-            var section = typeof(T).Name;
+            var section = config.GetType().Name;
             var configuration = new Configuration
             {
                 Section.FromObject(name: section, obj: config),

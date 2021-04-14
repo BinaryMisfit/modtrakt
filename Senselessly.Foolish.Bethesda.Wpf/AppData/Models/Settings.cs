@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.UI.Models
+namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 {
-    using AppData.Interface;
+    using Interface;
 
     public class Settings : ISettings
     {

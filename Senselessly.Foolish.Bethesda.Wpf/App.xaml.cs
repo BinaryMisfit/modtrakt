@@ -3,11 +3,11 @@
     using System.Windows;
     using AppData.Default;
     using AppData.Interface;
+    using AppData.Models;
     using AppData.Modules;
     using Microsoft.Extensions.DependencyInjection;
     using UI.Dialog.Settings;
     using UI.Main;
-    using UI.Models;
 
     public partial class App
     {
