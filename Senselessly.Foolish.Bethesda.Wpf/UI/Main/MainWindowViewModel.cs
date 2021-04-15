@@ -7,7 +7,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
     using System.Windows.Input;
     using AppData.Default;
     using AppData.Interface;
-    using AppData.Modules;
     using Dialog.Settings;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Extensions.DependencyInjection;
@@ -26,15 +25,15 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
         private string _status;
         private string _summary;
         private List<Plugin> _modSources;
-        private readonly ISettings _settings;
+        private readonly IAppSettings _appSettings;
 
-        public MainWindowViewModel(ISettings settings)
+        public MainWindowViewModel(IAppSettings appSettings)
         {
             _loadFolder = new RelayCommand(execute: OnLoadFolder, canExecute: CanLoadFolder);
             _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
             _exitApp = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
             _summary = "0";
-            _settings = settings;
+            _appSettings = appSettings;
         }
 
         public string Status
@@ -91,13 +90,13 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
 
         private void OnLoadFolder()
         {
-            if (!Directory.Exists(_settings.StagingFolder))
+            if (!Directory.Exists(_appSettings.Settings.StagingFolder))
             {
                 return;
             }
 
             _canLoad = false;
-            var sourceFolders = new DirectoryInfo(_settings.StagingFolder).GetDirectories();
+            var sourceFolders = new DirectoryInfo(_appSettings.Settings.StagingFolder).GetDirectories();
             Summary = $"{sourceFolders.Length}";
             ModSources = new List<Plugin>();
             sourceFolders.OrderBy(folder => folder.Name)
@@ -239,7 +238,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
                 closingEventHandler: SettingsCloseEventArgs);
             if (result != null)
             {
-                ConfigFile.SaveIni(config: _settings, filePath: Config.SettingsPath);
             }
         }
 

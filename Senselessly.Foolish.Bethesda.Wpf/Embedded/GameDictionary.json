@@ -5,27 +5,33 @@
     "Registry": [
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Fallout4",
-        "Key": "installed path"
+        "Key": "installed path",
+        "Usage": "Install"
       },
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "DisplayIcon"
+        "Key": "DisplayIcon",
+        "Usage": "Icon"
       },
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "DisplayName"
+        "Key": "DisplayName",
+        "Usage": "Name"
       },
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "InstallLocation"
+        "Key": "InstallLocation",
+        "Usage": "Path"
       },
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "Publisher"
+        "Key": "Publisher",
+        "Usage": "Publisher"
       },
       {
         "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "URLInfoAbout"
+        "Key": "URLInfoAbout",
+        "Usage": "URL"
       }
     ]
   }

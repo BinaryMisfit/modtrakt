@@ -1,10 +1,7 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 {
-    using System.Collections.Generic;
     using System.Windows.Input;
     using AppData.Interface;
-    using AppData.Models;
-    using AppData.Modules;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
@@ -16,14 +13,12 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
         private readonly RelayCommand _browseWorking;
         private string _stagingFolder;
         private string _workingFolder;
-        private IEnumerable<IGameSettings> _gameList;
 
-        public SettingsViewModel(ISettings settings)
+        public SettingsViewModel(IAppSettings settings)
         {
-            _browseStaging = new RelayCommand(execute: OnLoadStaging, canExecute: CanLoadStaging);
-            _browseWorking = new RelayCommand(execute: OnLoadWorking, canExecute: CanLoadWorking);
-            _gameList = LoadGameDictionary();
-            Settings = LoadSettings(settings);
+            _browseStaging = new RelayCommand(execute: OnBrowseStaging, canExecute: CanBrowseStaging);
+            _browseWorking = new RelayCommand(execute: OnBrowseWorking, canExecute: CanBrowseWorking);
+            AppSettings = SetProperties(settings);
         }
 
         public ICommand BrowseStaging =>
@@ -48,9 +43,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
                 SetProperty(field: ref _workingFolder, newValue: value);
         }
 
-        public ISettings Settings { get; }
+        public IAppSettings AppSettings { get; }
 
-        private async void OnLoadStaging()
+        private async void OnBrowseStaging()
         {
             _canBrowse = false;
             var dialogArgs = new OpenDirectoryDialogArguments()
@@ -60,19 +55,19 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                Settings.StagingFolder = result.Directory;
-                StagingFolder = Settings.StagingFolder;
+                AppSettings.Settings.StagingFolder = result.Directory;
+                StagingFolder = AppSettings.Settings.StagingFolder;
             }
 
             _canBrowse = true;
         }
 
-        private bool CanLoadStaging()
+        private bool CanBrowseStaging()
         {
             return _canBrowse;
         }
 
-        private async void OnLoadWorking()
+        private async void OnBrowseWorking()
         {
             _canBrowse = false;
             var dialogArgs = new OpenDirectoryDialogArguments()
@@ -82,28 +77,23 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                Settings.WorkingFolder = result.Directory;
-                WorkingFolder = Settings.WorkingFolder;
+                AppSettings.Settings.WorkingFolder = result.Directory;
+                WorkingFolder = AppSettings.Settings.WorkingFolder;
             }
 
             _canBrowse = true;
         }
 
-        private bool CanLoadWorking()
+        private bool CanBrowseWorking()
         {
             return _canBrowse;
         }
 
-        private static IEnumerable<IGameSettings> LoadGameDictionary()
+        private IAppSettings SetProperties(IAppSettings appSettings)
         {
-            return JsonFile.LoadResource<IEnumerable<GameSettings>>("GameDictionary");
-        }
-
-        private ISettings LoadSettings(ISettings settings)
-        {
-            StagingFolder = settings.StagingFolder;
-            WorkingFolder = settings.WorkingFolder;
-            return settings;
+            StagingFolder = appSettings.Settings.StagingFolder;
+            WorkingFolder = appSettings.Settings.WorkingFolder;
+            return appSettings;
         }
     }
 }

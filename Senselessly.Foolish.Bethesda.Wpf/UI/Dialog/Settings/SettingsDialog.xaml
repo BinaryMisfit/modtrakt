@@ -21,61 +21,104 @@
             <md:ColorZone Mode="PrimaryMid">
                 <Label Margin="16" Content="Settings" FontSize="18" />
             </md:ColorZone>
-            <GroupBox Margin="16">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <md:PackIcon Kind="FolderOutline" Width="24" Height="24" VerticalAlignment="Center" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                Text="Folders" />
-                        </StackPanel>
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
-                <Grid HorizontalAlignment="Stretch" Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Staging"
-                               Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
-                             Style="{StaticResource MaterialDesignFilledTextBox}"
-                             VerticalAlignment="Top"
-                             AcceptsReturn="True"
-                             TextWrapping="Wrap"
-                             Text="{Binding StagingFolder}"
-                             md:HintAssist.Hint="Mod manager staging folder" />
-                    <Button Grid.Row="0" Grid.Column="2" Content="Browse" Width="Auto"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{Binding BrowseStaging}" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Work"
-                               Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="10"
-                             Style="{StaticResource MaterialDesignFilledTextBox}"
-                             VerticalAlignment="Top"
-                             AcceptsReturn="True"
-                             TextWrapping="Wrap"
-                             Text="{Binding WorkingFolder}"
-                             md:HintAssist.Hint="Working folder to store files" />
-                    <Button Grid.Row="1" Grid.Column="2" Content="Browse" Width="Auto"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{Binding BrowseWorking}" />
-                </Grid>
-            </GroupBox>
+            <ScrollViewer Margin="8">
+                <StackPanel>
+                    <GroupBox Margin="16">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="FolderOutline" Width="24" Height="24" VerticalAlignment="Center" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                        Text="Folders" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid HorizontalAlignment="Stretch" Margin="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Staging"
+                                       Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     VerticalAlignment="Top"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Text="{Binding StagingFolder}"
+                                     md:HintAssist.Hint="Mod manager staging folder" />
+                            <Button Grid.Row="0" Grid.Column="2" Content="Browse" Width="Auto"
+                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                    Command="{Binding BrowseStaging}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Work"
+                                       Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="10"
+                                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                                     VerticalAlignment="Top"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Text="{Binding WorkingFolder}"
+                                     md:HintAssist.Hint="Working folder to store files" />
+                            <Button Grid.Row="1" Grid.Column="2" Content="Browse" Width="Auto"
+                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                    Command="{Binding BrowseWorking}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Margin="16">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <md:PackIcon Kind="Games" Width="24" Height="24" VerticalAlignment="Center" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                        Text="Games" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <ItemsControl
+                            HorizontalContentAlignment="Stretch"
+                            ItemsSource="{Binding Games}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Stretch" Margin="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
+                                                   Text="{Binding Name}"
+                                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
+                                        <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
+                                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                                 VerticalAlignment="Top"
+                                                 AcceptsReturn="True"
+                                                 TextWrapping="Wrap"
+                                                 IsReadOnly="True"
+                                                 Text="{Binding GamePath}"
+                                                 md:HintAssist.Hint="Game Installation Path" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
             <md:ColorZone Mode="SecondaryLight">
                 <Canvas Height="30" Margin="10">
                     <Button Canvas.Left="0" Content="Save" Width="Auto" IsDefault="True"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                            CommandParameter="{Binding Settings}" />
+                            CommandParameter="{Binding AppSettings}" />
                     <Button Canvas.Right="0" Content="Close" Width="Auto"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{x:Static md:DialogHost.CloseDialogCommand}" />

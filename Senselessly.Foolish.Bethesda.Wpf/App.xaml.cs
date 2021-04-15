@@ -2,9 +2,7 @@
 {
     using System.Windows;
     using AppData.Default;
-    using AppData.Interface;
     using AppData.Models;
-    using AppData.Modules;
     using Microsoft.Extensions.DependencyInjection;
     using UI.Dialog.Settings;
     using UI.Main;
@@ -20,8 +18,8 @@
 
         private void ConfigureServices(IServiceCollection services)
         {
-            var settings = LoadSettings();
-            services.AddSingleton(settings);
+            var appSettings = AppSettings.Load();
+            services.AddSingleton(appSettings);
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainWindow>();
             services.AddSingleton<SettingsViewModel>();
@@ -32,11 +30,6 @@
         {
             var mainWindow = Shared.Provider.GetService<MainWindow>();
             mainWindow?.Show();
-        }
-
-        private static ISettings LoadSettings()
-        {
-            return ConfigFile.LoadIni<Settings>(Config.SettingsPath);
         }
     }
 }
