@@ -55,8 +55,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                AppSettings.Settings.StagingFolder = result.Directory;
-                StagingFolder = AppSettings.Settings.StagingFolder;
             }
 
             _canBrowse = true;
@@ -77,8 +75,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled)
             {
-                AppSettings.Settings.WorkingFolder = result.Directory;
-                WorkingFolder = AppSettings.Settings.WorkingFolder;
             }
 
             _canBrowse = true;
@@ -91,8 +87,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Dialog.Settings
 
         private IAppSettings SetProperties(IAppSettings appSettings)
         {
-            StagingFolder = appSettings.Settings.StagingFolder;
-            WorkingFolder = appSettings.Settings.WorkingFolder;
             return appSettings;
         }
     }

@@ -90,13 +90,13 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Main
 
         private void OnLoadFolder()
         {
-            if (!Directory.Exists(_appSettings.Settings.StagingFolder))
+            if (!Directory.Exists(""))
             {
                 return;
             }
 
             _canLoad = false;
-            var sourceFolders = new DirectoryInfo(_appSettings.Settings.StagingFolder).GetDirectories();
+            var sourceFolders = new DirectoryInfo("").GetDirectories();
             Summary = $"{sourceFolders.Length}";
             ModSources = new List<Plugin>();
             sourceFolders.OrderBy(folder => folder.Name)

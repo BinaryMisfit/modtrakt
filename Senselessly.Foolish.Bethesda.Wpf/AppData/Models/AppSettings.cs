@@ -6,7 +6,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 
     public class AppSettings : IAppSettings
     {
-        public AppSettings(IGameSettings game, ISettings settings)
+        private AppSettings(IGameSettings game, ISettings settings)
         {
             Game = game;
             Settings = settings;
@@ -19,7 +19,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
         public static IAppSettings Load()
         {
             var settings = ConfigFile.LoadIni<Settings>(Config.SettingsPath);
-
             return new AppSettings(settings: settings, game: null);
         }
     }

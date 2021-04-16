@@ -1,6 +1,5 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
 {
-    using System;
     using System.Collections.Generic;
     using Models;
 
@@ -11,8 +10,5 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
         string Publisher { get; set; }
 
         IEnumerable<GameRegistry> Registry { get; set; }
-
-        static IEnumerable<IGameSettings> Load(string gameDictionaryKey) =>
-            throw new NotImplementedException();
     }
 }
