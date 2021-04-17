@@ -5,8 +5,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+                    xmlns:p="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.Properties"
                     mc:Ignorable="d"
-                    Title="ModTrakt" Width="500" Height="140" WindowStartupLocation="CenterScreen"
+                    Title="{x:Static p:Resources.ApplicationName}" Width="500" Height="140"
+                    WindowStartupLocation="CenterScreen"
                     WindowStyle="None" ShowInTaskbar="False"
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
@@ -40,16 +42,18 @@
     <StackPanel>
         <md:ColorZone Mode="PrimaryDark">
             <DockPanel>
-                <Label Margin="8" Style="{StaticResource SplashTitleText}" Content="ModTrakt" />
+                <Label Margin="8" Style="{StaticResource SplashTitleText}"
+                       Content="{x:Static p:Resources.ApplicationName}" />
                 <Label HorizontalAlignment="Right" Margin="8" Style="{StaticResource SplashSubTitleText}"
-                       Content="A Bethesda Mod Manager" />
+                       Content="{x:Static p:Resources.TagLine}" />
             </DockPanel>
         </md:ColorZone>
         <StackPanel Margin="12">
-            <Label Style="{StaticResource SplashStatusText}" Content="Starting up" />
+            <Label Style="{StaticResource SplashStatusText}" Content="{x:Static p:Resources.Status_StartingUp}" />
         </StackPanel>
         <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom">
-            <Label Margin="4" Style="{StaticResource SplashFootNoteText}" Content="Developed by Senselessly Foolish" />
+            <Label Margin="4" Style="{StaticResource SplashFootNoteText}"
+                   Content="{x:Static p:Resources.ApplicationProducer}" />
         </md:ColorZone>
     </StackPanel>
 </mde:MaterialWindow>
