@@ -1,13 +1,26 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
 {
+    using System;
     using System.IO;
+    using System.IO.Abstractions;
     using SharpConfig;
 
-    public static class ConfigFile
+    public class ConfigFile
     {
-        public static T LoadIni<T>(string filePath)
-        where T : new()
+        private readonly IFileSystem _fileSystem;
+
+        public ConfigFile(IFileSystem fileSystem)
         {
+            _fileSystem = fileSystem;
+        }
+
+        public T LoadIni<T>(string filePath) where T : new()
+        {
+            if (_fileSystem == null)
+            {
+                throw new SystemException("File system not initialized");
+            }
+
             var file = new FileInfo(filePath);
             var section = typeof(T).Name;
             if (!file.Exists)
@@ -19,7 +32,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
             return configuration[section].ToObject<T>();
         }
 
-        public static void SaveIni<T>(T config, string filePath)
+        public void SaveIni<T>(T config, string filePath)
         {
             var file = new FileInfo(filePath);
             if (file.Directory?.Exists == false)
