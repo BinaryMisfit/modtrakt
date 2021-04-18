@@ -4,7 +4,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 
     public class AppSettings : IAppSettings
     {
-        private AppSettings(IGameSettings game, ISettings settings)
+        public AppSettings(IGameSettings game, ISettings settings)
         {
             Game = game;
             Settings = settings;

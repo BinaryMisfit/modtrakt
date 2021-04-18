@@ -35,4 +35,7 @@
     <data name="ApplicationProducer" xml:space="preserve">
         <value>Produced By Senselessly Foolish</value>
     </data>
+    <data name="Status_LocatingGames" xml:space="preserve">
+        <value>Locating Supported Games</value>
+    </data>
 </root>

@@ -10,5 +10,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
         string Publisher { get; set; }
 
         IEnumerable<GameRegistry> Registry { get; set; }
+
+        IEnumerable<IGameDictionary> Load(string gameDictionaryKey);
     }
 }

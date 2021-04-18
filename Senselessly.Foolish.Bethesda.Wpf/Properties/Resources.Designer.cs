@@ -79,6 +79,15 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locating Supported Games.
+        /// </summary>
+        public static string Status_LocatingGames {
+            get {
+                return ResourceManager.GetString("Status_LocatingGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Starting Up.
         /// </summary>
         public static string Status_StartingUp {

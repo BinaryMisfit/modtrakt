@@ -11,8 +11,10 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
         public string Publisher { get; set; }
 
         public IEnumerable<GameRegistry> Registry { get; set; }
-        
-        public static IEnumerable<IGameDictionary> Load(string gameDictionaryKey) =>
-            JsonFile.LoadResource<IEnumerable<IGameDictionary>>(gameDictionaryKey);
+
+        public IEnumerable<IGameDictionary> Load(string gameDictionaryKey)
+        {
+            return JsonFile.LoadResource<IEnumerable<GameDictionary>>(gameDictionaryKey);
+        }
     }
 }

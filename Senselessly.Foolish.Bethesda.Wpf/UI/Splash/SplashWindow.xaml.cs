@@ -1,9 +1,13 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 {
-    public partial class SplashWindow
+    using MaterialDesignExtensions.Controls;
+
+    public partial class SplashWindow : MaterialWindow
     {
-        public SplashWindow()
+        public SplashWindow(SplashWindowViewModel viewModel)
         {
+
+            DataContext = viewModel;
             InitializeComponent();
         }
     }
