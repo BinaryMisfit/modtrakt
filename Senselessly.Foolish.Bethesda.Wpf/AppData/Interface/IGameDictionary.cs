@@ -1,6 +1,7 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Models;
 
     public interface IGameDictionary
@@ -11,6 +12,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
 
         IEnumerable<GameRegistry> Registry { get; set; }
 
-        IEnumerable<IGameDictionary> Load(string gameDictionaryKey);
+        Task<IEnumerable<GameDictionary>> Load(string gameDictionaryKey);
     }
 }

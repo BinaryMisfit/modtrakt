@@ -1,12 +1,13 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 {
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
+
     public partial class SplashWindow
     {
-        public SplashWindow(SplashWindowViewModel viewModel)
+        public SplashWindow()
         {
-
-            DataContext = viewModel;
             InitializeComponent();
+            DataContext = Ioc.Default.GetService<SplashWindowViewModel>();
         }
     }
 }

@@ -2,23 +2,23 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Interface;
     using Microsoft.Win32;
     using Modules;
 
     public class GameSettings : IGameSettings
     {
+        public string ConfigName { get; set; }
         public string Name { get; set; }
 
         public string Publisher { get; set; }
 
         public string GamePath { get; set; }
 
-        public string ConfigName { get; set; }
-
-        public static IEnumerable<IGameSettings> LoadDictionary(string jsonKey)
+        public static async Task<List<IGameSettings>> LoadDictionary(string jsonKey)
         {
-            var gameDictionary = JsonFile.LoadResource<IEnumerable<GameDictionary>>(jsonKey);
+            var gameDictionary = await JsonFile.LoadResourceAsync<IEnumerable<GameDictionary>>(jsonKey);
             var gameList = new List<IGameSettings>();
             gameDictionary.ToList()
                 .ForEach(entry =>

@@ -2,10 +2,10 @@
 {
     using System.IO.Abstractions;
     using System.Windows;
-    using AppData.Default;
     using AppData.Interface;
     using AppData.Models;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Services.Game;
     using Services.Helpers;
     using Services.Interface;
@@ -19,7 +19,7 @@
         {
             var services = new ServiceCollection();
             ConfigureServices(services);
-            Shared.Provider = services.BuildServiceProvider();
+            Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -31,17 +31,16 @@
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IRegistryScanner, RegistryScanner>();
-            services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<SettingsViewModel>();
-            services.AddSingleton<SettingsDialog>();
-            services.AddSingleton<SplashWindowViewModel>();
-            services.AddSingleton<SplashWindow>();
+            services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<SettingsViewModel>();
+            services.AddTransient<SplashWindowViewModel>();
+            services.AddTransient<SplashWindow>();
         }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var splashWindow = Shared.Provider.GetService<SplashWindow>();
+            var splashWindow = Ioc.Default.GetService<SplashWindow>();
             splashWindow?.Show();
         }
     }

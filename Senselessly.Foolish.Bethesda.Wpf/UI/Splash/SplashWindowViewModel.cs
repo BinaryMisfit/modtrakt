@@ -1,8 +1,10 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 {
+    using System.Threading.Tasks;
     using AppData.Default;
     using AppData.Interface;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
+    using Microsoft.Toolkit.Mvvm.Input;
     using Properties;
     using Services.Interface;
 
@@ -12,54 +14,61 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
         private readonly IGameLocator _gameLocator;
         private string _status;
 
+        public SplashWindowViewModel()
+        {
+
+        }
+
         public SplashWindowViewModel(IAppSettings appSettings, IGameLocator gameLocator)
         {
             _appSettings = appSettings;
             _gameLocator = gameLocator;
-            Start();
+            ContentRenderedAsync = new AsyncRelayCommand(StartAsync);
         }
 
         public string Status
         {
             get =>
                 _status;
-            set =>
+            private set =>
                 SetProperty(field: ref _status, newValue: value);
         }
 
-        private void Start()
+        public IAsyncRelayCommand ContentRenderedAsync { get; }
+
+        private async Task StartAsync()
         {
-            _status = Resources.Splash_Status_Starting_Up;
-            CheckStartupOptions(_appSettings);
+            Status = Resources.Splash_Status_Starting_Up;
+            await CheckStartupOptions(_appSettings);
         }
 
-        private void CheckStartupOptions(IAppSettings settings)
+        private async Task CheckStartupOptions(IAppSettings settings)
         {
             if (settings.Missing)
             {
-                LocateSupportedGames();
+                await LocateSupportedGames();
             }
         }
 
-        private void LocateSupportedGames()
+        private async Task LocateSupportedGames()
         {
-            _status = Resources.Splash_Status_Games_Locating;
-            var dictionaryLoaded = _gameLocator.Load(Config.GameDictionaryKey);
+            Status = Resources.Splash_Status_Games_Locating;
+            var dictionaryLoaded = await _gameLocator.LoadAsync(Config.GameDictionaryKey);
             if (dictionaryLoaded == 0)
             {
-                _status = Resources.Game_Dictionary_Empty;
+                Status = Resources.Game_Dictionary_Empty;
                 return;
             }
 
             _gameLocator.Progress = (s, e) =>
             {
-                _status = string.Format(format: Resources.Splash_Status_Game_Progress,
+                Status = string.Format(format: Resources.Splash_Status_Game_Progress,
                     arg0: e.Current,
                     arg1: e.Remaining,
                     arg2: e.Game);
             };
             var gamesFound = _gameLocator.Locate();
-            _status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
+            Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
         }
     }
 }

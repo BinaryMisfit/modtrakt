@@ -1,12 +1,12 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
 {
-    using System.IO;
     using System.Reflection;
     using System.Text.Json;
+    using System.Threading.Tasks;
 
     public static class JsonFile
     {
-        public static T LoadResource<T>(string resourceName)
+        public static async Task<T> LoadResourceAsync<T>(string resourceName)
         {
             var resourcePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.Embedded.{resourceName}.json";
             var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
@@ -15,9 +15,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
                 return default;
             }
 
-            using var reader = new StreamReader(resource);
-            var json = reader.ReadToEnd();
-            var jsonData = JsonSerializer.Deserialize<T>(json);
+            var jsonData = await JsonSerializer.DeserializeAsync<T>(utf8Json: resource, options: null);
             return jsonData;
         }
     }

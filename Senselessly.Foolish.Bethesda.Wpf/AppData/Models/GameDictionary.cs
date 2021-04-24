@@ -1,6 +1,7 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Interface;
     using Modules;
 
@@ -12,9 +13,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 
         public IEnumerable<GameRegistry> Registry { get; set; }
 
-        public IEnumerable<IGameDictionary> Load(string gameDictionaryKey)
+        public async Task<IEnumerable<GameDictionary>> Load(string gameDictionaryKey)
         {
-            return JsonFile.LoadResource<IEnumerable<GameDictionary>>(gameDictionaryKey);
+            return await JsonFile.LoadResourceAsync<IEnumerable<GameDictionary>>(gameDictionaryKey);
         }
     }
 }

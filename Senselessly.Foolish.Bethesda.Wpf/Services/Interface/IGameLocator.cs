@@ -2,6 +2,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using AppData.Interface;
     using Game;
 
@@ -11,7 +12,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
 
         EventHandler<GameLocatorArgs> Progress { get; set; }
 
-        int Load(string gameDictionaryKey);
+        Task<int> LoadAsync(string gameDictionaryKey);
 
         int Locate();
     }

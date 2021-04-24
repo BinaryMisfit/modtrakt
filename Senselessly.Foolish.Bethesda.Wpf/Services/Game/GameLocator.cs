@@ -3,6 +3,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using AppData.Interface;
     using AppData.Models;
     using Interface;
@@ -23,9 +24,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
 
         public IEnumerable<IGameSettings> InstalledGames { get; private set; }
 
-        public int Load(string gameDictionaryKey)
+        public async Task<int> LoadAsync(string gameDictionaryKey)
         {
-            _games = _dictionary.Load(gameDictionaryKey);
+            _games = await _dictionary.Load(gameDictionaryKey);
             return _games?.Count() ?? 0;
         }
 
