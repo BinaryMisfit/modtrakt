@@ -59,10 +59,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
                     arg2: e.Game);
             };
             var gamesFound = _gameLocator.Locate();
-            if (gamesFound == 0)
-            {
-                _status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
-            }
+            _status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
         }
     }
 }

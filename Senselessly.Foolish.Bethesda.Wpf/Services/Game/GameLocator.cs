@@ -41,6 +41,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
             var count = _games.Count();
             var index = 0;
             var located = new List<IGameSettings>();
+            var installed = true;
             _games.ToList()
                 .ForEach(game =>
                 {
@@ -57,19 +58,58 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
                                 registry.AddRange(_registry.Results);
                             }
                         });
-                    var installed = registry.FirstOrDefault(result =>
-                                result.Key ==
-                                game.Registry.Where(entry => entry.Usage == "Install")
-                                    .Select(entry => $"{entry.Path}\\${entry.Key}")
-                                    .FirstOrDefault())
-                            ?.Value !=
-                        null;
+                    var settings = new GameSettings();
+                    game.Registry.ToList()
+                        .ForEach(entry =>
+                        {
+                            if (!installed)
+                            {
+                                return;
+                            }
+
+                            switch (entry.Usage)
+                            {
+                                case "Install":
+                                    {
+                                        var value = registry
+                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
+                                            ?.Value.ToString();
+                                        installed = value != null;
+                                        break;
+                                    }
+                                case "Name":
+                                    {
+                                        var value = registry
+                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
+                                            ?.Value.ToString();
+                                        settings.Name = value;
+                                        settings.ConfigName = value?.Replace(oldValue: " ", newValue: "").Trim();
+                                        break;
+                                    }
+                                case "Path":
+                                    {
+                                        var value = registry
+                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
+                                            ?.Value.ToString();
+                                        settings.GamePath = value;
+                                        break;
+                                    }
+                                case "Publisher":
+                                    {
+                                        var value = registry
+                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
+                                            ?.Value.ToString();
+                                        settings.Publisher = value;
+                                        break;
+                                    }
+                            }
+                        });
                     if (!installed)
                     {
                         return;
                     }
 
-                    located.Add(new GameSettings());
+                    located.Add(settings);
                     InstalledGames = located;
                 });
             return InstalledGames?.Count() ?? 0;

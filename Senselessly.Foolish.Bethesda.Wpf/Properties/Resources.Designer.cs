@@ -61,7 +61,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright (c) 2021 Senselessly Foolish.
+        ///   Looks up a localized string similar to Copyright (c) 2021 Senselessly Foolish (PTY) Ltd.
         /// </summary>
         public static string Application_Copyright {
             get {
