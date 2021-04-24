@@ -13,7 +13,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 
         public IEnumerable<GameRegistry> Registry { get; set; }
 
-        public async Task<IEnumerable<GameDictionary>> Load(string gameDictionaryKey)
+        public async Task<IEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey)
         {
             return await JsonFile.LoadResourceAsync<IEnumerable<GameDictionary>>(gameDictionaryKey);
         }

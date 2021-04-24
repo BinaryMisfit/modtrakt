@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Helpers
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,7 +6,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Helpers
     using Microsoft.Win32;
     using Models;
 
-    public class RegistryScanner : IRegistryScanner
+    public class RegistryScannerService : IRegistryScannerService
     {
         public IEnumerable<RegistryResult> Results { get; private set; }
 

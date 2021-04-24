@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Models
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Models
 {
     public class RegistryResult
     {

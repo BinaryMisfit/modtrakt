@@ -1,9 +1,9 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Interface
 {
     using System.Collections.Generic;
     using Models;
 
-    public interface IRegistryScanner
+    public interface IRegistryScannerService
     {
         IEnumerable<RegistryResult> Results { get; }
 

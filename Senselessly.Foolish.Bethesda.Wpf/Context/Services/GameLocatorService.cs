@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 {
     using System;
     using System.Collections.Generic;
@@ -6,17 +6,18 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
     using System.Threading.Tasks;
     using AppData.Interface;
     using AppData.Models;
+    using Game;
     using Interface;
     using Models;
 
-    public class GameLocator : IGameLocator
+    public class GameLocatorService : IGameLocatorService
     {
         private readonly IGameDictionary _dictionary;
-        private readonly IRegistryScanner _registry;
+        private readonly IRegistryScannerService _registry;
 
         private IEnumerable<IGameDictionary> _games;
 
-        public GameLocator(IGameDictionary dictionary, IRegistryScanner registry)
+        public GameLocatorService(IGameDictionary dictionary, IRegistryScannerService registry)
         {
             _dictionary = dictionary;
             _registry = registry;
@@ -26,7 +27,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
 
         public async Task<int> LoadAsync(string gameDictionaryKey)
         {
-            _games = await _dictionary.Load(gameDictionaryKey);
+            _games = await _dictionary.LoadAsync(gameDictionaryKey);
             return _games?.Count() ?? 0;
         }
 
@@ -65,6 +66,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
                         {
                             if (!installed)
                             {
+                                installed = true;
                                 return;
                             }
 

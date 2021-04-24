@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Interface
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
     using AppData.Interface;
     using Game;
 
-    public interface IGameLocator
+    public interface IGameLocatorService
     {
         IEnumerable<IGameSettings> InstalledGames { get; }
 

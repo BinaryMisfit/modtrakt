@@ -4,11 +4,10 @@
     using System.Windows;
     using AppData.Interface;
     using AppData.Models;
+    using Context.Interface;
+    using Context.Services;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
-    using Services.Game;
-    using Services.Helpers;
-    using Services.Interface;
     using UI.Dialog.Settings;
     using UI.Main;
     using UI.Splash;
@@ -27,10 +26,10 @@
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<ISettings, Settings>();
             services.AddScoped<IGameDictionary, GameDictionary>();
-            services.AddScoped<IGameLocator, GameLocator>();
+            services.AddScoped<IGameLocatorService, GameLocatorService>();
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
-            services.AddSingleton<IRegistryScanner, RegistryScanner>();
+            services.AddSingleton<IRegistryScannerService, RegistryScannerService>();
             services.AddSingleton<MainWindow>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<SettingsViewModel>();

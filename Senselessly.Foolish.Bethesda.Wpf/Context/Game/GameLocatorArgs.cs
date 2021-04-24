@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Wpf.Services.Game
+namespace Senselessly.Foolish.Bethesda.Wpf.Context.Game
 {
     public struct GameLocatorArgs
     {

@@ -1,5 +1,41 @@
 [
   {
+    "Game": "Skyrim Special Edition",
+    "Publisher": "Bethesda",
+    "Registry": [
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim Special Edition",
+        "Key": "installed path",
+        "Usage": "Install"
+      },
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Key": "DisplayIcon",
+        "Usage": "Icon"
+      },
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Key": "DisplayName",
+        "Usage": "Name"
+      },
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Key": "InstallLocation",
+        "Usage": "Path"
+      },
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Key": "Publisher",
+        "Usage": "Publisher"
+      },
+      {
+        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Key": "URLInfoAbout",
+        "Usage": "URL"
+      }
+    ]
+  },
+  {
     "Game": "Fallout 4",
     "Publisher": "Bethesda",
     "Registry": [
