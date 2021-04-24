@@ -1,20 +1,18 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.Services.Interface
 {
+    using System;
     using System.Collections.Generic;
     using AppData.Interface;
+    using Game;
 
     public interface IGameLocator
     {
-        string Current { get; }
+        IEnumerable<IGameSettings> InstalledGames { get; }
 
-        int Count { get; }
+        EventHandler<GameLocatorArgs> Progress { get; set; }
 
-        int Index { get; }
+        int Load(string gameDictionaryKey);
 
-        bool Load(string gameDictionaryKey);
-
-        bool Locate();
-
-        IEnumerable<IGameSettings> Result();
+        int Locate();
     }
 }

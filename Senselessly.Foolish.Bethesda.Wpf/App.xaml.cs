@@ -7,6 +7,7 @@
     using AppData.Models;
     using Microsoft.Extensions.DependencyInjection;
     using Services.Game;
+    using Services.Helpers;
     using Services.Interface;
     using UI.Dialog.Settings;
     using UI.Main;
@@ -29,6 +30,7 @@
             services.AddScoped<IGameLocator, GameLocator>();
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
+            services.AddSingleton<IRegistryScanner, RegistryScanner>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainWindow>();
             services.AddSingleton<SettingsViewModel>();

@@ -29,13 +29,13 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 
         private void Start()
         {
-            _status = Resources.Status_StartingUp;
+            _status = Resources.Splash_Status_Starting_Up;
             CheckStartupOptions(_appSettings);
         }
 
         private void CheckStartupOptions(IAppSettings settings)
         {
-            if (settings.Settings == null || string.IsNullOrEmpty(settings.Settings.ActiveGame))
+            if (settings.Missing)
             {
                 LocateSupportedGames();
             }
@@ -43,8 +43,26 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 
         private void LocateSupportedGames()
         {
-            _status = Resources.Status_LocatingGames;
-            _gameLocator.Load(Config.GameDictionaryKey);
+            _status = Resources.Splash_Status_Games_Locating;
+            var dictionaryLoaded = _gameLocator.Load(Config.GameDictionaryKey);
+            if (dictionaryLoaded == 0)
+            {
+                _status = Resources.Game_Dictionary_Empty;
+                return;
+            }
+
+            _gameLocator.Progress = (s, e) =>
+            {
+                _status = string.Format(format: Resources.Splash_Status_Game_Progress,
+                    arg0: e.Current,
+                    arg1: e.Remaining,
+                    arg2: e.Game);
+            };
+            var gamesFound = _gameLocator.Locate();
+            if (gamesFound == 0)
+            {
+                _status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
+            }
         }
     }
 }

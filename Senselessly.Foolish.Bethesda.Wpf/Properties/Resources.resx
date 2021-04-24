@@ -23,19 +23,28 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
-    <data name="ApplicationName" xml:space="preserve">
+    <data name="Application_Name" xml:space="preserve">
         <value>ModTrakt</value>
     </data>
-    <data name="TagLine" xml:space="preserve">
+    <data name="Application_TagLine" xml:space="preserve">
         <value>A Bethesda Mod Manager</value>
     </data>
-    <data name="Status_StartingUp" xml:space="preserve">
-        <value>Starting Up</value>
+    <data name="Splash_Status_Starting_Up" xml:space="preserve">
+        <value>Starting up</value>
     </data>
-    <data name="ApplicationProducer" xml:space="preserve">
-        <value>Produced By Senselessly Foolish</value>
+    <data name="Application_Copyright" xml:space="preserve">
+        <value>Copyright (c) 2021 Senselessly Foolish</value>
     </data>
-    <data name="Status_LocatingGames" xml:space="preserve">
-        <value>Locating Supported Games</value>
+    <data name="Splash_Status_Games_Locating" xml:space="preserve">
+        <value>Locating supported games</value>
+    </data>
+    <data name="Splash_Status_Game_Progress" xml:space="preserve">
+        <value>Searching {0} of {1}: {2}</value>
+    </data>
+    <data name="Game_Dictionary_Empty" xml:space="preserve">
+        <value>Game Dictionary not found or empty</value>
+    </data>
+    <data name="Splash_Status_Games_Found" xml:space="preserve">
+        <value>Found {0} supported game(s)</value>
     </data>
 </root>

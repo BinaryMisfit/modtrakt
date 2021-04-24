@@ -61,47 +61,74 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copyright (c) 2021 Senselessly Foolish.
+        /// </summary>
+        public static string Application_Copyright {
+            get {
+                return ResourceManager.GetString("Application_Copyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ModTrakt.
         /// </summary>
-        public static string ApplicationName {
+        public static string Application_Name {
             get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Produced By Senselessly Foolish.
-        /// </summary>
-        public static string ApplicationProducer {
-            get {
-                return ResourceManager.GetString("ApplicationProducer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locating Supported Games.
-        /// </summary>
-        public static string Status_LocatingGames {
-            get {
-                return ResourceManager.GetString("Status_LocatingGames", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Starting Up.
-        /// </summary>
-        public static string Status_StartingUp {
-            get {
-                return ResourceManager.GetString("Status_StartingUp", resourceCulture);
+                return ResourceManager.GetString("Application_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A Bethesda Mod Manager.
         /// </summary>
-        public static string TagLine {
+        public static string Application_TagLine {
             get {
-                return ResourceManager.GetString("TagLine", resourceCulture);
+                return ResourceManager.GetString("Application_TagLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Dictionary not found or empty.
+        /// </summary>
+        public static string Game_Dictionary_Empty {
+            get {
+                return ResourceManager.GetString("Game_Dictionary_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching {0} of {1}: {2}.
+        /// </summary>
+        public static string Splash_Status_Game_Progress {
+            get {
+                return ResourceManager.GetString("Splash_Status_Game_Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0} supported game(s).
+        /// </summary>
+        public static string Splash_Status_Games_Found {
+            get {
+                return ResourceManager.GetString("Splash_Status_Games_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locating supported games.
+        /// </summary>
+        public static string Splash_Status_Games_Locating {
+            get {
+                return ResourceManager.GetString("Splash_Status_Games_Locating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting up.
+        /// </summary>
+        public static string Splash_Status_Starting_Up {
+            get {
+                return ResourceManager.GetString("Splash_Status_Starting_Up", resourceCulture);
             }
         }
     }

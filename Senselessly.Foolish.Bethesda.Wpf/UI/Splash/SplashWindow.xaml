@@ -8,7 +8,7 @@
                     xmlns:p="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.Properties"
                     xmlns:splash="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Splash"
                     mc:Ignorable="d"
-                    Title="{x:Static p:Resources.ApplicationName}" Width="500" Height="136"
+                    Title="{x:Static p:Resources.Application_Name}" Width="500" Height="136"
                     WindowStartupLocation="CenterScreen"
                     WindowStyle="None" ShowInTaskbar="False"
                     FontFamily="{md:MaterialDesignFont}"
@@ -45,9 +45,9 @@
         <md:ColorZone Mode="PrimaryDark">
             <DockPanel>
                 <Label Margin="8" Style="{StaticResource SplashTitleText}"
-                       Content="{x:Static p:Resources.ApplicationName}" />
+                       Content="{x:Static p:Resources.Application_Name}" />
                 <Label HorizontalAlignment="Right" Margin="8" Style="{StaticResource SplashSubTitleText}"
-                       Content="{x:Static p:Resources.TagLine}" />
+                       Content="{x:Static p:Resources.Application_TagLine}" />
             </DockPanel>
         </md:ColorZone>
         <StackPanel Margin="12">
@@ -55,7 +55,7 @@
         </StackPanel>
         <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom">
             <Label Margin="4" Style="{StaticResource SplashFootNoteText}"
-                   Content="{x:Static p:Resources.ApplicationProducer}" />
+                   Content="{x:Static p:Resources.Application_Copyright}" />
         </md:ColorZone>
     </StackPanel>
 </mde:MaterialWindow>
