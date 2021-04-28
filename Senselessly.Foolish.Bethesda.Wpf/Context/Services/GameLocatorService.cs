@@ -15,7 +15,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
         private readonly IGameDictionary _dictionary;
         private readonly IRegistryScannerService _registry;
 
-        private IEnumerable<IGameDictionary> _games;
+        private IAsyncEnumerable<IGameDictionary> _games;
 
         public GameLocatorService(IGameDictionary dictionary, IRegistryScannerService registry)
         {
@@ -28,27 +28,32 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
         public async Task<int> LoadAsync(string gameDictionaryKey)
         {
             _games = await _dictionary.LoadAsync(gameDictionaryKey);
-            return _games?.Count() ?? 0;
+            if (_games == null)
+            {
+                return 0;
+            }
+
+            return await _games.CountAsync();
         }
 
         public EventHandler<GameLocatorArgs> Progress { get; set; }
 
-        public int Locate()
+        public async Task<int> Locate()
         {
             if (_games == null)
             {
                 return 0;
             }
 
-            var count = _games.Count();
+            var count = await _games.CountAsync();
             var index = 0;
             var located = new List<IGameSettings>();
             var installed = true;
-            _games.ToList()
-                .ForEach(game =>
+            await _games.OrderBy(game => game.Name)
+                .ForEachAsync(game =>
                 {
                     index++;
-                    Progress(sender: this, e: new GameLocatorArgs(game: game.Game, current: index, remaining: count));
+                    Progress(sender: this, e: new GameLocatorArgs(game: game.Name, current: index, remaining: count));
                     var registry = new List<RegistryResult>();
                     game.Registry.GroupBy(entry => entry.Path)
                         .ToList()

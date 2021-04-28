@@ -9,6 +9,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using UI.Dialog.Settings;
+    using UI.GameList;
     using UI.Main;
     using UI.Splash;
 
@@ -30,6 +31,8 @@
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();
+            services.AddTransient<GameListWindow>();
+            services.AddTransient<GameListViewModel>();
             services.AddSingleton<MainWindow>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<SettingsViewModel>();

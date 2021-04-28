@@ -7,7 +7,7 @@
                     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                     xmlns:p="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.Properties"
-                    xmlns:splash="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Splash"
+                    xmlns:s="clr-namespace:Senselessly.Foolish.Bethesda.Wpf.UI.Splash"
                     mc:Ignorable="d"
                     Title="{x:Static p:Resources.Application_Name}" Width="500" Height="136"
                     WindowStartupLocation="CenterScreen"
@@ -15,14 +15,14 @@
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignBackground}"
-                    d:DesignSource="{d:DesignInstance splash:SplashWindowViewModel}">
+                    d:DesignSource="{d:DesignInstance s:SplashWindowViewModel}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ContentRenderedAsync}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.DataContext>
-        <splash:SplashWindowViewModel />
+        <s:SplashWindowViewModel />
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashTitleText">

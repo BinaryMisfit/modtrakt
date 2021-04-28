@@ -6,12 +6,12 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
 
     public interface IGameDictionary
     {
-        string Game { get; set; }
+        string Name { get; set; }
 
         string Publisher { get; set; }
 
         IEnumerable<GameRegistry> Registry { get; set; }
 
-        Task<IEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey);
+        Task<IAsyncEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey);
     }
 }

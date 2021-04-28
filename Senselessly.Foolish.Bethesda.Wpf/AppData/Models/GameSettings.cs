@@ -36,7 +36,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
                         return;
                     }
 
-                    var gameName = entry.Game;
+                    var gameName = entry.Name;
                     var nameKey = entry.Registry.FirstOrDefault(key => key.Usage == "Name");
                     if (nameKey != null)
                     {

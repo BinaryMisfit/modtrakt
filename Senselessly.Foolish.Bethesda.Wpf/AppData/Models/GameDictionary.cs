@@ -7,15 +7,15 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Models
 
     public class GameDictionary : IGameDictionary
     {
-        public string Game { get; set; }
+        public string Name { get; set; }
 
         public string Publisher { get; set; }
 
         public IEnumerable<GameRegistry> Registry { get; set; }
 
-        public async Task<IEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey)
+        public async Task<IAsyncEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey)
         {
-            return await JsonFile.LoadResourceAsync<IEnumerable<GameDictionary>>(gameDictionaryKey);
+            return await JsonFile.LoadResourceAsync<IAsyncEnumerable<GameDictionary>>(gameDictionaryKey);
         }
     }
 }

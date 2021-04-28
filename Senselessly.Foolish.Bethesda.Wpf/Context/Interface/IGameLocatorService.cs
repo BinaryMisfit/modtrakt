@@ -14,6 +14,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Interface
 
         Task<int> LoadAsync(string gameDictionaryKey);
 
-        int Locate();
+        Task<int> Locate();
     }
 }

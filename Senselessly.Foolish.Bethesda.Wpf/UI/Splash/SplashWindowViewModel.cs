@@ -66,7 +66,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
                     arg1: e.Remaining,
                     arg2: e.Game);
             };
-            var gamesFound = _gameLocatorService.Locate();
+            var gamesFound = await _gameLocatorService.Locate();
             Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
         }
     }
