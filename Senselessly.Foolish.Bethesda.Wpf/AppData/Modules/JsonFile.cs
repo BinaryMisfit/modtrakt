@@ -4,6 +4,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
     using System.Reflection;
     using System.Text.Json;
     using System.Threading.Tasks;
+    using Converters;
 
     public static class JsonFile
     {
@@ -18,7 +19,14 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
 
             var jsonReader = new StreamReader(resource);
             var jsonText = await jsonReader.ReadToEndAsync();
-            var jsonData = JsonSerializer.Deserialize<T>(jsonText);
+            var jsonOptions = new JsonSerializerOptions()
+            {
+                Converters =
+                {
+                    new GameRegistryJson(),
+                },
+            };
+            var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
             return jsonData;
         }
     }

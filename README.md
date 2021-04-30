@@ -17,7 +17,7 @@ additional built-in functionality to help advanced mod players apply years of ex
 ### How is ModTrakt different?
 
 Apart from downloading, installing and managing mod files, ModTrakt can also:
-* Provide all functional based on sets of rules
+* Provide all functionality based on sets of rules
 * Extract BA2 archives
 * Merge loose files
 * Merge ESP files
@@ -28,7 +28,7 @@ Apart from downloading, installing and managing mod files, ModTrakt can also:
     * zMerge
   
 ### When will ModTrakt be ready for release?
-4-6 Weeks<sup>*</sup>
+6-8 Weeks<sup>*</sup>
 
 ## Current Status
 

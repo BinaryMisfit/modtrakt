@@ -1,17 +1,21 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using AppData.Default;
     using AppData.Interface;
     using Context.Interface;
+    using Context.Models;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
+    using Microsoft.Toolkit.Mvvm.Messaging;
     using Properties;
 
     public class SplashWindowViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly IGameLocatorService _gameLocatorService;
+        private readonly CancellationTokenSource _cancelTask;
         private string _status;
 
         public SplashWindowViewModel()
@@ -22,7 +26,15 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
         {
             _appSettings = appSettings;
             _gameLocatorService = gameLocatorService;
+            _cancelTask = new CancellationTokenSource();
             ContentRenderedAsync = new AsyncRelayCommand(StartAsync);
+            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
+                handler: (r, m) =>
+                {
+                    var e = m.Value;
+                    Status = e.Exception.Message;
+                    _cancelTask.Cancel();
+                });
         }
 
         public string Status
@@ -66,8 +78,11 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
                     arg1: e.Remaining,
                     arg2: e.Game);
             };
-            var gamesFound = await _gameLocatorService.Locate();
-            Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
+            var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
+            if (!_cancelTask.IsCancellationRequested)
+            {
+                Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
+            }
         }
     }
 }

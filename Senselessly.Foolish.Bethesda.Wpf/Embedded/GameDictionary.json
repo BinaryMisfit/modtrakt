@@ -1,107 +1,128 @@
 [
   {
+    "Code": "FO4",
     "Name": "Fallout 4",
     "Publisher": "Bethesda",
     "Registry": [
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Fallout4",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Fallout4",
         "Key": "installed path",
         "Usage": "Install"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
         "Key": "DisplayIcon",
         "Usage": "Icon"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
         "Key": "DisplayName",
         "Usage": "Name"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
         "Key": "InstallLocation",
         "Usage": "Path"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
         "Key": "Publisher",
         "Usage": "Publisher"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
         "Key": "URLInfoAbout",
         "Usage": "URL"
       }
     ]
   },
   {
+    "Code": "TES",
     "Name": "Skyrim",
     "Publisher": "Bethesda",
     "Registry": [
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim",
         "Key": "installed path",
         "Usage": "Install"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
         "Key": "DisplayIcon",
         "Usage": "Icon"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
         "Key": "DisplayName",
         "Usage": "Name"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
         "Key": "InstallLocation",
         "Usage": "Path"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
         "Key": "Publisher",
         "Usage": "Publisher"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
         "Key": "URLInfoAbout",
         "Usage": "URL"
       }
     ]
   },
   {
+    "Code": "SSE",
     "Name": "Skyrim Special Edition",
     "Publisher": "Bethesda",
     "Registry": [
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim Special Edition",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim Special Edition",
         "Key": "installed path",
         "Usage": "Install"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
         "Key": "DisplayIcon",
         "Usage": "Icon"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
         "Key": "DisplayName",
         "Usage": "Name"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
         "Key": "InstallLocation",
         "Usage": "Path"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
         "Key": "Publisher",
         "Usage": "Publisher"
       },
       {
-        "Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
+        "Root": "HKEY_LOCAL_MACHINE",
+        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
         "Key": "URLInfoAbout",
         "Usage": "URL"
       }

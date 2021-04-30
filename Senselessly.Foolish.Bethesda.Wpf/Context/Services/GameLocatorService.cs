@@ -2,8 +2,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
+    using System.IO.Abstractions;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using AppData.Interface;
     using AppData.Models;
@@ -13,14 +14,24 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 
     public class GameLocatorService : IGameLocatorService
     {
+        private const string GamePath = "Path";
+        private const string GameInstall = "Install";
+
+        private readonly IExceptionService _ex;
+        private readonly IFileSystem _files;
         private readonly IGameDictionary _dictionary;
         private readonly IRegistryScannerService _registry;
 
         private IEnumerable<GameDictionary> _games;
 
-        public GameLocatorService(IGameDictionary dictionary, IRegistryScannerService registry)
+        public GameLocatorService(IExceptionService ex,
+            IFileSystem files,
+            IGameDictionary dictionary,
+            IRegistryScannerService registry)
         {
             _dictionary = dictionary;
+            _ex = ex;
+            _files = files;
             _registry = registry;
         }
 
@@ -34,95 +45,100 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 
         public EventHandler<GameLocatorArgs> Progress { get; set; }
 
-        public async Task<int> Locate()
+        public async Task<int> Locate(CancellationToken cancel = default)
         {
+            InstalledGames = null;
             if (_games == null)
             {
                 return 0;
             }
 
-            var count = _games.Count();
-            var index = 0;
-            var located = new List<IGameSettings>();
-            var installed = true;
-            await _games.OrderBy(game => game.Name)
-                .ToAsyncEnumerable()
-                .ForEachAsync(async game =>
+            List<IGameSettings> games = null;
+            var check = _games.OrderBy(game => game.Code)
+                .SelectMany(game =>
+                    game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
+                        .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
+                .ToArray();
+            await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
+            {
+                if (cancel.IsCancellationRequested)
                 {
-                    index++;
-                    Progress(sender: this, e: new GameLocatorArgs(game: game.Name, current: index, remaining: count));
-                    var registry = new List<RegistryResult>();
-                    await game.Registry.GroupBy(entry => entry.Path)
-                        .ToAsyncEnumerable()
-                        .ForEachAsync(group =>
-                        {
-                            var found = _registry.Read(path: group.Key, keys: group.Select(item => item.Key).ToArray());
-                            if (found)
-                            {
-                                registry.AddRange(_registry.Results);
-                            }
-                        });
-                    var settings = new GameSettings();
-                    await game.Registry.ToAsyncEnumerable()
-                        .ForEachAsync(entry =>
-                        {
-                            if (!installed)
-                            {
-                                installed = true;
-                                return;
-                            }
+                    break;
+                }
 
-                            switch (entry.Usage)
-                            {
-                                case "Install":
-                                    {
-                                        var value = registry
-                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
-                                            ?.Value.ToString();
-                                        installed = value != null;
-                                        break;
-                                    }
-                                case "Name":
-                                    {
-                                        var value = registry
-                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
-                                            ?.Value.ToString();
-                                        settings.Name = value;
-                                        settings.ConfigName = value?.Replace(oldValue: " ", newValue: "").Trim();
-                                        break;
-                                    }
-                                case "Path":
-                                    {
-                                        var value = registry
-                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
-                                            ?.Value.ToString();
-                                        settings.GamePath = value;
-                                        break;
-                                    }
-                                case "Publisher":
-                                    {
-                                        var value = registry
-                                            .FirstOrDefault(key => key.Key == $"{entry.Path}\\{entry.Key}")
-                                            ?.Value.ToString();
-                                        settings.Publisher = value;
-                                        break;
-                                    }
-                            }
-                        });
-                    if (installed && !string.IsNullOrEmpty(settings.GamePath))
+                try
+                {
+                    if (await _registry.ReadAsync(root: result.Registry.Root,
+                        path: result.Registry.Path,
+                        cancel: cancel,
+                        keys: result.Registry.Key))
                     {
-                        var gameFolder = new DirectoryInfo(settings.GamePath);
-                        installed = gameFolder.Exists;
+                        result.Value = _registry.Results.First().Value;
                     }
-                    
-                    if (!installed)
-                    {
-                        return;
-                    }
+                }
+                catch (Exception e)
+                {
+                    _ex.Send(new ExceptionInfo(e));
+                    return 0;
+                }
 
-                    located.Add(settings);
-                    InstalledGames = located;
-                });
+                var found = check.Where(code => code.Value != null).Select(code => code.Id).ToArray();
+                if (!found.Any())
+                {
+                    return found.Length;
+                }
+
+                try
+                {
+                    var verified = _games.Where(game => found.Contains(game.Code)).OrderBy(game => game.Code);
+                    await foreach (var game in verified.ToAsyncEnumerable().WithCancellation(cancel))
+                    {
+                        if (cancel.IsCancellationRequested)
+                        {
+                            break;
+                        }
+
+                        var registry = game.Registry.FirstOrDefault(entry => entry.Usage.Equals(GamePath));
+                        if (registry == null)
+                        {
+                            continue;
+                        }
+
+                        if (!await _registry.ReadAsync(root: registry.Root,
+                            path: registry.Path,
+                            cancel: cancel,
+                            keys: registry.Key))
+                        {
+                            continue;
+                        }
+
+                        var settings = new GameSettings
+                        {
+                            ConfigName = game.Code, GamePath = _registry.Results.First().Value.ToString(),
+                        };
+
+                        var installed = _files.DirectoryInfo.FromDirectoryName(settings.GamePath);
+                        if (!installed.Exists)
+                        {
+                            continue;
+                        }
+
+                        games ??= new List<IGameSettings>();
+                        games.Add(settings);
+                    }
+                }
+                catch (Exception e)
+                {
+                    _ex.Send(new ExceptionInfo(e));
+                    return 0;
+                }
+            }
+
+            if (!cancel.IsCancellationRequested)
+            {
+                InstalledGames = games;
+            }
+
             return InstalledGames?.Count() ?? 0;
         }
     }
