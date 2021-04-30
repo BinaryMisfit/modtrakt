@@ -12,6 +12,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Interface
 
         IEnumerable<GameRegistry> Registry { get; set; }
 
-        Task<IAsyncEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey);
+        Task<IEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey);
     }
 }

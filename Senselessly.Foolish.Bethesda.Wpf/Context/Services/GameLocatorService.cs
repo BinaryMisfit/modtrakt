@@ -2,6 +2,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using AppData.Interface;
@@ -15,7 +16,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
         private readonly IGameDictionary _dictionary;
         private readonly IRegistryScannerService _registry;
 
-        private IAsyncEnumerable<IGameDictionary> _games;
+        private IEnumerable<GameDictionary> _games;
 
         public GameLocatorService(IGameDictionary dictionary, IRegistryScannerService registry)
         {
@@ -28,12 +29,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
         public async Task<int> LoadAsync(string gameDictionaryKey)
         {
             _games = await _dictionary.LoadAsync(gameDictionaryKey);
-            if (_games == null)
-            {
-                return 0;
-            }
-
-            return await _games.CountAsync();
+            return _games?.Count() ?? 0;
         }
 
         public EventHandler<GameLocatorArgs> Progress { get; set; }
@@ -45,19 +41,20 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
                 return 0;
             }
 
-            var count = await _games.CountAsync();
+            var count = _games.Count();
             var index = 0;
             var located = new List<IGameSettings>();
             var installed = true;
             await _games.OrderBy(game => game.Name)
-                .ForEachAsync(game =>
+                .ToAsyncEnumerable()
+                .ForEachAsync(async game =>
                 {
                     index++;
                     Progress(sender: this, e: new GameLocatorArgs(game: game.Name, current: index, remaining: count));
                     var registry = new List<RegistryResult>();
-                    game.Registry.GroupBy(entry => entry.Path)
-                        .ToList()
-                        .ForEach(group =>
+                    await game.Registry.GroupBy(entry => entry.Path)
+                        .ToAsyncEnumerable()
+                        .ForEachAsync(group =>
                         {
                             var found = _registry.Read(path: group.Key, keys: group.Select(item => item.Key).ToArray());
                             if (found)
@@ -66,8 +63,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
                             }
                         });
                     var settings = new GameSettings();
-                    game.Registry.ToList()
-                        .ForEach(entry =>
+                    await game.Registry.ToAsyncEnumerable()
+                        .ForEachAsync(entry =>
                         {
                             if (!installed)
                             {
@@ -112,6 +109,12 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
                                     }
                             }
                         });
+                    if (installed && !string.IsNullOrEmpty(settings.GamePath))
+                    {
+                        var gameFolder = new DirectoryInfo(settings.GamePath);
+                        installed = gameFolder.Exists;
+                    }
+                    
                     if (!installed)
                     {
                         return;

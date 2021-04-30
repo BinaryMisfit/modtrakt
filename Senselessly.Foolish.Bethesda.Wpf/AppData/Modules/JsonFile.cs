@@ -1,5 +1,6 @@
 namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
 {
+    using System.IO;
     using System.Reflection;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace Senselessly.Foolish.Bethesda.Wpf.AppData.Modules
                 return default;
             }
 
-            var jsonData = await JsonSerializer.DeserializeAsync<T>(utf8Json: resource, options: null);
+            var jsonReader = new StreamReader(resource);
+            var jsonText = await jsonReader.ReadToEndAsync();
+            var jsonData = JsonSerializer.Deserialize<T>(jsonText);
             return jsonData;
         }
     }
