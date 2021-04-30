@@ -25,7 +25,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 
         public IEnumerable<RegistryResult> Results { get; private set; }
 
-        public async Task<bool> ReadAsync(string root,
+        public async Task<bool> ReadAsync(
+            string root,
             string path,
             CancellationToken cancel = default,
             params string[] keys)
@@ -33,46 +34,30 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
             List<RegistryResult> results = null;
             try
             {
-                var hive = root switch
-                {
-                    "HKEY_LOCAL_MACHINE" => RegistryHive.LocalMachine, var _ => RegistryHive.CurrentUser,
+                var hive = root switch {
+                    "HKEY_LOCAL_MACHINE" => RegistryHive.LocalMachine,
+                    var _                => RegistryHive.CurrentUser,
                 };
                 using var registryLocal = _registry.OpenBaseKey(hKey: hive, view: RegistryView.Registry64);
                 using var registryGame = registryLocal.OpenSubKey(path);
-                if (registryGame == null)
-                {
-                    return false;
-                }
+                if (registryGame == null) { return false; }
 
                 await foreach (var key in keys.ToAsyncEnumerable().WithCancellation(cancel))
                 {
                     var registryValue = registryGame.GetValue(name: $"{key}", defaultValue: null);
-                    if (registryValue == null)
-                    {
-                        continue;
-                    }
+                    if (registryValue == null) { continue; }
 
-                    var result = new RegistryResult(id: RegistryResult,
-                        registry: new GameRegistry
-                        {
-                            Key = key, Path = path, Root = root,
-                        })
-                    {
+                    var result = new RegistryResult(
+                                                    id: RegistryResult,
+                                                    registry: new GameRegistry {Key = key, Path = path, Root = root,}) {
                         Value = registryValue,
                     };
                     results ??= new List<RegistryResult>();
                     results.Add(result);
                 }
-            }
-            catch (Exception e)
-            {
-                _ex.Send(new ExceptionInfo(e));
-            }
+            } catch (Exception e) { _ex?.Send(new ExceptionInfo(e)); }
 
-            if (!cancel.IsCancellationRequested)
-            {
-                Results = results;
-            }
+            if (!cancel.IsCancellationRequested) { Results = results; }
 
             return Results != null;
         }

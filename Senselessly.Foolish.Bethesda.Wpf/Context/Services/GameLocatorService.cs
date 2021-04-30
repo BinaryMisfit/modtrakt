@@ -24,7 +24,8 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 
         private IEnumerable<GameDictionary> _games;
 
-        public GameLocatorService(IExceptionService ex,
+        public GameLocatorService(
+            IExceptionService ex,
             IFileSystem files,
             IGameDictionary dictionary,
             IRegistryScannerService registry)
@@ -48,96 +49,48 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
         public async Task<int> Locate(CancellationToken cancel = default)
         {
             InstalledGames = null;
-            if (_games == null)
-            {
-                return 0;
-            }
+            if (_games == null) { return 0; }
 
             List<IGameSettings> games = null;
             var check = _games.OrderBy(game => game.Code)
-                .SelectMany(game =>
-                    game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
-                        .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
-                .ToArray();
+                              .SelectMany(
+                                          game => game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
+                                                      .Select(
+                                                              entry => new RegistryResult(
+                                                               id: game.Code,
+                                                               registry: entry)))
+                              .ToArray();
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {
-                if (cancel.IsCancellationRequested)
-                {
-                    break;
-                }
+                if (cancel.IsCancellationRequested) { break; }
 
                 try
                 {
-                    if (await _registry.ReadAsync(root: result.Registry.Root,
-                        path: result.Registry.Path,
-                        cancel: cancel,
-                        keys: result.Registry.Key))
+                    if (await _registry.ReadAsync(
+                                                  root: result.Registry.Root,
+                                                  path: result.Registry.Path,
+                                                  cancel: cancel,
+                                                  keys: result.Registry.Key))
                     {
                         result.Value = _registry.Results.First().Value;
-                    }
-                }
-                catch (Exception e)
-                {
-                    _ex.Send(new ExceptionInfo(e));
-                    return 0;
-                }
+                        var installed = _files.DirectoryInfo.FromDirectoryName(result.Value.ToString());
+                        if (!installed.Exists) { continue; }
 
-                var found = check.Where(code => code.Value != null).Select(code => code.Id).ToArray();
-                if (!found.Any())
-                {
-                    return found.Length;
-                }
-
-                try
-                {
-                    var verified = _games.Where(game => found.Contains(game.Code)).OrderBy(game => game.Code);
-                    await foreach (var game in verified.ToAsyncEnumerable().WithCancellation(cancel))
-                    {
-                        if (cancel.IsCancellationRequested)
-                        {
-                            break;
-                        }
-
-                        var registry = game.Registry.FirstOrDefault(entry => entry.Usage.Equals(GamePath));
-                        if (registry == null)
-                        {
-                            continue;
-                        }
-
-                        if (!await _registry.ReadAsync(root: registry.Root,
-                            path: registry.Path,
-                            cancel: cancel,
-                            keys: registry.Key))
-                        {
-                            continue;
-                        }
-
-                        var settings = new GameSettings
-                        {
-                            ConfigName = game.Code, GamePath = _registry.Results.First().Value.ToString(),
+                        var game = _games.First(find => find.Code == result.Id);
+                        var settings = new GameSettings() {
+                            Code = game.Code, Name = game.Name, GamePath = result.Value.ToString()
                         };
-
-                        var installed = _files.DirectoryInfo.FromDirectoryName(settings.GamePath);
-                        if (!installed.Exists)
-                        {
-                            continue;
-                        }
-
                         games ??= new List<IGameSettings>();
                         games.Add(settings);
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     _ex.Send(new ExceptionInfo(e));
                     return 0;
                 }
             }
 
-            if (!cancel.IsCancellationRequested)
-            {
-                InstalledGames = games;
-            }
+            if (!cancel.IsCancellationRequested) { InstalledGames = games; }
 
             return InstalledGames?.Count() ?? 0;
         }

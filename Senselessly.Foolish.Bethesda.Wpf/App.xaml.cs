@@ -47,8 +47,7 @@
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            Current.DispatcherUnhandledException += (_, args) =>
-            {
+            Current.DispatcherUnhandledException += (_, args) => {
                 WeakReferenceMessenger.Default.Send(new ExceptionInfo(args.Exception));
                 args.Handled = true;
             };

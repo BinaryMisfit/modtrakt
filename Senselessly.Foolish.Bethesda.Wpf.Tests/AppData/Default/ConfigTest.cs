@@ -4,6 +4,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Tests.AppData.Default
     using Wpf.AppData.Default;
     using Xunit;
 
+    [Trait(name: "Category", value: "Configuration")]
     public class ConfigTest
     {
         [Fact]

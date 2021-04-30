@@ -4,8 +4,6 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Models
 
     public class RegistryResult
     {
-        public RegistryResult() { }
-        
         public RegistryResult(string id, IGameRegistry registry)
         {
             Id = id;
@@ -16,7 +14,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Models
         public string Id { get; }
 
         public IGameRegistry Registry { get; }
-        
+
         public string Usage { get; }
 
         public object Value { get; set; }
