@@ -22,8 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Embedded\Json\GameDictionary.json"/>
         <None Remove="Embedded\GameDictionary.json" />
-        <EmbeddedResource Include="Embedded\GameDictionary.json" />
         <EmbeddedResource Update="Properties\Resources.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -41,7 +41,7 @@
             services.AddSingleton<MainWindow>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<SettingsViewModel>();
-            services.AddTransient<SplashWindowViewModel>();
+            services.AddTransient<SplashViewModel>();
             services.AddTransient<SplashWindow>();
         }
 

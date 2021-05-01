@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
         public SplashWindow()
         {
             InitializeComponent();
-            DataContext = Ioc.Default.GetService<SplashWindowViewModel>();
+            DataContext = Ioc.Default.GetService<SplashViewModel>();
         }
     }
 }

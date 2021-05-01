@@ -14,12 +14,11 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
 
     public class GameLocatorService : IGameLocatorService
     {
-        private const string GamePath = "Path";
         private const string GameInstall = "Install";
+        private readonly IGameDictionary _dictionary;
 
         private readonly IExceptionService _ex;
         private readonly IFileSystem _files;
-        private readonly IGameDictionary _dictionary;
         private readonly IRegistryScannerService _registry;
 
         private IEnumerable<GameDictionary> _games;
@@ -52,6 +51,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
             if (_games == null) { return 0; }
 
             List<IGameSettings> games = null;
+            // TODO Refactor for Async
             var check = _games.OrderBy(game => game.Code)
                               .SelectMany(
                                           game => game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
@@ -77,7 +77,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.Context.Services
                         if (!installed.Exists) { continue; }
 
                         var game = _games.First(find => find.Code == result.Id);
-                        var settings = new GameSettings() {
+                        var settings = new GameSettings {
                             Code = game.Code, Name = game.Name, GamePath = result.Value.ToString()
                         };
                         games ??= new List<IGameSettings>();

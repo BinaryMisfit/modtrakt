@@ -11,38 +11,34 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Properties;
 
-    public class SplashWindowViewModel : ObservableObject
+    public class SplashViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
-        private readonly IGameLocatorService _gameLocatorService;
         private readonly CancellationTokenSource _cancelTask;
+        private readonly IGameLocatorService _gameLocatorService;
         private string _status;
 
-        public SplashWindowViewModel()
-        {
-        }
+        public SplashViewModel() { }
 
-        public SplashWindowViewModel(IAppSettings appSettings, IGameLocatorService gameLocatorService)
+        public SplashViewModel(IAppSettings appSettings, IGameLocatorService gameLocatorService)
         {
             _appSettings = appSettings;
             _gameLocatorService = gameLocatorService;
             _cancelTask = new CancellationTokenSource();
             ContentRenderedAsync = new AsyncRelayCommand(StartAsync);
-            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
-                handler: (r, m) =>
-                {
-                    var e = m.Value;
-                    Status = e.Exception.Message;
-                    _cancelTask.Cancel();
-                });
+            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(
+                                                                            recipient: this,
+                                                                            handler: (r, m) => {
+                                                                                var e = m.Value;
+                                                                                Status = e.Exception.Message;
+                                                                                _cancelTask.Cancel();
+                                                                            });
         }
 
         public string Status
         {
-            get =>
-                _status;
-            private set =>
-                SetProperty(field: ref _status, newValue: value);
+            get => _status;
+            set => SetProperty(field: ref _status, newValue: value);
         }
 
         public IAsyncRelayCommand ContentRenderedAsync { get; }
@@ -55,10 +51,7 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
 
         private async Task CheckStartupOptions(IAppSettings settings)
         {
-            if (settings.Missing)
-            {
-                await LocateSupportedGames();
-            }
+            if (settings.Missing) { await LocateSupportedGames(); }
         }
 
         private async Task LocateSupportedGames()
@@ -71,12 +64,12 @@ namespace Senselessly.Foolish.Bethesda.Wpf.UI.Splash
                 return;
             }
 
-            _gameLocatorService.Progress = (s, e) =>
-            {
-                Status = string.Format(format: Resources.Splash_Status_Game_Progress,
-                    arg0: e.Current,
-                    arg1: e.Remaining,
-                    arg2: e.Game);
+            _gameLocatorService.Progress = (s, e) => {
+                Status = string.Format(
+                                       format: Resources.Splash_Status_Game_Progress,
+                                       arg0: e.Current,
+                                       arg1: e.Remaining,
+                                       arg2: e.Game);
             };
             var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
             if (!_cancelTask.IsCancellationRequested)

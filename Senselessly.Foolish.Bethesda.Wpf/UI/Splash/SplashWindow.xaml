@@ -15,14 +15,14 @@
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignBackground}"
-                    d:DesignSource="{d:DesignInstance s:SplashWindowViewModel}">
+                    d:DesignSource="{d:DesignInstance s:SplashViewModel}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ContentRenderedAsync}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.DataContext>
-        <s:SplashWindowViewModel />
+        <s:SplashViewModel />
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashTitleText">
