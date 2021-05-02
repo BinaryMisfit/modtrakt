@@ -1,17 +1,20 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using AppData.Default;
     using AppData.Interface;
     using Context.Interface;
     using Context.Models;
+    using GameList;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Properties;
 
-    public class SplashViewModel : ObservableObject
+    public sealed class SplashViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly CancellationTokenSource _cancelTask;
@@ -26,12 +29,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             _gameLocatorService = gameLocatorService;
             _cancelTask = new CancellationTokenSource();
             ContentRenderedAsync = new AsyncRelayCommand(StartAsync);
+            Status = Resources.Splash_Status_Starting_Up;
             WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
-                                                                            handler: (r, m) => {
-                                                                                var e = m.Value;
-                                                                                Status = e.Exception.Message;
-                                                                                _cancelTask.Cancel();
-                                                                            });
+                handler: (r, m) => {
+                    var e = m.Value;
+                    Status = e.Exception.Message;
+                    _cancelTask.Cancel();
+                });
         }
 
         public string Status
@@ -44,36 +48,49 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private async Task StartAsync()
         {
-            Status = Resources.Splash_Status_Starting_Up;
             await CheckStartupOptions(_appSettings);
         }
 
         private async Task CheckStartupOptions(IAppSettings settings)
         {
-            if (settings.Missing) { await LocateSupportedGames(); }
+            if (settings.Missing) { settings.Installed = await LocateSupportedGames(); }
+
+            if (settings.GamePrompt && settings.GamesLoaded) { ShowGameSelector(); }
         }
 
-        private async Task LocateSupportedGames()
+        private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()
         {
             Status = Resources.Splash_Status_Games_Locating;
             var dictionaryLoaded = await _gameLocatorService.LoadAsync(Config.GameDictionaryKey);
             if (dictionaryLoaded == 0)
             {
                 Status = Resources.Game_Dictionary_Empty;
-                return;
+                return null;
             }
 
             _gameLocatorService.Progress = (s, e) => {
                 Status = string.Format(format: Resources.Splash_Status_Game_Progress,
-                                       arg0: e.Current,
-                                       arg1: e.Remaining,
-                                       arg2: e.Game);
+                    arg0: e.Current,
+                    arg1: e.Remaining,
+                    arg2: e.Game);
             };
             var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
             if (!_cancelTask.IsCancellationRequested)
             {
                 Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
             }
+
+            return _gameLocatorService.InstalledGames;
+        }
+
+        private static void ShowGameSelector()
+        {
+            var gameList = Ioc.Default.GetService<GameListWindow>();
+            gameList?.Show();
+            WeakReferenceMessenger.Default.Send(
+                new WindowCloseMessage(new WindowCloseOptions(source: typeof(SplashViewModel),
+                    close: true,
+                    shutdown: false)));
         }
     }
 }

@@ -7,6 +7,7 @@
                     xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                     xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                     xmlns:gameList="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.GameList"
+                    xmlns:conv="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters"
                     mc:Ignorable="d"
                     Title="{x:Static p:Resources.Application_Name}" Width="500" Height="136"
                     WindowStartupLocation="CenterScreen"
@@ -14,6 +15,74 @@
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignBackground}"
+                    SizeToContent="Height"
                     d:DesignSource="{d:DesignInstance gameList:GameListViewModel}">
-    <Grid />
+    <Window.DataContext>
+        <gameList:GameListViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type TypeName=Label}" x:Key="SelectGameName">
+            <Setter Property="Height" Value="88" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type TypeName=Label}" x:Key="GameListTitleText">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="FontWeight" Value="ExtraLight" />
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <md:ColorZone Mode="PrimaryDark" FlowDirection="LeftToRight" VerticalAlignment="Top">
+            <DockPanel FlowDirection="LeftToRight">
+                <Label Margin="8" Style="{StaticResource GameListTitleText}"
+                       Content="{x:Static p:Resources.Game_List_Title}" FlowDirection="LeftToRight" />
+            </DockPanel>
+        </md:ColorZone>
+        <ItemsControl FlowDirection="LeftToRight" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
+                      ItemsSource="{Binding Installed}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel FlowDirection="LeftToRight" Orientation="Vertical"
+                                VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid FlowDirection="LeftToRight">
+                        <Grid.Background>
+                            <ImageBrush Stretch="Fill"
+                                        ImageSource="{Binding Code, Converter={x:Static 
+                            conv:ListArtLoader.Instance}}"
+                                        AlignmentY="Top" AlignmentX="Left" />
+                        </Grid.Background>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="83" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="{Binding Code, Converter={x:Static conv:BoxArtLoader.Instance}}"
+                               Margin="8">
+                            <Image.Effect>
+                                <DropShadowEffect Direction="225" Color="#FFB6C2CB" ShadowDepth="10" BlurRadius="14" />
+                            </Image.Effect>
+                        </Image>
+                        <Label Grid.Column="1" Content="{Binding Name}" Style="{StaticResource SelectGameName}" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom" FlowDirection="LeftToRight">
+            <Button Style="{DynamicResource MaterialDesignFlatLightBgButton}"
+                    FlowDirection="LeftToRight"
+                    Margin="8"
+                    HorizontalAlignment="Right"
+                    Width="{StaticResource ButtonWidth}"
+                    Command="{Binding CancelGameSelect}"
+                    Content="{x:Static p:Resources.Button_Cancel}" />
+        </md:ColorZone>
+    </StackPanel>
 </mde:MaterialWindow>

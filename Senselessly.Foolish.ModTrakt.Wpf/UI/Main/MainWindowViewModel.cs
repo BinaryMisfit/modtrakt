@@ -54,11 +54,20 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             private set => SetProperty(field: ref _modSources, newValue: value);
         }
 
-        public ICommand ExitApp => _exitApp;
+        public ICommand ExitApp
+        {
+            get => _exitApp;
+        }
 
-        public ICommand LoadFolder => _loadFolder;
+        public ICommand LoadFolder
+        {
+            get => _loadFolder;
+        }
 
-        public ICommand ShowSettings => _showSettings;
+        public ICommand ShowSettings
+        {
+            get => _showSettings;
+        }
 
         private bool CanLoadFolder() => _canLoad && _canOpen;
 
@@ -104,7 +113,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                               files = files.Where(fi => !new[] {
                                                 ".esl",
                                                 ".esm",
-                                                ".esp",
+                                                ".esp"
                                             }.Contains(fi.Extension.ToLowerInvariant()))
                                            .ToArray();
                               var archives = ArchiveType.None;
@@ -197,11 +206,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                                                     "textures",
                                                     "tools",
                                                     "video",
-                                                    "vis",
+                                                    "vis"
                                                 }.Contains(fo.Name.ToLowerInvariant()))
                                                .ToArray();
-                              modSource.Folders =
-                                  string.Join(separator: ", ", values: folders.Select(fo => $"{fo.Name}"));
+                              modSource.Folders = string.Join(separator: ", ",
+                                  values: folders.Select(fo => $"{fo.Name}"));
                               ModSources.Add(modSource);
                           });
 
@@ -217,8 +226,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             if (settings == null) { return; }
 
             var result = await DialogHost.Show(content: settings,
-                                               dialogIdentifier: "RootDialog",
-                                               closingEventHandler: SettingsCloseEventArgs);
+                             dialogIdentifier: "MainDialog",
+                             closingEventHandler: SettingsCloseEventArgs);
             if (result != null) { }
         }
 

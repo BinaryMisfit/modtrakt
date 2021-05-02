@@ -36,7 +36,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
             {
                 var hive = root switch {
                     "HKEY_LOCAL_MACHINE" => RegistryHive.LocalMachine,
-                    var _                => RegistryHive.CurrentUser,
+                    var _                => RegistryHive.CurrentUser
                 };
                 using var registryLocal = _registry.OpenBaseKey(hKey: hive, view: RegistryView.Registry64);
                 using var registryGame = registryLocal.OpenSubKey(path);
@@ -47,9 +47,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
                     var registryValue = registryGame.GetValue(name: $"{key}", defaultValue: null);
                     if (registryValue == null) { continue; }
 
-                    var result = new RegistryResult(
-                        id: RegistryResult,
-                        registry: new GameRegistry {Key = key, Path = path, Root = root,}) {Value = registryValue,};
+                    var result = new RegistryResult(id: RegistryResult,
+                        registry: new GameRegistry {Key = key, Path = path, Root = root}) {Value = registryValue};
                     results ??= new List<RegistryResult>();
                     results.Add(result);
                 }

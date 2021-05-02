@@ -30,7 +30,7 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <md:DialogHost Identifier="RootDialog" DialogTheme="Inherit">
+    <md:DialogHost Identifier="MainDialog" DialogTheme="Inherit">
         <DockPanel>
             <md:ColorZone DockPanel.Dock="Top" Mode="PrimaryDark">
                 <Canvas Margin="16" Height="30">

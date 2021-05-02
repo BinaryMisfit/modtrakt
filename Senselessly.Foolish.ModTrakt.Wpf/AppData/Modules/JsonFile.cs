@@ -1,6 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Modules
 {
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Text.Json;
     using System.Threading.Tasks;
@@ -10,13 +11,20 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Modules
     {
         public static async Task<T> LoadResourceAsync<T>(string resourceName)
         {
-            var resourcePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.Embedded.Json.{resourceName}.json";
+            var resourceSpace = Assembly.GetExecutingAssembly()
+                                        .GetTypes()
+                                        .Where(
+                                             t => t.Namespace != null && !t.Namespace.Equals("XamlGeneratedNamespace"))
+                                        .Select(t => t.Namespace)
+                                        .Distinct()
+                                        .First();
+            var resourcePath = $"{resourceSpace}.Embedded.Json.{resourceName}.json";
             var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
             if (resource == null) { return default; }
 
             var jsonReader = new StreamReader(resource);
             var jsonText = await jsonReader.ReadToEndAsync();
-            var jsonOptions = new JsonSerializerOptions() {Converters = {new GameRegistryJson(),},};
+            var jsonOptions = new JsonSerializerOptions {Converters = {new GameRegistryJson()}};
             var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
             return jsonData;
         }

@@ -15,12 +15,8 @@
                     FontFamily="{md:MaterialDesignFont}"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     Background="{DynamicResource MaterialDesignBackground}"
+                    SizeToContent="Height"
                     d:DesignSource="{d:DesignInstance splash:SplashViewModel}">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding ContentRenderedAsync}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Window.DataContext>
         <splash:SplashViewModel />
     </Window.DataContext>
@@ -50,20 +46,26 @@
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <md:ColorZone Mode="PrimaryDark">
-            <DockPanel>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding ContentRenderedAsync}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel FlowDirection="LeftToRight" Orientation="Vertical">
+        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Top" FlowDirection="LeftToRight">
+            <DockPanel FlowDirection="LeftToRight">
                 <Label Margin="8" Style="{StaticResource SplashTitleText}"
-                       Content="{x:Static p:Resources.Application_Name}" />
+                       Content="{x:Static p:Resources.Application_Name}" FlowDirection="LeftToRight" />
                 <Label HorizontalAlignment="Right" Margin="8" Style="{StaticResource SplashSubTitleText}"
-                       Content="{x:Static p:Resources.Application_TagLine}" />
+                       Content="{x:Static p:Resources.Application_TagLine}" FlowDirection="LeftToRight" />
             </DockPanel>
         </md:ColorZone>
-        <StackPanel Margin="12">
-            <Label Style="{StaticResource SplashStatusText}" Content="{Binding Path=Status}" />
+        <StackPanel Margin="12" VerticalAlignment="Stretch" Orientation="Vertical" FlowDirection="LeftToRight">
+            <Label Style="{StaticResource SplashStatusText}" Content="{Binding Path=Status}"
+                   FlowDirection="LeftToRight" />
         </StackPanel>
-        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom">
-            <Label Margin="4" Style="{StaticResource SplashFootNoteText}"
+        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom" FlowDirection="LeftToRight">
+            <Label Margin="4" Style="{StaticResource SplashFootNoteText}" FlowDirection="LeftToRight"
                    Content="{x:Static p:Resources.Application_Copyright}" />
         </md:ColorZone>
     </StackPanel>

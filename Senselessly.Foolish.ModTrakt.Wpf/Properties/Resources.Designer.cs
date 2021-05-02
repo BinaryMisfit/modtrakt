@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -85,11 +88,38 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string Button_Browse {
+            get {
+                return ResourceManager.GetString("Button_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Button_Cancel {
+            get {
+                return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Dictionary not found or empty.
         /// </summary>
         public static string Game_Dictionary_Empty {
             get {
                 return ResourceManager.GetString("Game_Dictionary_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Game.
+        /// </summary>
+        public static string Game_List_Title {
+            get {
+                return ResourceManager.GetString("Game_List_Title", resourceCulture);
             }
         }
         

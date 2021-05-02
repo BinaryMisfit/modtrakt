@@ -1,6 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Interface
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public interface IAppSettings
     {
@@ -10,8 +11,19 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Interface
 
         IEnumerable<IGameSettings> Installed { get; set; }
 
-        bool Missing => Settings?.ActiveGame == null;
+        bool Missing
+        {
+            get => Settings?.ActiveGame == null;
+        }
 
-        bool PromptGame => Settings?.ActiveGame == null || Settings.SelectGame;
+        bool GamePrompt
+        {
+            get => Settings?.ActiveGame == null || Settings.SelectGame;
+        }
+
+        bool GamesLoaded
+        {
+            get => Installed.Any();
+        }
     }
 }
