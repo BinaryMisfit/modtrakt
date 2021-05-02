@@ -55,8 +55,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
             var check = _games.OrderBy(game => game.Code)
                               .SelectMany(game => game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
                                                       .Select(entry => new RegistryResult(
-                                                                  id: game.Code,
-                                                                  registry: entry)))
+                                                           id: game.Code,
+                                                           registry: entry)))
                               .ToArray();
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {
@@ -65,9 +65,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
                 try
                 {
                     if (await _registry.ReadAsync(root: result.Registry.Root,
-                                                  path: result.Registry.Path,
-                                                  cancel: cancel,
-                                                  keys: result.Registry.Key))
+                            path: result.Registry.Path,
+                            cancel: cancel,
+                            keys: result.Registry.Key))
                     {
                         result.Value = _registry.Results.First().Value;
                         var installed = _files.DirectoryInfo.FromDirectoryName(result.Value.ToString());

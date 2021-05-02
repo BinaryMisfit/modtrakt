@@ -23,13 +23,22 @@
         <PackageReference Include="MaterialDesignColors" Version="2.0.0"/>
         <PackageReference Include="MaterialDesignExtensions" Version="3.3.0"/>
         <PackageReference Include="MaterialDesignThemes" Version="4.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1"/>
-        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0"/>
-        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-        <PackageReference Include="SharpConfig" Version="3.2.9.1" />
-        <PackageReference Include="System.IO.Abstractions" Version="13.2.29" />
-        <PackageReference Include="System.Linq.Async" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Win32.Registry" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31"/>
+        <PackageReference Include="SharpConfig" Version="3.2.9.1"/>
+        <PackageReference Include="System.Collections.Immutable" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.ComponentModel.Annotations" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.IO.Abstractions" Version="13.2.31"/>
+        <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Linq.Async" Version="5.0.0"/>
+        <PackageReference Include="System.Reflection.Metadata" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Reflection.MetadataLoadContext" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Security.AccessControl" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Security.Principal.Windows" Version="6.0.0-preview.3.21201.4"/>
     </ItemGroup>
 
     <ItemGroup>
