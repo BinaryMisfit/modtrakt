@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>ModTraktCli</AssemblyName>
+        <IsPackable>false</IsPackable>
+        <Company>Senselessly Foolish (PTY) Ltd</Company>
+        <Product>ModTrakt Command Line Client</Product>
+        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <FileVersion>0.0.1</FileVersion>
+        <NeutralLanguage>en-US</NeutralLanguage>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Senselessly.Foolish.Bethesda.Archives\Senselessly.Foolish.Bethesda.Archives.csproj"/>
+    </ItemGroup>
+
+</Project>

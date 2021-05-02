@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.ModTrak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Archives", "Senselessly.Foolish.Bethesda.Archives\Senselessly.Foolish.Bethesda.Archives.csproj", "{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.ModTrakt.Client", "Senselessly.Foolish.ModTrakt.Client\Senselessly.Foolish.ModTrakt.Client.csproj", "{26CBD4A5-416C-4EB0-8AE4-1320323CDFB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Archives.Tests", "Senselessly.Foolish.Bethesda.Archives.Tests\Senselessly.Foolish.Bethesda.Archives.Tests.csproj", "{2E042A09-07E7-410B-A13E-BEF78225DA44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.ModTrakt.Client.Tests", "Senselessly.Foolish.ModTrakt.Client.Tests\Senselessly.Foolish.ModTrakt.Client.Tests.csproj", "{0D0F4F39-1AE2-43E0-B2B8-D0A4C06C78CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26CBD4A5-416C-4EB0-8AE4-1320323CDFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26CBD4A5-416C-4EB0-8AE4-1320323CDFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26CBD4A5-416C-4EB0-8AE4-1320323CDFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26CBD4A5-416C-4EB0-8AE4-1320323CDFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E042A09-07E7-410B-A13E-BEF78225DA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E042A09-07E7-410B-A13E-BEF78225DA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E042A09-07E7-410B-A13E-BEF78225DA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E042A09-07E7-410B-A13E-BEF78225DA44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0F4F39-1AE2-43E0-B2B8-D0A4C06C78CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0F4F39-1AE2-43E0-B2B8-D0A4C06C78CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0F4F39-1AE2-43E0-B2B8-D0A4C06C78CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0F4F39-1AE2-43E0-B2B8-D0A4C06C78CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
