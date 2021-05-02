@@ -50,7 +50,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
             CancellationToken cancel)
         {
             console.Out.WriteLine($"[list] Starting search in {path.FullName}");
-            var files = _locator.Locate(path).ToList();
+            var files = _locator.Locate(path: path, type: type, recurse: recurse).ToList();
             if (files.Count > 0)
             {
                 await foreach (var file in files.OrderBy(f => f).ToAsyncEnumerable().WithCancellation(cancel))
