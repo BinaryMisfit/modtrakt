@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Wpf", "Senselessly.Foolish.Bethesda.Wpf\Senselessly.Foolish.Bethesda.Wpf.csproj", "{3A8F76D5-D2C3-4795-953D-29E11204BE21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.ModTrakt.Wpf", "Senselessly.Foolish.ModTrakt.Wpf\Senselessly.Foolish.ModTrakt.Wpf.csproj", "{3A8F76D5-D2C3-4795-953D-29E11204BE21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Wpf.Tests", "Senselessly.Foolish.Bethesda.Wpf.Tests\Senselessly.Foolish.Bethesda.Wpf.Tests.csproj", "{950E6181-6590-4974-98BC-535DD2D044AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.ModTrakt.Wpf.Tests", "Senselessly.Foolish.ModTrakt.Wpf.Tests\Senselessly.Foolish.ModTrakt.Wpf.Tests.csproj", "{950E6181-6590-4974-98BC-535DD2D044AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senselessly.Foolish.Bethesda.Archives", "Senselessly.Foolish.Bethesda.Archives\Senselessly.Foolish.Bethesda.Archives.csproj", "{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{950E6181-6590-4974-98BC-535DD2D044AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{950E6181-6590-4974-98BC-535DD2D044AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{950E6181-6590-4974-98BC-535DD2D044AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317C76CF-94D8-4B13-8B0E-B9D51A6E97A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
