@@ -1,11 +1,11 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Models
+namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Options
 {
     using System;
     using Interface;
 
-    public class WindowCloseOptions : IWindowCloseOptions
+    public class WindowClose : IOptionsWindowClose
     {
-        public WindowCloseOptions(Type source, bool close, bool shutdown)
+        public WindowClose(Type source, bool close, bool shutdown)
         {
             Source = source;
             Close = close;
@@ -13,6 +13,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Models
         }
 
         public bool Close { get; }
+
+        public bool Handled { get; set; }
 
         public bool Shutdown { get; }
 

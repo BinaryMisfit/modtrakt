@@ -6,8 +6,13 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:settings="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings"
              mc:Ignorable="d"
-             MaxHeight="600" Width="600"
+             FlowDirection="LeftToRight"
+             MaxHeight="600"
+             Width="600"
              d:DataContext="{d:DesignInstance settings:SettingsViewModel}">
+    <UserControl.DataContext>
+        <settings:SettingsViewModel />
+    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,10 +21,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <md:DialogHost Identifier="SettingsDialog" DialogTheme="Inherit">
-        <StackPanel>
+    <md:DialogHost Identifier="SettingsDialog"
+                   DialogTheme="Inherit"
+                   FlowDirection="LeftToRight">
+        <StackPanel FlowDirection="LeftToRight"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Stretch">
             <md:ColorZone Mode="PrimaryMid">
-                <Label Margin="16" Content="Settings" FontSize="18" />
+                <Label Margin="16"
+                       Content="Settings"
+                       FontSize="18" />
             </md:ColorZone>
             <ScrollViewer Margin="8">
                 <StackPanel>
@@ -27,16 +38,19 @@
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <md:PackIcon Kind="FolderOutline" Width="24" Height="24" VerticalAlignment="Center" />
-                                    <TextBlock
-                                        Margin="8,0,0,0"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                        Text="Folders" />
+                                    <md:PackIcon Kind="FolderOutline"
+                                                 Width="24"
+                                                 Height="24"
+                                                 VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Text="Folders" />
                                 </StackPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
-                        <Grid HorizontalAlignment="Stretch" Margin="8">
+                        <Grid HorizontalAlignment="Stretch"
+                              Margin="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
@@ -46,28 +60,44 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Staging"
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Text="Staging"
                                        Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                            <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
+                            <TextBox Grid.Row="0"
+                                     Grid.Column="1"
+                                     Margin="10"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      VerticalAlignment="Top"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
                                      Text="{Binding StagingFolder}"
                                      md:HintAssist.Hint="Mod manager staging folder" />
-                            <Button Grid.Row="0" Grid.Column="2" Content="Browse" Width="Auto"
+                            <Button Grid.Row="0"
+                                    Grid.Column="2"
+                                    Content="Browse"
+                                    Width="Auto"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     Command="{Binding BrowseStaging}" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Work"
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Text="Work"
                                        Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                            <TextBox Grid.Row="1" Grid.Column="1" Margin="10"
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Margin="10"
                                      Style="{StaticResource MaterialDesignFilledTextBox}"
                                      VerticalAlignment="Top"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
                                      Text="{Binding WorkingFolder}"
                                      md:HintAssist.Hint="Working folder to store files" />
-                            <Button Grid.Row="1" Grid.Column="2" Content="Browse" Width="Auto"
+                            <Button Grid.Row="1"
+                                    Grid.Column="2"
+                                    Content="Browse"
+                                    Width="Auto"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     Command="{Binding BrowseWorking}" />
                         </Grid>
@@ -76,29 +106,35 @@
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <md:PackIcon Kind="Games" Width="24" Height="24" VerticalAlignment="Center" />
-                                    <TextBlock
-                                        Margin="8,0,0,0"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                        Text="Games" />
+                                    <md:PackIcon Kind="Games"
+                                                 Width="24"
+                                                 Height="24"
+                                                 VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Text="Games" />
                                 </StackPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
-                        <ItemsControl
-                            HorizontalContentAlignment="Stretch"
-                            ItemsSource="{Binding Games}">
+                        <ItemsControl HorizontalContentAlignment="Stretch"
+                                      ItemsSource="{Binding Games}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid HorizontalAlignment="Stretch" Margin="8">
+                                    <Grid HorizontalAlignment="Stretch"
+                                          Margin="8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
                                                    Text="{Binding Name}"
                                                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                                        <TextBox Grid.Row="0" Grid.Column="1" Margin="10"
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Margin="10"
                                                  Style="{StaticResource MaterialDesignFilledTextBox}"
                                                  VerticalAlignment="Top"
                                                  AcceptsReturn="True"
@@ -114,12 +150,18 @@
                 </StackPanel>
             </ScrollViewer>
             <md:ColorZone Mode="SecondaryLight">
-                <Canvas Height="30" Margin="10">
-                    <Button Canvas.Left="0" Content="Save" Width="Auto" IsDefault="True"
+                <Canvas Height="30"
+                        Margin="10">
+                    <Button Canvas.Left="0"
+                            Content="Save"
+                            Width="Auto"
+                            IsDefault="True"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{x:Static md:DialogHost.CloseDialogCommand}"
                             CommandParameter="{Binding AppSettings}" />
-                    <Button Canvas.Right="0" Content="Close" Width="Auto"
+                    <Button Canvas.Right="0"
+                            Content="Close"
+                            Width="Auto"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{x:Static md:DialogHost.CloseDialogCommand}" />
                 </Canvas>

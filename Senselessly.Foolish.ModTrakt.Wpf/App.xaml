@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             ShutdownMode="OnExplicitShutdown"
              Startup="App_OnStartup">
     <Application.Resources>
         <ResourceDictionary>
@@ -21,12 +22,16 @@
                         <ResourceDictionary
                             Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Pink.Primary.xaml" />
                     </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}" />
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush"
+                                     Color="{StaticResource Primary100}" />
                     <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
                                      Color="{StaticResource Primary100Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}" />
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush"
+                                     Color="{StaticResource Primary500}" />
+                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
+                                     Color="{StaticResource Primary500Foreground}" />
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush"
+                                     Color="{StaticResource Primary600}" />
                     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush"
                                      Color="{StaticResource Primary600Foreground}" />
                 </ResourceDictionary>
@@ -35,11 +40,18 @@
                         <ResourceDictionary
                             Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Pink.Accent.xaml" />
                     </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="{StaticResource Accent400}" />
+                    <SolidColorBrush x:Key="SecondaryHueMidBrush"
+                                     Color="{StaticResource Accent400}" />
                     <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush"
                                      Color="{StaticResource Accent400Foreground}" />
                 </ResourceDictionary>
-                <ResourceDictionary Source="AppData/Styles/Dimensions.xaml" />
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="AppData/Styles/Dimensions.xaml" />
+                        <ResourceDictionary Source="AppData/Styles/StyleText.xaml" />
+                        <ResourceDictionary Source="AppData/Styles/Types.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

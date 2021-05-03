@@ -1,11 +1,13 @@
 ﻿namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
 {
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
+
     public partial class MainWindow
     {
-        public MainWindow(MainWindowViewModel viewModel)
+        public MainWindow()
         {
-            DataContext = viewModel;
             InitializeComponent();
+            DataContext = Ioc.Default.GetService<MainViewModel>();
         }
     }
 }

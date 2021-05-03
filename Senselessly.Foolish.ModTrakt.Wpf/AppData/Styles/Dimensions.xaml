@@ -1,5 +1,12 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:Double x:Key="ButtonWidth">150</system:Double>
+                    xmlns:run="clr-namespace:System;assembly=System.Runtime">
+    <Thickness x:Key="MarginAll">8</Thickness>
+    <Thickness x:Key="MarginSmallAll">4</Thickness>
+    <Thickness x:Key="MarginTallAll">12</Thickness>
+    <run:Double x:Key="ButtonWidth">100</run:Double>
+    <run:Double x:Key="DialogWidth">300</run:Double>
+    <run:Double x:Key="DialogHeight">120</run:Double>
+    <run:Double x:Key="PopupWidth">500</run:Double>
+    <run:Double x:Key="PopupHeight">140</run:Double>
 </ResourceDictionary>

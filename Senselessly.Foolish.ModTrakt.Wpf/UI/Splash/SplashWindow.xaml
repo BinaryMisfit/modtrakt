@@ -1,72 +1,68 @@
-<mde:MaterialWindow x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Splash.SplashWindow"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
-                    xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
-                    xmlns:splash="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Splash"
-                    mc:Ignorable="d"
-                    Title="{x:Static p:Resources.Application_Name}" Width="500" Height="136"
-                    WindowStartupLocation="CenterScreen"
-                    WindowStyle="None" ShowInTaskbar="False"
-                    FontFamily="{md:MaterialDesignFont}"
-                    Foreground="{DynamicResource MaterialDesignBody}"
-                    Background="{DynamicResource MaterialDesignBackground}"
-                    SizeToContent="Height"
-                    d:DesignSource="{d:DesignInstance splash:SplashViewModel}">
+<s:ExtendedWindow x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Splash.SplashWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
+                  xmlns:s="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Shared"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                  xmlns:splash="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Splash"
+                  mc:Ignorable="d"
+                  Background="{DynamicResource MaterialDesignBackground}"
+                  FlowDirection="LeftToRight"
+                  Height="{StaticResource PopupHeight}"
+                  ShowInTaskbar="False"
+                  SizeToContent="Height"
+                  Title="{x:Static p:Resources.Application_Name}"
+                  Topmost="True"
+                  Width="{StaticResource PopupWidth}"
+                  WindowStartupLocation="CenterScreen"
+                  WindowStyle="None"
+                  d:DesignSource="{d:DesignInstance splash:SplashViewModel}">
     <Window.DataContext>
         <splash:SplashViewModel />
     </Window.DataContext>
-    <Window.Resources>
-        <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashTitleText">
-            <Setter Property="FontSize" Value="24" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-            <Setter Property="FontWeight" Value="ExtraLight" />
-        </Style>
-        <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashSubTitleText">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontStyle" Value="Italic" />
-            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-            <Setter Property="FontWeight" Value="ExtraLight" />
-            <Setter Property="VerticalContentAlignment" Value="Bottom" />
-        </Style>
-        <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashStatusText">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="Light" />
-            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-        </Style>
-        <Style TargetType="{x:Type TypeName=Label}" x:Key="SplashFootNoteText">
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="FontWeight" Value="UltraLight" />
-            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-        </Style>
-    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedAsync}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <StackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Top" FlowDirection="LeftToRight">
+    <StackPanel FlowDirection="LeftToRight"
+                Orientation="Vertical">
+        <md:ColorZone FlowDirection="LeftToRight"
+                      Mode="PrimaryDark"
+                      VerticalAlignment="Top">
             <DockPanel FlowDirection="LeftToRight">
-                <Label Margin="8" Style="{StaticResource SplashTitleText}"
-                       Content="{x:Static p:Resources.Application_Name}" FlowDirection="LeftToRight" />
-                <Label HorizontalAlignment="Right" Margin="8" Style="{StaticResource SplashSubTitleText}"
-                       Content="{x:Static p:Resources.Application_TagLine}" FlowDirection="LeftToRight" />
+                <Label FlowDirection="LeftToRight"
+                       Margin="{StaticResource MarginAll}"
+                       Style="{StaticResource Caption}"
+                       Content="{x:Static p:Resources.Application_Name}" />
+                <Label FlowDirection="LeftToRight"
+                       HorizontalAlignment="Right"
+                       Margin="{StaticResource MarginAll}"
+                       VerticalContentAlignment="Bottom"
+                       Style="{StaticResource TagLine}"
+                       Content="{x:Static p:Resources.Application_TagLine}" />
             </DockPanel>
         </md:ColorZone>
-        <StackPanel Margin="12" VerticalAlignment="Stretch" Orientation="Vertical" FlowDirection="LeftToRight">
-            <Label Style="{StaticResource SplashStatusText}" Content="{Binding Path=Status}"
-                   FlowDirection="LeftToRight" />
+        <StackPanel FlowDirection="LeftToRight"
+                    Margin="{StaticResource MarginTallAll}"
+                    VerticalAlignment="Stretch"
+                    Orientation="Vertical">
+            <Label FlowDirection="LeftToRight"
+                   VerticalContentAlignment="Center"
+                   Style="{StaticResource Progress}"
+                   Content="{Binding Path=Status}" />
         </StackPanel>
-        <md:ColorZone Mode="PrimaryDark" VerticalAlignment="Bottom" FlowDirection="LeftToRight">
-            <Label Margin="4" Style="{StaticResource SplashFootNoteText}" FlowDirection="LeftToRight"
+        <md:ColorZone FlowDirection="LeftToRight"
+                      Mode="PrimaryDark"
+                      VerticalAlignment="Bottom">
+            <Label FlowDirection="LeftToRight"
+                   Margin="{StaticResource MarginSmallAll}"
+                   HorizontalContentAlignment="Right"
+                   Style="{StaticResource Copyright}"
                    Content="{x:Static p:Resources.Application_Copyright}" />
         </md:ColorZone>
     </StackPanel>
-</mde:MaterialWindow>
+</s:ExtendedWindow>

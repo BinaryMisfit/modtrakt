@@ -5,5 +5,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Interface
     public interface IExceptionInfo
     {
         Exception Exception { get; }
+
+        bool Handled { get; set; }
     }
 }

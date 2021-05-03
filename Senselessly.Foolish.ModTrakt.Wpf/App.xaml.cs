@@ -11,6 +11,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using UI.Dialog.Exit;
     using UI.Dialog.Settings;
     using UI.GameList;
     using UI.Main;
@@ -36,10 +37,12 @@
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IExceptionService, ExceptionService>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();
+            services.AddTransient<ExitDialog>();
+            services.AddTransient<ExitViewModel>();
             services.AddTransient<GameListWindow>();
             services.AddTransient<GameListViewModel>();
             services.AddSingleton<MainWindow>();
-            services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<MainViewModel>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SplashViewModel>();
             services.AddTransient<SplashWindow>();

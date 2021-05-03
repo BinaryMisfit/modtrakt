@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
 {
     using Interface;
+    using Messages;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models;
 
     public class ExceptionService : IExceptionService
     {

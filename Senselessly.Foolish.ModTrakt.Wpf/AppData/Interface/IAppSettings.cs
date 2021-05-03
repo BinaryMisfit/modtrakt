@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Interface
     {
         ISettings Settings { get; }
 
-        IGameSettings Game { get; }
+        IGameSettings Game { get; set; }
 
         IEnumerable<IGameSettings> Installed { get; set; }
 

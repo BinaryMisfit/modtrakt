@@ -6,7 +6,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using AppData.Default;
     using AppData.Interface;
     using Context.Interface;
-    using Context.Models;
+    using Context.Messages;
+    using Context.Options;
     using GameList;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
@@ -88,9 +89,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             var gameList = Ioc.Default.GetService<GameListWindow>();
             gameList?.Show();
             WeakReferenceMessenger.Default.Send(
-                new WindowCloseMessage(new WindowCloseOptions(source: typeof(SplashViewModel),
-                    close: true,
-                    shutdown: false)));
+                new ConfirmExitMessage(new ConfirmExit(host: null, close: true, shutdown: false)));
         }
     }
 }

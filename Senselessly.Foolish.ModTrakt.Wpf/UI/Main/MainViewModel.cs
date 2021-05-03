@@ -3,19 +3,21 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Windows;
     using System.Windows.Input;
     using AppData.Default;
     using AppData.Interface;
+    using Context.Messages;
+    using Context.Options;
     using Dialog.Settings;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
+    using Microsoft.Toolkit.Mvvm.Messaging;
     using Mod.Enum;
     using Mod.Source;
 
-    public sealed class MainWindowViewModel : ObservableObject
+    public sealed class MainViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly RelayCommand _exitApp;
@@ -27,7 +29,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
         private string _status;
         private string _summary;
 
-        public MainWindowViewModel(IAppSettings appSettings)
+        public MainViewModel() { }
+
+        public MainViewModel(IAppSettings appSettings)
         {
             _loadFolder = new RelayCommand(execute: OnLoadFolder, canExecute: CanLoadFolder);
             _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
@@ -54,7 +58,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             private set => SetProperty(field: ref _modSources, newValue: value);
         }
 
-        public ICommand ExitApp
+        public IGameSettings Game
+        {
+            get => _appSettings.Game;
+        }
+
+        public IRelayCommand ExitApp
         {
             get => _exitApp;
         }
@@ -77,9 +86,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
 
         private void OnExitApp()
         {
-            if (!_canLoad) { return; }
+            if (!CanExitApp()) { return; }
 
-            Application.Current.Shutdown();
+            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExit(host: "MainDialog",
+                close: true,
+                shutdown: true)));
         }
 
         private void OnLoadFolder()

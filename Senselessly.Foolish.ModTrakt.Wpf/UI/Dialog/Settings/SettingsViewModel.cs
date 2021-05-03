@@ -14,6 +14,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
         private string _stagingFolder;
         private string _workingFolder;
 
+        public SettingsViewModel() { }
+
         public SettingsViewModel(IAppSettings settings)
         {
             _browseStaging = new RelayCommand(execute: OnBrowseStaging, canExecute: CanBrowseStaging);
@@ -21,9 +23,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             AppSettings = SetProperties(settings);
         }
 
-        public ICommand BrowseStaging => _browseStaging;
+        public ICommand BrowseStaging
+        {
+            get => _browseStaging;
+        }
 
-        public ICommand BrowseWorking => _browseWorking;
+        public ICommand BrowseWorking
+        {
+            get => _browseWorking;
+        }
 
         public string StagingFolder
         {
@@ -42,8 +50,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
         private async void OnBrowseStaging()
         {
             _canBrowse = false;
-            var dialogArgs = new OpenDirectoryDialogArguments() {
-                Width = 600, Height = 400, CreateNewDirectoryEnabled = false, CurrentDirectory = _stagingFolder,
+            var dialogArgs = new OpenDirectoryDialogArguments {
+                Width = 600, Height = 400, CreateNewDirectoryEnabled = false, CurrentDirectory = _stagingFolder
             };
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled) { }
@@ -51,16 +59,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             _canBrowse = true;
         }
 
-        private bool CanBrowseStaging()
-        {
-            return _canBrowse;
-        }
+        private bool CanBrowseStaging() => _canBrowse;
 
         private async void OnBrowseWorking()
         {
             _canBrowse = false;
-            var dialogArgs = new OpenDirectoryDialogArguments() {
-                Width = 600, Height = 400, CreateNewDirectoryEnabled = true, CurrentDirectory = _workingFolder,
+            var dialogArgs = new OpenDirectoryDialogArguments {
+                Width = 600, Height = 400, CreateNewDirectoryEnabled = true, CurrentDirectory = _workingFolder
             };
             var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             if (!result.Canceled) { }
@@ -68,14 +73,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             _canBrowse = true;
         }
 
-        private bool CanBrowseWorking()
-        {
-            return _canBrowse;
-        }
+        private bool CanBrowseWorking() => _canBrowse;
 
-        private IAppSettings SetProperties(IAppSettings appSettings)
-        {
-            return appSettings;
-        }
+        private IAppSettings SetProperties(IAppSettings appSettings) => appSettings;
     }
 }

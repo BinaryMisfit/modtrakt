@@ -79,7 +79,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Bethesda Mod Manager.
+        ///   Looks up a localized string similar to Another Bethesda Mod Manager.
         /// </summary>
         public static string Application_TagLine {
             get {
@@ -102,6 +102,60 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         public static string Button_Cancel {
             get {
                 return ResourceManager.GetString("Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string Button_Exit {
+            get {
+                return ResourceManager.GetString("Button_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string Button_No {
+            get {
+                return ResourceManager.GetString("Button_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Button_Save {
+            get {
+                return ResourceManager.GetString("Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Button_Yes {
+            get {
+                return ResourceManager.GetString("Button_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to exit?.
+        /// </summary>
+        public static string Exit_Dialog_Prompt {
+            get {
+                return ResourceManager.GetString("Exit_Dialog_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Exit.
+        /// </summary>
+        public static string Exit_Dialog_Title {
+            get {
+                return ResourceManager.GetString("Exit_Dialog_Title", resourceCulture);
             }
         }
         

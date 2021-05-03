@@ -27,7 +27,7 @@
         <value>ModTrakt</value>
     </data>
     <data name="Application_TagLine" xml:space="preserve">
-        <value>A Bethesda Mod Manager</value>
+        <value>Another Bethesda Mod Manager</value>
     </data>
     <data name="Splash_Status_Starting_Up" xml:space="preserve">
         <value>Starting up</value>
@@ -55,5 +55,23 @@
     </data>
     <data name="Button_Browse" xml:space="preserve">
         <value>Browse</value>
+    </data>
+    <data name="Exit_Dialog_Title" xml:space="preserve">
+        <value>Confirm Exit</value>
+    </data>
+    <data name="Exit_Dialog_Prompt" xml:space="preserve">
+        <value>Are you sure you want to exit?</value>
+    </data>
+    <data name="Button_Exit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
+    <data name="Button_Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="Button_Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="Button_No" xml:space="preserve">
+        <value>No</value>
     </data>
 </root>

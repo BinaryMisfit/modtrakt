@@ -1,11 +1,13 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
 {
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
+
     public partial class SettingsDialog
     {
-        public SettingsDialog(SettingsViewModel viewModel)
+        public SettingsDialog()
         {
-            DataContext = viewModel;
             InitializeComponent();
+            DataContext = Ioc.Default.GetService<SettingsViewModel>();
         }
     }
 }

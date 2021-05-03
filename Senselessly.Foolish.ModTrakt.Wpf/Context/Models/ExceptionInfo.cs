@@ -5,11 +5,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Models
 
     public class ExceptionInfo : IExceptionInfo
     {
-        public ExceptionInfo(Exception e)
-        {
-            this.Exception = e;
-        }
+        public ExceptionInfo(Exception e) => Exception = e;
 
         public Exception Exception { get; }
+
+        public bool Handled { get; set; }
     }
 }
