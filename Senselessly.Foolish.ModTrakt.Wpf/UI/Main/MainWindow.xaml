@@ -35,8 +35,10 @@
             <mde:NavigationRail FlowDirection="LeftToRight"
                                 DockPanel.Dock="Left"
                                 Items="{Binding Navigation, Mode=OneTime}"
+                                NavigationItemSelectedCommand="{Binding NavigateTo}"
                                 Style="{DynamicResource MaterialDesignNavigationRail}" />
             <mde:TransitionContentControl FlowDirection="LeftToRight"
+                                          Content="{Binding Module}"
                                           HorizontalAlignment="Stretch"
                                           VerticalAlignment="Stretch" />
         </DockPanel>
