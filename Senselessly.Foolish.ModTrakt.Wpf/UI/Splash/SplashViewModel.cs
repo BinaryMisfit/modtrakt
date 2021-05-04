@@ -70,12 +70,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
                 return null;
             }
 
-            _gameLocatorService.Progress = (s, e) => {
-                Status = string.Format(format: Resources.Splash_Status_Game_Progress,
-                    arg0: e.Current,
-                    arg1: e.Remaining,
-                    arg2: e.Game);
-            };
             var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
             if (!_cancelTask.IsCancellationRequested)
             {
@@ -90,7 +84,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             var gameList = Ioc.Default.GetService<GameListWindow>();
             gameList?.Show();
             WeakReferenceMessenger.Default.Send(
-                new ConfirmExitMessage(new ConfirmExit(host: null, close: true, shutdown: false)));
+                new ConfirmExitMessage(new ConfirmExitOptions(host: null, close: true, shutdown: false)));
         }
     }
 }

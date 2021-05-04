@@ -25,7 +25,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         }
                         else
                         {
-                            WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowClose(
+                            WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
                                 source: r.GetType(),
                                 close: options.Close,
                                 shutdown: options.Shutdown)));
@@ -46,11 +46,19 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
 
                         WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                     });
+                WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
+                    handler: (r, m) => {
+                        var ex = m.Value;
+                        if (ex.Handled) { return; }
+
+                        ex.Handled = true;
+                    });
             };
             Closing += (s, e) => { e.Cancel = !canClose; };
             Closed += (s, e) => {
                 WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                 WeakReferenceMessenger.Default.Unregister<ConfirmExitMessage>(this);
+                WeakReferenceMessenger.Default.Unregister<ExceptionRaisedMessage>(this);
             };
         }
     }

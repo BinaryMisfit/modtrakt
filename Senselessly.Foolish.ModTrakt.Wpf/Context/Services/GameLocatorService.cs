@@ -8,7 +8,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
     using System.Threading.Tasks;
     using AppData.Interface;
     using AppData.Models;
-    using Game;
     using Interface;
     using Models;
 
@@ -43,8 +42,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
             return _games?.Count() ?? 0;
         }
 
-        public EventHandler<GameLocatorArgs> Progress { get; set; }
-
         public async Task<int> Locate(CancellationToken cancel = default)
         {
             InstalledGames = null;
@@ -53,10 +50,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Services
             List<IGameSettings> games = null;
             // TODO Refactor for Async
             var check = _games.OrderBy(game => game.Code)
-                              .SelectMany(game => game.Registry.Where(entry => entry.Usage.Equals(GameInstall))
-                                                      .Select(entry => new RegistryResult(
-                                                           id: game.Code,
-                                                           registry: entry)))
+                              .SelectMany(game =>
+                                   game.Registry.Take(1)
+                                       .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
                               .ToArray();
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {

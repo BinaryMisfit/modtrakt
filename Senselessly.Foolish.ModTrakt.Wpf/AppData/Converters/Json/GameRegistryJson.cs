@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters
+namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters.Json
 {
     using System;
     using System.Text.Json;

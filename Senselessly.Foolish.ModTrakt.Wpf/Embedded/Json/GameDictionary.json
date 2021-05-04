@@ -7,14 +7,7 @@
       {
         "Root": "HKEY_LOCAL_MACHINE",
         "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Fallout4",
-        "Key": "installed path",
-        "Usage": "Install"
-      },
-      {
-        "Root": "HKEY_LOCAL_MACHINE",
-        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 377160",
-        "Key": "InstallLocation",
-        "Usage": "Path"
+        "Key": "installed path"
       }
     ]
   },
@@ -26,14 +19,7 @@
       {
         "Root": "HKEY_LOCAL_MACHINE",
         "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim",
-        "Key": "installed path",
-        "Usage": "Install"
-      },
-      {
-        "Root": "HKEY_LOCAL_MACHINE",
-        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 72850",
-        "Key": "InstallLocation",
-        "Usage": "Path"
+        "Key": "installed path"
       }
     ]
   },
@@ -47,12 +33,6 @@
         "Path": "SOFTWARE\\Wow6432Node\\Bethesda Softworks\\Skyrim Special Edition",
         "Key": "installed path",
         "Usage": "Install"
-      },
-      {
-        "Root": "HKEY_LOCAL_MACHINE",
-        "Path": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam App 489830",
-        "Key": "InstallLocation",
-        "Usage": "Path"
       }
     ]
   }

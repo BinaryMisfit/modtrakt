@@ -41,7 +41,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
 
         private void CancelCommand()
         {
-            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExit(host: "GameListDialog",
+            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
                 close: true,
                 shutdown: _settings.Missing)));
         }
@@ -52,7 +52,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
 
             var mainWindow = Ioc.Default.GetService<MainWindow>();
             mainWindow?.Show();
-            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExit(host: "GameListDialog",
+            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
                 close: true,
                 shutdown: _settings.Missing)));
         }

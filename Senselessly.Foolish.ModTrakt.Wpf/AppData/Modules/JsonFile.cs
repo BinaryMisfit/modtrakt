@@ -5,7 +5,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Modules
     using System.Reflection;
     using System.Text.Json;
     using System.Threading.Tasks;
-    using Converters;
+    using Converters.Json;
 
     public static class JsonFile
     {

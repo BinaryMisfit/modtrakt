@@ -25,7 +25,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
             if (!shutdown) { return; }
 
             WeakReferenceMessenger.Default.Send(
-                new WindowCloseMessage(new WindowClose(source: type, close: true, shutdown: true)));
+                new WindowCloseMessage(new WindowCloseOptions(source: type, close: true, shutdown: true)));
         }
     }
 }

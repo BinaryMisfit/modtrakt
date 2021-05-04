@@ -15,9 +15,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Mod.Source
 
         public ArchiveType Archives { get; set; }
 
-        public string ExtraFolders => string.IsNullOrEmpty(Folders) ? "None" : Folders;
+        public string ExtraFolders
+        {
+            get => string.IsNullOrEmpty(Folders) ? "None" : Folders;
+        }
 
-        public string ExtraFiles => string.IsNullOrEmpty(Files) ? "None" : Files;
+        public string ExtraFiles
+        {
+            get => string.IsNullOrEmpty(Files) ? "None" : Files;
+        }
 
         public string FolderName { get; }
 
@@ -27,17 +33,20 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Mod.Source
 
         public string ModName { get; }
 
-        public int ModId { get; set; }
+        public int ModId { get; }
 
         public LooseType Loose { get; set; }
 
         public Dictionary<PluginType, int> TypeDict { get; set; }
 
-        public string Types =>
-            TypeDict == null
-                ? $"{PluginType.None}"
-                : string.Join(separator: ", ",
-                              values: TypeDict.OrderBy(kv => $"{kv.Key}").Select(kv => $"{kv.Key}: {kv.Value}"));
+        public string Types
+        {
+            get =>
+                TypeDict == null
+                    ? $"{PluginType.None}"
+                    : string.Join(separator: ", ",
+                        values: TypeDict.OrderBy(kv => $"{kv.Key}").Select(kv => $"{kv.Key}: {kv.Value}"));
+        }
 
         private static string ParseModName(string folderName)
         {

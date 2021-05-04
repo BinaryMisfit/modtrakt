@@ -8,7 +8,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
                   xmlns:gameList="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.GameList"
-                  xmlns:conv="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters"
+                  xmlns:loaders="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters.Loaders"
                   mc:Ignorable="d"
                   FlowDirection="LeftToRight"
                   Height="{StaticResource PopupHeight}"
@@ -65,7 +65,7 @@
                             <Grid.Background>
                                 <ImageBrush AlignmentY="Center"
                                             AlignmentX="Center"
-                                            ImageSource="{Binding Code, Converter={x:Static conv:ListArtLoader.Instance}, Mode=OneTime}"
+                                            ImageSource="{Binding Code, Converter={x:Static loaders:ListArtLoader.Instance}, Mode=OneTime}"
                                             Opacity="0.4"
                                             Stretch="Fill" />
                             </Grid.Background>
@@ -76,7 +76,7 @@
                             <Image FlowDirection="LeftToRight"
                                    Grid.Column="0"
                                    Margin="{StaticResource MarginSmallAll}"
-                                   Source="{Binding Code, Converter={x:Static conv:BoxArtLoader.Instance}, Mode=OneTime}" />
+                                   Source="{Binding Code, Converter={x:Static loaders:BoxArtLoader.Instance}, Mode=OneTime}" />
                             <Label FlowDirection="LeftToRight"
                                    Content="{Binding Name, Mode=OneTime}"
                                    FontSize="{StaticResource TitleSize}"

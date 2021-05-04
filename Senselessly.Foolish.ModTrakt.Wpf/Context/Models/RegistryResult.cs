@@ -8,14 +8,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Models
         {
             Id = id;
             Registry = registry;
-            Usage = registry.Usage;
         }
 
         public string Id { get; }
 
         public IGameRegistry Registry { get; }
-
-        public string Usage { get; }
 
         public object Value { get; set; }
     }

@@ -1,13 +1,14 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Options
 {
+    using System;
     using Interface;
 
-    public class ConfirmExit : IOptionsConfirmExit
+    public class WindowCloseOptions : IOptionsWindowClose
     {
-        public ConfirmExit(string host, bool close, bool shutdown)
+        public WindowCloseOptions(Type source, bool close, bool shutdown)
         {
+            Source = source;
             Close = close;
-            Host = host;
             Shutdown = shutdown;
         }
 
@@ -15,8 +16,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Context.Options
 
         public bool Handled { get; set; }
 
-        public string Host { get; }
-
         public bool Shutdown { get; }
+
+        public Type Source { get; }
     }
 }

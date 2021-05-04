@@ -4,15 +4,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using System.IO;
     using System.Linq;
     using System.Windows.Input;
-    using AppData.Default;
     using AppData.Interface;
     using Context.Messages;
     using Context.Options;
     using Dialog.Settings;
     using MaterialDesignExtensions.Model;
     using MaterialDesignThemes.Wpf;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Mod.Enum;
@@ -96,7 +95,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
         {
             if (!CanExitApp()) { return; }
 
-            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExit(host: "MainDialog",
+            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "MainDialog",
                 close: true,
                 shutdown: true)));
         }
@@ -241,7 +240,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             if (!_canLoad) { return; }
 
             _canOpen = false;
-            var settings = Shared.Provider.GetService<SettingsDialog>();
+            var settings = Ioc.Default.GetService<SettingsDialog>();
             if (settings == null) { return; }
 
             var result = await DialogHost.Show(content: settings,

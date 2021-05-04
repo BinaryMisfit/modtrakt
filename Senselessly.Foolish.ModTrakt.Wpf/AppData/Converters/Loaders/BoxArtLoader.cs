@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters
+namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters.Loaders
 {
     using System;
     using System.Globalization;
@@ -7,9 +7,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters
     using System.Windows.Data;
     using System.Windows.Media.Imaging;
 
-    public class ListArtLoader : IValueConverter
+    public class BoxArtLoader : IValueConverter
     {
-        public static ListArtLoader Instance = new ListArtLoader();
+        public static readonly BoxArtLoader Instance = new BoxArtLoader();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -22,7 +22,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters
                                         .Select(t => t.Namespace)
                                         .Distinct()
                                         .First();
-            var resourcePath = $"{resourceSpace}.Embedded.Images.ListArt.{value}.jpg";
+            var resourcePath = $"{resourceSpace}.Embedded.Images.BoxArt.{value}.png";
             var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
             if (resource == null) { return null; }
 
