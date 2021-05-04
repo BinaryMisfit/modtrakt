@@ -1,5 +1,6 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             _appSettings = appSettings;
             _gameLocatorService = gameLocatorService;
             _cancelTask = new CancellationTokenSource();
-            ContentRenderedAsync = new AsyncRelayCommand(StartAsync);
+            ContentRenderedAsync = new AsyncRelayCommand<EventArgs>(StartAsync);
             Status = Resources.Splash_Status_Starting_Up;
             WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
                 handler: (r, m) => {
@@ -45,9 +46,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             set => SetProperty(field: ref _status, newValue: value);
         }
 
-        public IAsyncRelayCommand ContentRenderedAsync { get; }
+        public IAsyncRelayCommand<EventArgs> ContentRenderedAsync { get; }
 
-        private async Task StartAsync()
+        private async Task StartAsync(EventArgs e)
         {
             await CheckStartupOptions(_appSettings);
         }

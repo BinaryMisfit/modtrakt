@@ -1,84 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="DialogPrompt">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="14" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="DialogTitle">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="16" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="Caption">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="24" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="Copyright">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="10" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="Progress">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="14" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="SelectorTitle">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="24" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="TagLine">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="18" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
-    <Style TargetType="{x:Type TypeName=Label}"
-           x:Key="Title">
-        <Setter Property="FontFamily"
-                Value="{md:MaterialDesignFont}" />
-        <Setter Property="FontSize"
-                Value="18" />
-        <Setter Property="FontWeight"
-                Value="Light" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesignBody}" />
-    </Style>
+                    xmlns:run="clr-namespace:System;assembly=System.Runtime">
+    <run:Double x:Key="CaptionSize">24</run:Double>
+    <run:Double x:Key="CopyrightSize">10</run:Double>
+    <run:Double x:Key="DefaultSize">14</run:Double>
+    <run:Double x:Key="DialogTitleSize">16</run:Double>
+    <run:Double x:Key="TitleSize">18</run:Double>
 </ResourceDictionary>

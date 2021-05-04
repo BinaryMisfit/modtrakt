@@ -3,52 +3,34 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                   xmlns:s="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Shared"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                  xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                   xmlns:main="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Main"
                   mc:Ignorable="d"
-                  FontFamily="{md:MaterialDesignFont}"
-                  Foreground="{DynamicResource MaterialDesignBody}"
-                  Background="{DynamicResource MaterialDesignBackground}"
-                  Title="ModTrakt"
-                  Width="1280"
-                  Height="720"
-                  MinHeight="500"
-                  MinWidth="1000"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  FlowDirection="LeftToRight"
+                  Height="{StaticResource Height}"
+                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                  Title="{x:Static p:Resources.Application_Name}"
+                  Width="{StaticResource Width}"
                   d:DesignSource="{d:DesignInstance main:MainViewModel}">
     <Window.DataContext>
         <main:MainViewModel />
     </Window.DataContext>
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Label.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListView.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="{x:Type TextBlock}"
-                   x:Key="HeaderTextBlock">
-                <Setter Property="FontSize"
-                        Value="18" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-            </Style>
-        </ResourceDictionary>
-    </Window.Resources>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding ExitApp}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <md:DialogHost Identifier="MainDialog"
+    <s:ExtendedWindow.TitleTemplate>
+        <DataTemplate>
+            <Label FlowDirection="LeftToRight"
+                   FontSize="{StaticResource TitleSize}"
+                   Content="{x:Static p:Resources.Application_Name}"
+                   Style="{DynamicResource MaterialDesignLabel}" />
+        </DataTemplate>
+    </s:ExtendedWindow.TitleTemplate>
+    <md:DialogHost FlowDirection="LeftToRight"
                    DialogTheme="Inherit"
-                   FlowDirection="LeftToRight">
+                   Identifier="MainDialog">
         <DockPanel FlowDirection="LeftToRight">
             <md:ColorZone DockPanel.Dock="Top"
                           Mode="PrimaryDark"
@@ -87,6 +69,10 @@
                     </Canvas>
                 </DockPanel>
             </md:ColorZone>
+            <mde:NavigationRail FlowDirection="LeftToRight"
+                                DockPanel.Dock="Left"
+                                Items="{Binding Navigation, Mode=OneTime}"
+                                Style="{DynamicResource MaterialDesignNavigationRail}" />
             <md:ColorZone DockPanel.Dock="Bottom"
                           Mode="SecondaryLight">
                 <Canvas Margin="16"
@@ -123,8 +109,7 @@
                                                  Width="32"
                                                  Height="32"
                                                  Margin="0, 0, 8,0" />
-                                    <TextBlock Style="{StaticResource HeaderTextBlock}"
-                                               Text="{Binding ModName}" />
+                                    <TextBlock Text="{Binding ModName}" />
                                 </StackPanel>
                             </Expander.Header>
                             <Grid Margin="8">
@@ -237,4 +222,9 @@
             </ListView>
         </DockPanel>
     </md:DialogHost>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ExitApp}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 </s:ExtendedWindow>

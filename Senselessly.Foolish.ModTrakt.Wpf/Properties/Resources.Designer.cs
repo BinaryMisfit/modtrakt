@@ -178,6 +178,24 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string Navigation_Exit {
+            get {
+                return ResourceManager.GetString("Navigation_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mods.
+        /// </summary>
+        public static string Navigation_Mods {
+            get {
+                return ResourceManager.GetString("Navigation_Mods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching {0} of {1}: {2}.
         /// </summary>
         public static string Splash_Status_Game_Progress {

@@ -15,6 +15,7 @@
     using UI.Dialog.Settings;
     using UI.GameList;
     using UI.Main;
+    using UI.Shared;
     using UI.Splash;
 
     public partial class App
@@ -36,9 +37,9 @@
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IExceptionService, ExceptionService>();
+            services.AddSingleton<INavigation, Navigation>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();
             services.AddTransient<ExitDialog>();
-            services.AddTransient<ExitViewModel>();
             services.AddTransient<GameListWindow>();
             services.AddTransient<GameListViewModel>();
             services.AddSingleton<MainWindow>();

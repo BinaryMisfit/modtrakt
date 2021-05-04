@@ -74,4 +74,10 @@
     <data name="Button_No" xml:space="preserve">
         <value>No</value>
     </data>
+    <data name="Navigation_Mods" xml:space="preserve">
+        <value>Mods</value>
+    </data>
+    <data name="Navigation_Exit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
 </root>

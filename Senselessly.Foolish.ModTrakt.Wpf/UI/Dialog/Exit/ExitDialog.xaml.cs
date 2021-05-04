@@ -13,10 +13,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
         public ExitDialog()
         {
             InitializeComponent();
-            DataContext = Ioc.Default.GetService<ExitViewModel>();
         }
 
-        public static async Task Prompt(Type type, string host)
+        public static async Task PromptAsync(Type type, string host)
         {
             var exit = Ioc.Default.GetService<ExitDialog>();
             if (exit == null) { return; }

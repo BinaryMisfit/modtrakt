@@ -9,6 +9,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using Context.Messages;
     using Context.Options;
     using Dialog.Settings;
+    using MaterialDesignExtensions.Model;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -22,6 +23,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
         private readonly IAppSettings _appSettings;
         private readonly RelayCommand _exitApp;
         private readonly RelayCommand _loadFolder;
+        private readonly INavigation _navigation;
         private readonly RelayCommand _showSettings;
         private bool _canLoad = true;
         private bool _canOpen = true;
@@ -31,13 +33,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
 
         public MainViewModel() { }
 
-        public MainViewModel(IAppSettings appSettings)
+        public MainViewModel(IAppSettings appSettings, INavigation navigation)
         {
             _loadFolder = new RelayCommand(execute: OnLoadFolder, canExecute: CanLoadFolder);
             _showSettings = new RelayCommand(execute: OnShowSettings, canExecute: CanShowSettings);
             _exitApp = new RelayCommand(execute: OnExitApp, canExecute: CanExitApp);
             _summary = "0";
             _appSettings = appSettings;
+            _navigation = navigation;
         }
 
         public string Status
@@ -50,6 +53,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
         {
             get => _summary;
             private set => SetProperty(field: ref _summary, newValue: value);
+        }
+
+        public IEnumerable<INavigationItem> Navigation
+        {
+            get => _navigation.Items;
         }
 
         public List<Plugin> ModSources

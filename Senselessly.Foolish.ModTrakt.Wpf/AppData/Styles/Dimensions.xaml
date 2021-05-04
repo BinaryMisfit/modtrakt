@@ -4,9 +4,12 @@
     <Thickness x:Key="MarginAll">8</Thickness>
     <Thickness x:Key="MarginSmallAll">4</Thickness>
     <Thickness x:Key="MarginTallAll">12</Thickness>
+    <Thickness x:Key="MarginLeft">8 0 0 0</Thickness>
     <run:Double x:Key="ButtonWidth">100</run:Double>
-    <run:Double x:Key="DialogWidth">300</run:Double>
     <run:Double x:Key="DialogHeight">120</run:Double>
-    <run:Double x:Key="PopupWidth">500</run:Double>
+    <run:Double x:Key="DialogWidth">300</run:Double>
     <run:Double x:Key="PopupHeight">140</run:Double>
+    <run:Double x:Key="PopupWidth">500</run:Double>
+    <run:Double x:Key="Height">720</run:Double>
+    <run:Double x:Key="Width">1280</run:Double>
 </ResourceDictionary>

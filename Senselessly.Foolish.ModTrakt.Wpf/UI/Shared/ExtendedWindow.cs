@@ -11,6 +11,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
     {
         protected ExtendedWindow()
         {
+            var canClose = false;
             Loaded += (s, e) => {
                 WeakReferenceMessenger.Default.Register<ConfirmExitMessage>(recipient: this,
                     handler: async (r, m) => {
@@ -20,7 +21,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         options.Handled = true;
                         if (options.Shutdown && !string.IsNullOrEmpty(options.Host))
                         {
-                            await ExitDialog.Prompt(type: r.GetType(), host: options.Host);
+                            await ExitDialog.PromptAsync(type: r.GetType(), host: options.Host);
                         }
                         else
                         {
@@ -38,6 +39,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         if (options.Source != r.GetType()) { return; }
 
                         options.Handled = true;
+                        canClose = options.Close;
                         if (options.Close) { Close(); }
 
                         if (options.Shutdown) { Application.Current.Shutdown(); }
@@ -45,6 +47,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                     });
             };
+            Closing += (s, e) => { e.Cancel = !canClose; };
             Closed += (s, e) => {
                 WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                 WeakReferenceMessenger.Default.Unregister<ConfirmExitMessage>(this);

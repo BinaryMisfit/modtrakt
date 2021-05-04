@@ -3,17 +3,17 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                   xmlns:s="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Shared"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-                  xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                   xmlns:gameList="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.GameList"
                   xmlns:conv="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.AppData.Converters"
                   mc:Ignorable="d"
-                  Background="{DynamicResource MaterialDesignBackground}"
                   FlowDirection="LeftToRight"
                   Height="{StaticResource PopupHeight}"
                   SizeToContent="Height"
+                  Style="{DynamicResource MaterialDesignWindow}"
                   Title="{x:Static p:Resources.Game_List_Title}"
                   Width="{StaticResource PopupWidth}"
                   WindowStartupLocation="CenterScreen"
@@ -22,24 +22,40 @@
     <Window.DataContext>
         <gameList:GameListViewModel />
     </Window.DataContext>
-    <md:DialogHost Identifier="GameListDialog"
-                   DialogTheme="Inherit">
-        <StackPanel>
+    <md:DialogHost FlowDirection="LeftToRight"
+                   DialogTheme="Inherit"
+                   Identifier="GameListDialog">
+        <DockPanel FlowDirection="LeftToRight">
             <md:ColorZone FlowDirection="LeftToRight"
+                          DockPanel.Dock="Top"
                           Mode="PrimaryDark"
-                          VerticalAlignment="Top">
+                          md:ShadowAssist.ShadowDepth="Depth2">
                 <Label FlowDirection="LeftToRight"
+                       Content="{x:Static p:Resources.Game_List_Title}"
+                       FontSize="{StaticResource TitleSize}"
+                       FontWeight="Light"
                        Margin="{StaticResource MarginAll}"
-                       Style="{StaticResource Title}"
-                       Content="{x:Static p:Resources.Game_List_Title}" />
+                       Style="{StaticResource MaterialDesignLabel}" />
+            </md:ColorZone>
+            <md:ColorZone FlowDirection="LeftToRight"
+                          DockPanel.Dock="Bottom"
+                          Mode="PrimaryDark">
+                <Button FlowDirection="LeftToRight"
+                        Command="{Binding CancelGameSelect, Mode=OneTime}"
+                        Content="{x:Static p:Resources.Button_Cancel}"
+                        HorizontalAlignment="Right"
+                        Margin="{StaticResource MarginAll}"
+                        Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                        Width="{StaticResource ButtonWidth}" />
             </md:ColorZone>
             <ListView FlowDirection="LeftToRight"
                       HorizontalContentAlignment="Stretch"
-                      ItemsSource="{Binding Installed}"
-                      SelectedItem="{Binding Active}">
+                      ItemsSource="{Binding Installed, Mode=OneTime}"
+                      SelectedItem="{Binding Active, Mode=TwoWay}"
+                      Style="{DynamicResource MaterialDesignListView}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding GameSelected}" />
+                        <i:InvokeCommandAction Command="{Binding GameSelected, Mode=OneTime}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListView.ItemTemplate>
@@ -47,40 +63,30 @@
                         <Grid FlowDirection="LeftToRight"
                               Cursor="Hand">
                             <Grid.Background>
-                                <ImageBrush Stretch="Fill"
-                                            ImageSource="{Binding Code, Converter={x:Static conv:ListArtLoader.Instance}}"
+                                <ImageBrush AlignmentY="Center"
+                                            AlignmentX="Center"
+                                            ImageSource="{Binding Code, Converter={x:Static conv:ListArtLoader.Instance}, Mode=OneTime}"
                                             Opacity="0.4"
-                                            AlignmentY="Center"
-                                            AlignmentX="Center" />
+                                            Stretch="Fill" />
                             </Grid.Background>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="85" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0"
-                                   FlowDirection="LeftToRight"
+                            <Image FlowDirection="LeftToRight"
+                                   Grid.Column="0"
                                    Margin="{StaticResource MarginSmallAll}"
-                                   Source="{Binding Code, Converter={x:Static conv:BoxArtLoader.Instance}}" />
-                            <Label Grid.Column="1"
-                                   FlowDirection="LeftToRight"
-                                   VerticalContentAlignment="Center"
-                                   Content="{Binding Name}"
-                                   Style="{StaticResource SelectorTitle}" />
+                                   Source="{Binding Code, Converter={x:Static conv:BoxArtLoader.Instance}, Mode=OneTime}" />
+                            <Label FlowDirection="LeftToRight"
+                                   Content="{Binding Name, Mode=OneTime}"
+                                   FontSize="{StaticResource TitleSize}"
+                                   Grid.Column="1"
+                                   Style="{StaticResource MaterialDesignLabel}"
+                                   VerticalContentAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <md:ColorZone Mode="SecondaryLight"
-                          VerticalAlignment="Bottom"
-                          FlowDirection="LeftToRight">
-                <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                        FlowDirection="LeftToRight"
-                        Margin="{StaticResource MarginAll}"
-                        HorizontalAlignment="Right"
-                        Width="{StaticResource ButtonWidth}"
-                        Content="{x:Static p:Resources.Button_Cancel}"
-                        Command="{Binding CancelGameSelect}" />
-            </md:ColorZone>
-        </StackPanel>
+        </DockPanel>
     </md:DialogHost>
 </s:ExtendedWindow>

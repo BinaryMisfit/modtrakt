@@ -5,49 +5,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:exit="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignBackground}"
              FlowDirection="LeftToRight"
              Height="{StaticResource DialogHeight}"
-             Width="{StaticResource DialogWidth}"
-             d:DataContext="{d:DesignInstance exit:ExitViewModel}">
-    <UserControl.DataContext>
-        <exit:ExitViewModel />
-    </UserControl.DataContext>
-    <StackPanel FlowDirection="LeftToRight"
-                Orientation="Vertical">
+             Width="{StaticResource DialogWidth}">
+    <DockPanel FlowDirection="LeftToRight">
         <md:ColorZone FlowDirection="LeftToRight"
+                      DockPanel.Dock="Top"
                       Mode="PrimaryDark"
-                      VerticalAlignment="Top">
+                      md:ShadowAssist.ShadowDepth="Depth2">
             <Label FlowDirection="LeftToRight"
+                   Content="{x:Static p:Resources.Exit_Dialog_Title}"
+                   FontSize="{StaticResource DialogTitleSize}"
+                   FontWeight="Light"
                    Margin="{StaticResource MarginSmallAll}"
-                   Style="{StaticResource DialogTitle}"
-                   Content="{x:Static p:Resources.Exit_Dialog_Title}" />
+                   Style="{StaticResource MaterialDesignLabel}" />
         </md:ColorZone>
-        <Label FlowDirection="LeftToRight"
-               Margin="{StaticResource MarginAll}"
-               Style="{StaticResource DialogPrompt}"
-               Content="{x:Static p:Resources.Exit_Dialog_Prompt}" />
-        <md:ColorZone Mode="SecondaryLight">
+        <md:ColorZone FlowDirection="LeftToRight"
+                      DockPanel.Dock="Bottom"
+                      Mode="PrimaryDark">
             <DockPanel FlowDirection="LeftToRight"
                        Margin="{StaticResource MarginSmallAll}">
                 <Button DockPanel.Dock="Right"
                         FlowDirection="LeftToRight"
                         Content="{x:Static p:Resources.Button_Yes}"
+                        Margin="{StaticResource MarginLeft}"
                         Width="{StaticResource ButtonWidth}"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Style="{DynamicResource MaterialDesignRaisedLightButton}"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
                         CommandParameter="{StaticResource TrueValue}" />
                 <Button DockPanel.Dock="Right"
                         FlowDirection="LeftToRight"
                         Content="{x:Static p:Resources.Button_No}"
+                        Margin="{StaticResource MarginLeft}"
                         Width="{StaticResource ButtonWidth}"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Style="{DynamicResource MaterialDesignRaisedLightButton}"
                         HorizontalAlignment="Right"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
                         CommandParameter="{StaticResource FalseValue}" />
             </DockPanel>
         </md:ColorZone>
-    </StackPanel>
+        <Label FlowDirection="LeftToRight"
+               Content="{x:Static p:Resources.Exit_Dialog_Prompt}"
+               FontSize="{StaticResource DefaultSize}"
+               Margin="{StaticResource MarginAll}"
+               Style="{StaticResource MaterialDesignLabel}" />
+    </DockPanel>
 </UserControl>
