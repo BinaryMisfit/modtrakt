@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.Messaging;
 
-    public class ExtendedWindow : MaterialWindow
+    public abstract class ExtendedWindow : MaterialWindow
     {
         protected ExtendedWindow()
         {

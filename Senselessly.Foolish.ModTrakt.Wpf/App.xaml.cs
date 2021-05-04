@@ -15,6 +15,7 @@
     using UI.Dialog.Settings;
     using UI.GameList;
     using UI.Main;
+    using UI.Module.ModList;
     using UI.Shared;
     using UI.Splash;
 
@@ -42,8 +43,11 @@
             services.AddTransient<ExitDialog>();
             services.AddTransient<GameListWindow>();
             services.AddTransient<GameListViewModel>();
-            services.AddSingleton<MainWindow>();
+            services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
+            services.AddTransient<ModListViewModel>();
+            services.AddTransient<ModListModule>();
+            services.AddTransient<SettingsDialog>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SplashViewModel>();
             services.AddTransient<SplashWindow>();
