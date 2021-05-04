@@ -32,13 +32,17 @@
                    DialogTheme="Inherit"
                    Identifier="MainDialog">
         <DockPanel FlowDirection="LeftToRight">
+            <mde:AppBar FlowDirection="LeftToRight"
+                        DockPanel.Dock="Top"
+                        ShowShadow="True"
+                        Title="{Binding Game.Name, Mode=OneTime}" />
             <mde:NavigationRail FlowDirection="LeftToRight"
                                 DockPanel.Dock="Left"
                                 Items="{Binding Navigation, Mode=OneTime}"
                                 NavigationItemSelectedCommand="{Binding NavigateTo}"
                                 Style="{DynamicResource MaterialDesignNavigationRail}" />
             <mde:TransitionContentControl FlowDirection="LeftToRight"
-                                          Content="{Binding Module}"
+                                          Content="{Binding Module, Mode=OneWay}"
                                           HorizontalAlignment="Stretch"
                                           VerticalAlignment="Stretch" />
         </DockPanel>

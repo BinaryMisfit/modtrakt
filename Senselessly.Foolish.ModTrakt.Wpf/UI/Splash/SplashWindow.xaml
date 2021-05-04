@@ -1,13 +1,13 @@
 <s:ExtendedWindow x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Splash.SplashWindow"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                   xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                   xmlns:s="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Shared"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:sp="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Splash"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-                  xmlns:splash="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Splash"
                   mc:Ignorable="d"
                   FlowDirection="LeftToRight"
                   Height="{StaticResource PopupHeight}"
@@ -19,9 +19,9 @@
                   Width="{StaticResource PopupWidth}"
                   WindowStyle="None"
                   WindowStartupLocation="CenterScreen"
-                  d:DesignSource="{d:DesignInstance splash:SplashViewModel}">
+                  d:DesignSource="{d:DesignInstance sp:SplashViewModel}">
     <Window.DataContext>
-        <splash:SplashViewModel />
+        <sp:SplashViewModel />
     </Window.DataContext>
     <DockPanel FlowDirection="LeftToRight">
         <md:ColorZone FlowDirection="LeftToRight"

@@ -19,6 +19,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     {
         private readonly IAppSettings _appSettings;
         private readonly INavigationService _navigationService;
+        private UserControl _module;
 
         public MainViewModel() { }
 
@@ -41,11 +42,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                 {
                     case NavigationServiceType.Module: {
                         var type = ((NavigationServiceModule)current).Module;
+                        if (_module != null && type == _module.GetType()) { return; }
+
                         if (type == typeof(ModListModule)) { Module = Ioc.Default.GetService<ModListModule>(); }
 
                         break;
                     }
                     case NavigationServiceType.Command: {
+                        i.IsSelected = false;
                         var command = ((INavigationServiceCommand)current).CommandType;
                         switch (command)
                         {
@@ -72,7 +76,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             get => _appSettings.Game;
         }
 
-        public UserControl Module { get; set; }
+        public UserControl Module
+        {
+            get => _module;
+            private set => SetProperty(field: ref _module, newValue: value);
+        }
 
         public IRelayCommand ExitCommand { get; }
 
