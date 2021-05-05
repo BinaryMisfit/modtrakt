@@ -142,6 +142,33 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verifying config file.
+        /// </summary>
+        public static string Check_Config_File {
+            get {
+                return ResourceManager.GetString("Check_Config_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifying folders.
+        /// </summary>
+        public static string Check_Folders {
+            get {
+                return ResourceManager.GetString("Check_Folders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration check starting.
+        /// </summary>
+        public static string Check_Start {
+            get {
+                return ResourceManager.GetString("Check_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to exit?.
         /// </summary>
         public static string Exit_Dialog_Prompt {

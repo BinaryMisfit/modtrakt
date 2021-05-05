@@ -34,7 +34,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
             _registry = registry;
         }
 
-        public IEnumerable<IGameSettings> InstalledGames { get; private set; }
+        public IEnumerable<IGameSettings> Found { get; private set; }
 
         public async Task<int> LoadAsync(string gameDictionaryKey)
         {
@@ -44,7 +44,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
 
         public async Task<int> Locate(CancellationToken cancel = default)
         {
-            InstalledGames = null;
+            Found = null;
             if (_games == null) { return 0; }
 
             List<IGameSettings> games = null;
@@ -83,9 +83,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                 }
             }
 
-            if (!cancel.IsCancellationRequested) { InstalledGames = games; }
+            if (!cancel.IsCancellationRequested) { Found = games; }
 
-            return InstalledGames?.Count() ?? 0;
+            return Found?.Count() ?? 0;
         }
     }
 }

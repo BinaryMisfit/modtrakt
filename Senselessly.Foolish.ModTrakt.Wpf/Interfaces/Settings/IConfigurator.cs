@@ -1,7 +1,11 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
-    internal interface IConfigurator
+    using Messaging;
+
+    internal interface IConfigurator : IMessageStatusUpdate
     {
+        void Check(string key);
+
         void CheckFolders();
 
         void CheckConfigFile();

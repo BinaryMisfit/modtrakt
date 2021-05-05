@@ -1,7 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using System.IO.Abstractions;
 
     internal interface IAppSettings
     {
@@ -11,19 +11,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 
         IEnumerable<IGameSettings> Installed { get; set; }
 
-        bool Missing
-        {
-            get => Settings?.ActiveGame == null;
-        }
+        IDirectoryInfo ProductFolder { get; }
 
-        bool GamePrompt
-        {
-            get => Settings?.ActiveGame == null || Settings.SelectGame;
-        }
-
-        bool GamesLoaded
-        {
-            get => Installed.Any();
-        }
+        IDirectoryInfo UserFolder { get; }
     }
 }

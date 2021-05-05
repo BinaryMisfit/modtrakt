@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
 
     internal interface IGameLocatorService
     {
-        IEnumerable<IGameSettings> InstalledGames { get; }
+        IEnumerable<IGameSettings> Found { get; }
 
         Task<int> LoadAsync(string gameDictionaryKey);
 

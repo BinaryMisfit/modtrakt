@@ -56,6 +56,8 @@
         <EmbeddedResource Include="Resources\Images\ListArt\FO4.jpg"/>
         <None Remove="Embedded\Images\ListArt\SSE.jpg"/>
         <EmbeddedResource Include="Resources\Images\ListArt\SSE.jpg"/>
+        <None Remove="Resources\Json\Configuration.json"/>
+        <EmbeddedResource Include="Resources\Json\Configuration.json"/>
     </ItemGroup>
 
     <ItemGroup>

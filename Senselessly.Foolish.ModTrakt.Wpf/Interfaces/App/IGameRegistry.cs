@@ -7,7 +7,5 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
         string Path { get; set; }
 
         string Key { get; set; }
-
-        string Usage { get; set; }
     }
 }

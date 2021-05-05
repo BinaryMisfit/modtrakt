@@ -7,7 +7,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messages;
     using Models.Messaging;
 
     internal sealed class GameListViewModel : ObservableObject
@@ -42,7 +41,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
         {
             WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
                 close: true,
-                shutdown: _settings.Missing)));
+                shutdown: _settings.Game == null)));
         }
 
         private void GameSelectedCommand()

@@ -83,4 +83,13 @@
     <data name="Navigation_Plugins" xml:space="preserve">
         <value>Plugins</value>
     </data>
+    <data name="Check_Start" xml:space="preserve">
+        <value>Configuration check starting</value>
+    </data>
+    <data name="Check_Folders" xml:space="preserve">
+        <value>Verifying folders</value>
+    </data>
+    <data name="Check_Config_File" xml:space="preserve">
+        <value>Verifying config file</value>
+    </data>
 </root>

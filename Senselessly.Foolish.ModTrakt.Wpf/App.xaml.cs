@@ -41,6 +41,7 @@
             services.AddScoped<IGameLocatorService, GameLocatorService>();
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
+            services.AddSingleton<IConfigurator, Configurator>();
             services.AddSingleton<IExceptionService, ExceptionService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();

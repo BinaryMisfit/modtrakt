@@ -10,27 +10,38 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messages;
+    using Models.App;
     using Models.Messaging;
-    using Models.Settings;
     using Properties;
 
     internal sealed class SplashViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly CancellationTokenSource _cancelTask;
+        private readonly IConfigurator _configurator;
         private readonly IGameLocatorService _gameLocatorService;
         private string _status;
 
         public SplashViewModel() { }
 
-        public SplashViewModel(IAppSettings appSettings, IGameLocatorService gameLocatorService)
+        public SplashViewModel(
+            IAppSettings appSettings,
+            IConfigurator configurator,
+            IGameLocatorService gameLocatorService)
         {
             _appSettings = appSettings;
+            _configurator = configurator;
             _gameLocatorService = gameLocatorService;
             _cancelTask = new CancellationTokenSource();
             ContentRenderedAsync = new AsyncRelayCommand<EventArgs>(StartAsync);
             Status = Resources.Splash_Status_Starting_Up;
+            WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(recipient: this,
+                handler: (r, m) => {
+                    var status = m.Value;
+                    if (status.Clear) { Status = null; }
+
+                    Status = status.Message;
+                });
             WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
                 handler: (r, m) => {
                     var e = m.Value;
@@ -42,7 +53,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
         public string Status
         {
             get => _status;
-            set => SetProperty(field: ref _status, newValue: value);
+            private set => SetProperty(field: ref _status, newValue: value);
         }
 
         public IAsyncRelayCommand<EventArgs> ContentRenderedAsync { get; }
@@ -54,28 +65,19 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private async Task CheckStartupOptions(IAppSettings settings)
         {
-            if (settings.Missing) { settings.Installed = await LocateSupportedGames(); }
-
-            if (settings.GamePrompt && settings.GamesLoaded) { ShowGameSelector(); }
+            settings.Installed = await LocateSupportedGames();
+            _configurator.Check(ConfigKeys.JSON_CONFIG);
         }
 
         private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()
         {
-            Status = Resources.Splash_Status_Games_Locating;
-            var dictionaryLoaded = await _gameLocatorService.LoadAsync(Config.GameDictionaryKey);
-            if (dictionaryLoaded == 0)
-            {
-                Status = Resources.Game_Dictionary_Empty;
-                return null;
-            }
+            var dictionaryLoaded = await _gameLocatorService.LoadAsync(ConfigKeys.JSON_GAMES);
+            if (dictionaryLoaded == 0) { return null; }
 
             var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
-            if (!_cancelTask.IsCancellationRequested)
-            {
-                Status = string.Format(format: Resources.Splash_Status_Games_Found, arg0: gamesFound);
-            }
+            if (!_cancelTask.IsCancellationRequested && gamesFound > 0) { return _gameLocatorService.Found; }
 
-            return _gameLocatorService.InstalledGames;
+            return null;
         }
 
         private static void ShowGameSelector()

@@ -5,7 +5,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
     using MaterialDesignThemes.Wpf;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messages;
     using Models.Messaging;
 
     public partial class ExitDialog

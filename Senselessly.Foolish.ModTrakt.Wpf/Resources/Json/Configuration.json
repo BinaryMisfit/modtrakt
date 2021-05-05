@@ -1,0 +1,72 @@
+{
+  "Folders": [
+    {
+      "Folder": {
+        "Name": "Product",
+        "Path": "{ProductFolder}",
+        "Folders": [
+          {
+            "Folder": {
+              "Name": "Core",
+              "Path": "\\Core",
+              "Folders": [
+                {
+                  "Folder": {
+                    "Name": "Games",
+                    "Path": "\\Games"
+                  }
+                },
+                {
+                  "Folder": {
+                    "Name": "Modules",
+                    "Path": "\\Modules"
+                  }
+                },
+                {
+                  "Folder": {
+                    "Name": "Plugins",
+                    "Path": "\\Plugins"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Folder": {
+        "Name": "UserData",
+        "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt",
+        "Folders": [
+          {
+            "Folder": {
+              "Name": "Data",
+              "Path": "\\Data"
+            }
+          },
+          {
+            "Folder": {
+              "Name": "User",
+              "Path": "\\User",
+              "Folders": [
+                {
+                  "Folder": {
+                    "Name": "Modules",
+                    "Path": "\\Modules"
+                  }
+                },
+                {
+                  "Folder": {
+                    "Name": "Plugins",
+                    "Path": "\\Plugins"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
