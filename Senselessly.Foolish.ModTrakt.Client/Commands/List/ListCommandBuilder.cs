@@ -7,15 +7,15 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Bethesda.Archives.Interfaces;
-    using Bethesda.Archives.LibraryData;
-    using Interfaces;
+    using Bethesda.Archives.Enums;
+    using Bethesda.Archives.Interfaces.Services;
+    using Interfaces.Commands;
 
     public class ListCommandBuilder : ICommandBuilder
     {
-        private readonly IPluginLocator _locator;
+        private readonly IPluginLocatorService _locatorService;
 
-        public ListCommandBuilder(IPluginLocator locator) => _locator = locator;
+        public ListCommandBuilder(IPluginLocatorService locatorService) => _locatorService = locatorService;
 
         public Command BuildCommand()
         {
@@ -50,7 +50,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
             CancellationToken cancel)
         {
             console.Out.WriteLine($"[list] Starting search in {path.FullName}");
-            var files = _locator.Locate(path: path, type: type, recurse: recurse).ToList();
+            var files = _locatorService.Locate(path: path, type: type, recurse: recurse).ToList();
             if (files.Count > 0)
             {
                 await foreach (var file in files.OrderBy(f => f).ToAsyncEnumerable().WithCancellation(cancel))

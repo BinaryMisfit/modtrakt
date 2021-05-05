@@ -1,7 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Client.Commands
 {
     using System.CommandLine;
-    using Interfaces;
+    using Interfaces.Commands;
 
     public class RootCommandBuilder : IRootCommandBuilder
     {

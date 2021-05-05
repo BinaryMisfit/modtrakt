@@ -80,4 +80,7 @@
     <data name="Navigation_Exit" xml:space="preserve">
         <value>Exit</value>
     </data>
+    <data name="Navigation_Plugins" xml:space="preserve">
+        <value>Plugins</value>
+    </data>
 </root>

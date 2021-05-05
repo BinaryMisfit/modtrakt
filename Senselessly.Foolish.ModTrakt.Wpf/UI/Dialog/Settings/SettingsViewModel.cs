@@ -1,7 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
 {
     using System.Windows.Input;
-    using AppData.Interface;
+    using Interface.Settings;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;

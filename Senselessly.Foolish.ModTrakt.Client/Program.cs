@@ -4,10 +4,10 @@
     using System.IO.Abstractions;
     using System.Threading.Tasks;
     using Bethesda.Archives.Helpers;
-    using Bethesda.Archives.Interfaces;
+    using Bethesda.Archives.Interfaces.Services;
     using Commands;
-    using Commands.Interfaces;
     using Commands.List;
+    using Interfaces.Commands;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -33,7 +33,7 @@
         {
             services.AddLogging();
             services.AddScoped<IFileSystem, FileSystem>();
-            services.AddScoped<IPluginLocator, PluginLocator>();
+            services.AddScoped<IPluginLocatorService, PluginLocatorServiceService>();
             services.AddScoped<ICommandBuilder, ListCommandBuilder>();
             services.AddSingleton<IRootCommandBuilder, RootCommandBuilder>();
         }

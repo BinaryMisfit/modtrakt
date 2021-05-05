@@ -42,9 +42,9 @@
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Window.xaml" />
 
                 <!-- Custom Resources -->
-                <ResourceDictionary Source="AppData/Styles/Dimensions.xaml" />
-                <ResourceDictionary Source="AppData/Styles/StyleText.xaml" />
-                <ResourceDictionary Source="AppData/Styles/Types.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Dimensions.xaml" />
+                <ResourceDictionary Source="Resources/Styles/StyleText.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Types.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

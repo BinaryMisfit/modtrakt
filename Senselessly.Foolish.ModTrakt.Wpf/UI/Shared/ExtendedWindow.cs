@@ -1,11 +1,11 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
 {
     using System.Windows;
-    using Context.Messages;
-    using Context.Options;
     using Dialog.Exit;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using Models.Messages;
+    using Models.Messaging;
 
     public abstract class ExtendedWindow : MaterialWindow
     {
@@ -21,7 +21,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         options.Handled = true;
                         if (options.Shutdown && !string.IsNullOrEmpty(options.Host))
                         {
-                            await ExitDialog.PromptAsync(type: r.GetType(), host: options.Host);
+                            await ExitDialog.PromptAsync(type: r.GetType(),
+                                host: options.Host,
+                                cancel: options.CancelAction);
                         }
                         else
                         {

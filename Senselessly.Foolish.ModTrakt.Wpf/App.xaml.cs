@@ -2,22 +2,25 @@
 {
     using System.IO.Abstractions;
     using System.Windows;
-    using AppData.Interface;
-    using AppData.Models;
-    using Context.Interface;
-    using Context.Models;
-    using Context.Services;
     using DotNetWindowsRegistry;
+    using Interface.Models;
+    using Interface.Navigation;
+    using Interface.Services;
+    using Interface.Settings;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using Models.App;
+    using Models.Navigation;
+    using Models.Settings;
+    using Services.App;
+    using Services.Messaging;
     using UI.Dialog.Exit;
     using UI.Dialog.Settings;
     using UI.GameList;
-    using UI.Interface;
     using UI.Main;
     using UI.Module.ModList;
-    using UI.Navigation;
+    using UI.Module.PluginList;
     using UI.Splash;
 
     public partial class App
@@ -46,8 +49,10 @@
             services.AddTransient<GameListViewModel>();
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
-            services.AddTransient<ModListViewModel>();
             services.AddTransient<ModListModule>();
+            services.AddTransient<ModListViewModel>();
+            services.AddTransient<PluginListModule>();
+            services.AddTransient<PluginListViewModel>();
             services.AddTransient<SettingsDialog>();
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SplashViewModel>();

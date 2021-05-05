@@ -2,15 +2,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
 {
     using System.Collections.Generic;
     using System.Windows.Controls;
-    using AppData.Interface;
-    using Context.Messages;
-    using Context.Options;
     using Enum;
-    using Interface;
+    using Interface.Navigation;
+    using Interface.Settings;
     using MaterialDesignExtensions.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using Models.Messages;
+    using Models.Messaging;
 
     public sealed class MainViewModel : ObservableObject
     {
@@ -27,7 +27,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             ExitCommand = new RelayCommand(() => {
                 WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "MainDialog",
                     close: true,
-                    shutdown: true)));
+                    shutdown: true,
+                    cancel: () => {
+                        if (_navigationService.HighlightTarget == null) { return; }
+
+                        NavigateTo.Execute(_navigationService.HighlightTarget);
+                    })));
             });
             NavigateTo = new RelayCommand<INavigationItem>(async i => {
                 var commandType = await _navigationService.SelectProcess(item: i, selected: _module);
@@ -35,18 +40,21 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                 {
                     case NavigationServiceType.Module:
                         Module = _navigationService.NavigateTo;
-                        break;
+                        _navigationService.Reset();
+                        return;
                     case NavigationServiceType.Command: {
                         switch (_navigationService.ExecuteCommand)
                         {
                             case NavigationCommandType.Exit:
                                 ExitCommand.Execute(null);
-                                Module = _navigationService.HiglightTarget;
-                                break;
+
+                                return;
+                            case NavigationCommandType.NotSet: {
+                                _navigationService.Reset();
+                                return;
+                            }
                             default: return;
                         }
-
-                        break;
                     }
                     case NavigationServiceType.NotSet: return;
                     default:                           return;

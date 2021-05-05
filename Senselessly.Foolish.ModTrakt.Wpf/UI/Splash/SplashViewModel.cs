@@ -4,16 +4,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using AppData.Default;
-    using AppData.Interface;
-    using Context.Interface;
-    using Context.Messages;
-    using Context.Options;
     using GameList;
+    using Interface.Services;
+    using Interface.Settings;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using Models.Messages;
+    using Models.Messaging;
+    using Models.Settings;
     using Properties;
 
     public sealed class SplashViewModel : ObservableObject

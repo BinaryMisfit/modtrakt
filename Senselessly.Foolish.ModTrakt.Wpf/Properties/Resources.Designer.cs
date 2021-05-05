@@ -196,6 +196,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plugins.
+        /// </summary>
+        public static string Navigation_Plugins {
+            get {
+                return ResourceManager.GetString("Navigation_Plugins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching {0} of {1}: {2}.
         /// </summary>
         public static string Splash_Status_Game_Progress {

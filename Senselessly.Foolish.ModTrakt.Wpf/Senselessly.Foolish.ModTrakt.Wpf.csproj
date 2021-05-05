@@ -42,20 +42,20 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Embedded\Json\GameDictionary.json"/>
+        <EmbeddedResource Include="Resources\Json\GameDictionary.json"/>
         <None Remove="Embedded\GameDictionary.json"/>
         <EmbeddedResource Update="Properties\Resources.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <None Remove="Embedded\Images\BoxArt\FO4.png"/>
-        <EmbeddedResource Include="Embedded\Images\BoxArt\FO4.png"/>
+        <EmbeddedResource Include="Resources\Images\BoxArt\FO4.png"/>
         <None Remove="Embedded\Images\BoxArt\SSE.png"/>
-        <EmbeddedResource Include="Embedded\Images\BoxArt\SSE.png"/>
+        <EmbeddedResource Include="Resources\Images\BoxArt\SSE.png"/>
         <None Remove="Embedded\Images\ListArt\FO4.jpg"/>
-        <EmbeddedResource Include="Embedded\Images\ListArt\FO4.jpg"/>
+        <EmbeddedResource Include="Resources\Images\ListArt\FO4.jpg"/>
         <None Remove="Embedded\Images\ListArt\SSE.jpg"/>
-        <EmbeddedResource Include="Embedded\Images\ListArt\SSE.jpg"/>
+        <EmbeddedResource Include="Resources\Images\ListArt\SSE.jpg"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -67,7 +67,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Embedded\Images\BoxArt"/>
+        <Folder Include="Resources\Images\BoxArt"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Senselessly.Foolish.Bethesda.Archives\Senselessly.Foolish.Bethesda.Archives.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -2,14 +2,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
 {
     using System.Collections.Generic;
     using System.Linq;
-    using AppData.Interface;
-    using Context.Messages;
-    using Context.Options;
+    using Interface.Settings;
     using Main;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
+    using Models.Messages;
+    using Models.Messaging;
 
     public class GameListViewModel : ObservableObject
     {
