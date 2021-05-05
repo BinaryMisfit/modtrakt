@@ -11,7 +11,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    internal class Program
+    internal sealed class Program
     {
         private static ServiceProvider Provider { get; set; }
 

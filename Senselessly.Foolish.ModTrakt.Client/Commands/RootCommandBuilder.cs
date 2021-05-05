@@ -3,7 +3,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands
     using System.CommandLine;
     using Interfaces.Commands;
 
-    public class RootCommandBuilder : IRootCommandBuilder
+    internal sealed class RootCommandBuilder : IRootCommandBuilder
     {
         private readonly ICommandBuilder _list;
 

@@ -11,7 +11,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
     using Bethesda.Archives.Interfaces.Services;
     using Interfaces.Commands;
 
-    public class ListCommandBuilder : ICommandBuilder
+    internal sealed class ListCommandBuilder : ICommandBuilder
     {
         private readonly IPluginLocatorService _locatorService;
 

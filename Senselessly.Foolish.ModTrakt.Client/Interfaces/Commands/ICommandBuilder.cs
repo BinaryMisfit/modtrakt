@@ -2,7 +2,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Interfaces.Commands
 {
     using System.CommandLine;
 
-    public interface ICommandBuilder
+    internal interface ICommandBuilder
     {
         Command BuildCommand();
     }
