@@ -2,7 +2,7 @@
 {
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
-    public partial class MainWindow
+    internal partial class MainWindow
     {
         public MainWindow()
         {

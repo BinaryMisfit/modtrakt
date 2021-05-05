@@ -2,9 +2,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
 {
     using System.Collections.Generic;
     using System.Windows.Controls;
-    using Enum;
-    using Interface.Navigation;
-    using Interface.Settings;
+    using Enums;
+    using Interfaces.Navigation;
+    using Interfaces.Settings;
     using MaterialDesignExtensions.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
@@ -12,7 +12,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using Models.Messages;
     using Models.Messaging;
 
-    public sealed class MainViewModel : ObservableObject
+    internal sealed class MainViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly INavigationService _navigationService;

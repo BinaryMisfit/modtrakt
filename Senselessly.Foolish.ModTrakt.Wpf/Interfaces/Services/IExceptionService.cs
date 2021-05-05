@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Services
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
 {
-    using Models;
+    using App;
 
-    public interface IExceptionService
+    internal interface IExceptionService
     {
         void Send(IExceptionInfo e);
     }

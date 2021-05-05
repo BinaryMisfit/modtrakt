@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging
 {
     using System;
-    using Interface.Messaging;
+    using Interfaces.Messaging;
 
-    public class ConfirmExitOptions : IOptionsConfirmExit
+    internal sealed class ConfirmExitOptions : IOptionsConfirmExit
     {
         public ConfirmExitOptions(string host, bool close, bool shutdown, Action cancel = null)
         {

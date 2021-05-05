@@ -1,15 +1,15 @@
-<UserControl x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Module.ModList.ModListModule"
+<UserControl x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList.ModListModule"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:ml="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Module.ModList"
              xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+             xmlns:modList="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ml:ModListViewModel}">
+             d:DataContext="{d:DesignInstance modList:ModListViewModel}">
     <UserControl.DataContext>
-        <ml:ModListViewModel />
+        <modList:ModListViewModel />
     </UserControl.DataContext>
     <DockPanel FlowDirection="LeftToRight">
         <mde:BusyOverlay />

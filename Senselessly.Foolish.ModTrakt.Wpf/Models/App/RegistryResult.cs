@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
-    using Interface.Models;
+    using Interfaces.App;
 
-    public class RegistryResult
+    internal sealed class RegistryResult
     {
         public RegistryResult(string id, IGameRegistry registry)
         {

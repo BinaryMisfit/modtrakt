@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging
 {
     using System;
-    using Interface.Messaging;
+    using Interfaces.Messaging;
 
-    public class ShowWindowOptions : IOptionsShowWindow
+    internal sealed class ShowWindowOptions : IOptionsShowWindow
     {
         public ShowWindowOptions(Type caller, Type window, bool closeCaller)
         {

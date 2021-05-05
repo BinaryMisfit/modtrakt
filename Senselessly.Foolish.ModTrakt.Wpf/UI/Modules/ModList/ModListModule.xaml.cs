@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Module.ModList
+namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
 {
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
 

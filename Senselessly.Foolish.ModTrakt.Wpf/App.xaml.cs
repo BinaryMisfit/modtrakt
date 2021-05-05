@@ -3,10 +3,10 @@
     using System.IO.Abstractions;
     using System.Windows;
     using DotNetWindowsRegistry;
-    using Interface.Models;
-    using Interface.Navigation;
-    using Interface.Services;
-    using Interface.Settings;
+    using Interfaces.App;
+    using Interfaces.Navigation;
+    using Interfaces.Services;
+    using Interfaces.Settings;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
@@ -19,8 +19,8 @@
     using UI.Dialog.Settings;
     using UI.GameList;
     using UI.Main;
-    using UI.Module.ModList;
-    using UI.Module.PluginList;
+    using UI.Modules.ModList;
+    using UI.Modules.PluginList;
     using UI.Splash;
 
     public partial class App

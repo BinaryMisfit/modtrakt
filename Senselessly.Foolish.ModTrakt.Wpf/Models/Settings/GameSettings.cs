@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 {
-    using Interface.Settings;
+    using Interfaces.Settings;
 
-    public class GameSettings : IGameSettings
+    public sealed class GameSettings : IGameSettings
     {
         public string Code { get; set; }
 

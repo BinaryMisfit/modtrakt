@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging
 {
     using System;
-    using Interface.Messaging;
+    using Interfaces.Messaging;
 
-    public class WindowCloseOptions : IOptionsWindowClose
+    internal sealed class WindowCloseOptions : IOptionsWindowClose
     {
         public WindowCloseOptions(Type source, bool close, bool shutdown)
         {

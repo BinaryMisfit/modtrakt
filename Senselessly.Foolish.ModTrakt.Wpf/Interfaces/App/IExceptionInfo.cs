@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Models
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
 {
     using System;
 
-    public interface IExceptionInfo
+    internal interface IExceptionInfo
     {
         Exception Exception { get; }
 

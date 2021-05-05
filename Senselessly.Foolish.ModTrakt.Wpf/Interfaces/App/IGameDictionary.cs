@@ -1,10 +1,10 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Models
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Wpf.Models.App;
+    using Models.App;
 
-    public interface IGameDictionary
+    internal interface IGameDictionary
     {
         string Code { get; set; }
 

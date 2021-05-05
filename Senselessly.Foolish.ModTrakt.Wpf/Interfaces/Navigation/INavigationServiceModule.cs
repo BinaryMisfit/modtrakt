@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Navigation
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Navigation
 {
     using System;
 
-    public interface INavigationServiceModule : INavigationServiceItem
+    internal interface INavigationServiceModule : INavigationServiceItem
     {
         Type Module { get; set; }
     }

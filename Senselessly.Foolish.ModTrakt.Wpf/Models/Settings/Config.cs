@@ -2,7 +2,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 {
     using System;
 
-    public static class Config
+    internal sealed class Config
     {
         public const string GameDictionaryKey = "GameDictionary";
 

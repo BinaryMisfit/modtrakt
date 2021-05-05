@@ -2,16 +2,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Interface.Settings;
+    using Interfaces.Settings;
     using Main;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
-    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.Messages;
     using Models.Messaging;
 
-    public class GameListViewModel : ObservableObject
+    internal sealed class GameListViewModel : ObservableObject
     {
         private readonly IAppSettings _settings;
 
@@ -50,11 +49,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
         {
             if (_settings.Game == null) { return; }
 
-            var mainWindow = Ioc.Default.GetService<MainWindow>();
-            mainWindow?.Show();
-            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
-                close: true,
-                shutdown: _settings.Missing)));
+            WeakReferenceMessenger.Default.Send(new ShowWindowMessage(
+                new ShowWindowOptions(caller: typeof(GameListWindow), window: typeof(MainWindow), closeCaller: true)));
         }
     }
 }

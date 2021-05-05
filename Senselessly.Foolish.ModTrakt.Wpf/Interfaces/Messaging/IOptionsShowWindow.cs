@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Messaging
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Messaging
 {
     using System;
 
-    public interface IOptionsShowWindow
+    internal interface IOptionsShowWindow
     {
         Type Caller { get; }
 

@@ -2,17 +2,39 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
 {
     using System.Windows;
     using Dialog.Exit;
+    using Interfaces.Navigation;
     using MaterialDesignExtensions.Controls;
+    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.Messages;
     using Models.Messaging;
 
-    public abstract class ExtendedWindow : MaterialWindow
+    internal abstract class ExtendedWindow : MaterialWindow
     {
         protected ExtendedWindow()
         {
             var canClose = false;
             Loaded += (s, e) => {
+                WeakReferenceMessenger.Default.Register<ShowWindowMessage>(recipient: this,
+                    handler: (r, m) => {
+                        var options = m.Value;
+                        if (options.Handled) { return; }
+
+                        if (options.Caller != r.GetType()) { return; }
+
+                        options.Handled = true;
+                        var navigationService = Ioc.Default.GetService<INavigationService>();
+                        var window = navigationService?.CreateWindow(options.Window);
+                        window?.Show();
+
+                        if (options.CloseCaller)
+                        {
+                            WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
+                                source: r.GetType(),
+                                close: true,
+                                shutdown: false)));
+                        }
+                    });
                 WeakReferenceMessenger.Default.Register<ConfirmExitMessage>(recipient: this,
                     handler: async (r, m) => {
                         var options = m.Value;
@@ -58,6 +80,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
             };
             Closing += (s, e) => { e.Cancel = !canClose; };
             Closed += (s, e) => {
+                WeakReferenceMessenger.Default.Unregister<ShowWindowMessage>(this);
                 WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                 WeakReferenceMessenger.Default.Unregister<ConfirmExitMessage>(this);
                 WeakReferenceMessenger.Default.Unregister<ExceptionRaisedMessage>(this);

@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
 {
-    using Enum;
-    using Interface.Navigation;
+    using Enums;
+    using Interfaces.Navigation;
 
-    public class NavigationServiceCommand : INavigationServiceCommand
+    internal sealed class NavigationServiceCommand : INavigationServiceCommand
     {
         public string Label { get; set; }
 

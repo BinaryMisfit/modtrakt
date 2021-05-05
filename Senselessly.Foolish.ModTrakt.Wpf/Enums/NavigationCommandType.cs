@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Enum
+namespace Senselessly.Foolish.ModTrakt.Wpf.Enums
 {
-    public enum NavigationCommandType
+    internal enum NavigationCommandType
     {
         Exit,
         NotSet

@@ -5,10 +5,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using System.Threading;
     using System.Threading.Tasks;
     using GameList;
-    using Interface.Services;
-    using Interface.Settings;
+    using Interfaces.Services;
+    using Interfaces.Settings;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
-    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.Messages;
@@ -16,7 +15,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using Models.Settings;
     using Properties;
 
-    public sealed class SplashViewModel : ObservableObject
+    internal sealed class SplashViewModel : ObservableObject
     {
         private readonly IAppSettings _appSettings;
         private readonly CancellationTokenSource _cancelTask;
@@ -81,10 +80,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private static void ShowGameSelector()
         {
-            var gameList = Ioc.Default.GetService<GameListWindow>();
-            gameList?.Show();
-            WeakReferenceMessenger.Default.Send(
-                new ConfirmExitMessage(new ConfirmExitOptions(host: null, close: true, shutdown: false)));
+            WeakReferenceMessenger.Default.Send(new ShowWindowMessage(
+                new ShowWindowOptions(caller: typeof(SplashWindow),
+                    window: typeof(GameListWindow),
+                    closeCaller: true)));
         }
     }
 }

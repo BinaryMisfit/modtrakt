@@ -5,7 +5,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Storage
     using System.IO.Abstractions;
     using SharpConfig;
 
-    public class ConfigFile
+    internal sealed class ConfigFile
     {
         private readonly IFileSystem _fileSystem;
 

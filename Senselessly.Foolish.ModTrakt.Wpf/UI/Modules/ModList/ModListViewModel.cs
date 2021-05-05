@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Module.ModList
+namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
 {
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +8,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Module.ModList
     using Bethesda.Archives.Models.Files;
     using Shared;
 
-    public class ModListViewModel : Module
+    internal sealed class ModListViewModel : Module
     {
         private readonly IFileSystem _storage;
 

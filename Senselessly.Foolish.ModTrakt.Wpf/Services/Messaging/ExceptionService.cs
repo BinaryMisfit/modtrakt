@@ -1,11 +1,11 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Messaging
 {
-    using Interface.Models;
-    using Interface.Services;
+    using Interfaces.App;
+    using Interfaces.Services;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.Messages;
 
-    public class ExceptionService : IExceptionService
+    internal sealed class ExceptionService : IExceptionService
     {
         public void Send(IExceptionInfo e)
         {

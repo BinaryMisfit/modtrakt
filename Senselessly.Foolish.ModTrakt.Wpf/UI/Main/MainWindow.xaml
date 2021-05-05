@@ -16,7 +16,8 @@
                   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                   Title="{x:Static p:Resources.Application_Name}"
                   Width="{StaticResource Width}"
-                  d:DesignSource="{d:DesignInstance m:MainViewModel}">
+                  d:DesignSource="{d:DesignInstance m:MainViewModel}"
+                  x:ClassModifier="internal">
     <Window.DataContext>
         <m:MainViewModel />
     </Window.DataContext>

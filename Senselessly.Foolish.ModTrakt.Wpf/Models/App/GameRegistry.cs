@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
-    using Interface.Models;
+    using Interfaces.App;
 
-    public class GameRegistry : IGameRegistry
+    internal sealed class GameRegistry : IGameRegistry
     {
         public string Root { get; set; }
 

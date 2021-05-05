@@ -6,11 +6,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
     using System.Threading;
     using System.Threading.Tasks;
     using DotNetWindowsRegistry;
-    using Interface.Services;
+    using Interfaces.Services;
     using Microsoft.Win32;
     using Models.App;
 
-    public class RegistryScannerService : IRegistryScannerService
+    internal sealed class RegistryScannerService : IRegistryScannerService
     {
         private const string RegistryResult = "Result";
         private readonly IExceptionService _ex;

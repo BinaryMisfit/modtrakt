@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Converters.Loaders
     using System.Windows.Data;
     using System.Windows.Media.Imaging;
 
-    public class BoxArtLoader : IValueConverter
+    internal sealed class BoxArtLoader : IValueConverter
     {
         public static readonly BoxArtLoader Instance = new BoxArtLoader();
 

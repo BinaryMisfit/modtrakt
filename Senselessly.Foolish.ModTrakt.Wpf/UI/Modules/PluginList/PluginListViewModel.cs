@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Module.PluginList
+namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.PluginList
 {
     using Microsoft.Toolkit.Mvvm.ComponentModel;
 
-    public class PluginListViewModel : ObservableObject { }
+    internal sealed class PluginListViewModel : ObservableObject { }
 }

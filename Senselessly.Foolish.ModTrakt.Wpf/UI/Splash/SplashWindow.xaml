@@ -19,7 +19,8 @@
                   Width="{StaticResource PopupWidth}"
                   WindowStyle="None"
                   WindowStartupLocation="CenterScreen"
-                  d:DesignSource="{d:DesignInstance sp:SplashViewModel}">
+                  d:DesignSource="{d:DesignInstance sp:SplashViewModel}"
+                  x:ClassModifier="internal">
     <Window.DataContext>
         <sp:SplashViewModel />
     </Window.DataContext>

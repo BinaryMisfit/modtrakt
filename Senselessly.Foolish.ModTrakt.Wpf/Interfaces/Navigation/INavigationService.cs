@@ -1,12 +1,14 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Navigation
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Navigation
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Windows.Controls;
-    using Enum;
+    using Enums;
     using MaterialDesignExtensions.Model;
+    using UI.Shared;
 
-    public interface INavigationService
+    internal interface INavigationService
     {
         IEnumerable<INavigationItem> Items { get; }
 
@@ -15,6 +17,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Navigation
         UserControl NavigateTo { get; }
 
         NavigationCommandType ExecuteCommand { get; }
+
+        ExtendedWindow CreateWindow(Type type);
 
         void Reset();
 

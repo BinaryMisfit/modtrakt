@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Enum
+namespace Senselessly.Foolish.ModTrakt.Wpf.Enums
 {
-    public enum NavigationServiceType
+    internal enum NavigationServiceType
     {
         Command,
         Module,

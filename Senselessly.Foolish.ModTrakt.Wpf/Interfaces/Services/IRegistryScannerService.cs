@@ -1,11 +1,11 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Services
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Wpf.Models.App;
+    using Models.App;
 
-    public interface IRegistryScannerService
+    internal interface IRegistryScannerService
     {
         IEnumerable<RegistryResult> Results { get; }
 

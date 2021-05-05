@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 {
     using System.Collections.Generic;
-    using Interface.Settings;
+    using Interfaces.Settings;
 
-    public class AppSettings : IAppSettings
+    internal sealed class AppSettings : IAppSettings
     {
         private IGameSettings _active;
 

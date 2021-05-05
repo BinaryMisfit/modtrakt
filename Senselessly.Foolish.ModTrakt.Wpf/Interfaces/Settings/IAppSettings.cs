@@ -1,9 +1,9 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Settings
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    public interface IAppSettings
+    internal interface IAppSettings
     {
         ISettings Settings { get; }
 

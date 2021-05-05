@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
     using System;
-    using Interface.Models;
+    using Interfaces.App;
 
-    public class ExceptionInfo : IExceptionInfo
+    internal sealed class ExceptionInfo : IExceptionInfo
     {
         public ExceptionInfo(Exception e) => Exception = e;
 

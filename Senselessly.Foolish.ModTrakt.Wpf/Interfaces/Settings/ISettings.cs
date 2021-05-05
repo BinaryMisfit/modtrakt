@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Settings
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
-    public interface ISettings
+    internal interface ISettings
     {
         string ActiveGame { get; set; }
 

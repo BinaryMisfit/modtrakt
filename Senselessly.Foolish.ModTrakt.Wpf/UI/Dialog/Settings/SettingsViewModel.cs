@@ -1,12 +1,12 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
 {
     using System.Windows.Input;
-    using Interface.Settings;
+    using Interfaces.Settings;
     using MaterialDesignExtensions.Controls;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
 
-    public sealed class SettingsViewModel : ObservableObject
+    internal sealed class SettingsViewModel : ObservableObject
     {
         private readonly RelayCommand _browseStaging;
         private readonly RelayCommand _browseWorking;

@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Storage
     using System.Threading.Tasks;
     using Converters.Json;
 
-    public static class JsonFile
+    internal static class JsonFile
     {
         public static async Task<T> LoadResourceAsync<T>(string resourceName)
         {

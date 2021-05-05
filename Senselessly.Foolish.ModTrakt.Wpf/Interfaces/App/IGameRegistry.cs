@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Models
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
 {
-    public interface IGameRegistry
+    internal interface IGameRegistry
     {
         string Root { get; set; }
 

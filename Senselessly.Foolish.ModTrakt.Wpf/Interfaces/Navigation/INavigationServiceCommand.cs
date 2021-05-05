@@ -1,8 +1,8 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interface.Navigation
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Navigation
 {
-    using Enum;
+    using Enums;
 
-    public interface INavigationServiceCommand : INavigationServiceItem
+    internal interface INavigationServiceCommand : INavigationServiceItem
     {
         new NavigationServiceType Type
         {

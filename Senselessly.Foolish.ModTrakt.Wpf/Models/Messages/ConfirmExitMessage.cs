@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messages
 {
-    using Interface.Messaging;
+    using Interfaces.Messaging;
     using Microsoft.Toolkit.Mvvm.Messaging.Messages;
 
-    public class ConfirmExitMessage : ValueChangedMessage<IOptionsConfirmExit>
+    internal sealed class ConfirmExitMessage : ValueChangedMessage<IOptionsConfirmExit>
     {
         public ConfirmExitMessage(IOptionsConfirmExit value) : base(value) { }
     }

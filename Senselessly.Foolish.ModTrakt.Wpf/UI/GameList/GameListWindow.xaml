@@ -18,7 +18,8 @@
                   Width="{StaticResource PopupWidth}"
                   WindowStartupLocation="CenterScreen"
                   WindowStyle="None"
-                  d:DesignSource="{d:DesignInstance gl:GameListViewModel}">
+                  d:DesignSource="{d:DesignInstance gl:GameListViewModel}"
+                  x:ClassModifier="internal">
     <Window.DataContext>
         <gl:GameListViewModel />
     </Window.DataContext>

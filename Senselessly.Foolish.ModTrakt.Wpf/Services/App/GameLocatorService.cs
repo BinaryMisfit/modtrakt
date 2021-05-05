@@ -6,13 +6,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Interface.Models;
-    using Interface.Services;
-    using Interface.Settings;
+    using Interfaces.App;
+    using Interfaces.Services;
+    using Interfaces.Settings;
     using Models.App;
     using Models.Settings;
 
-    public class GameLocatorService : IGameLocatorService
+    internal sealed class GameLocatorService : IGameLocatorService
     {
         private readonly IGameDictionary _dictionary;
 

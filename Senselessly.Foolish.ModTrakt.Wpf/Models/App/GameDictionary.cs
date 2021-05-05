@@ -2,10 +2,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Interface.Models;
+    using Interfaces.App;
     using Services.Storage;
 
-    public class GameDictionary : IGameDictionary
+    internal sealed class GameDictionary : IGameDictionary
     {
         public string Code { get; set; }
 

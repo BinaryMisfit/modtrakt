@@ -1,9 +1,9 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messages
 {
-    using Interface.Models;
+    using Interfaces.App;
     using Microsoft.Toolkit.Mvvm.Messaging.Messages;
 
-    public class ExceptionRaisedMessage : ValueChangedMessage<IExceptionInfo>
+    internal sealed class ExceptionRaisedMessage : ValueChangedMessage<IExceptionInfo>
     {
         public ExceptionRaisedMessage(IExceptionInfo value) : base(value) { }
     }

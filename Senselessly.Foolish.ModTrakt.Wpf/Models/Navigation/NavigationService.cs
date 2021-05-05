@@ -1,19 +1,23 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Controls;
-    using Enum;
-    using Interface.Navigation;
+    using Enums;
+    using Interfaces.Navigation;
     using MaterialDesignExtensions.Model;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Properties;
-    using UI.Module.ModList;
-    using UI.Module.PluginList;
+    using UI.GameList;
+    using UI.Main;
+    using UI.Modules.ModList;
+    using UI.Modules.PluginList;
+    using UI.Shared;
 
-    public class NavigationService : INavigationService
+    internal sealed class NavigationService : INavigationService
     {
         private readonly IEnumerable<INavigationServiceItem> _modules;
 
@@ -37,6 +41,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
             };
             Items = items;
             _modules = modules;
+        }
+
+        public ExtendedWindow CreateWindow(Type type)
+        {
+            if (type == typeof(GameListWindow)) { return Ioc.Default.GetService<GameListWindow>(); }
+
+            if (type == typeof(MainWindow)) { return Ioc.Default.GetService<MainWindow>(); }
+
+            return null;
         }
 
         public IEnumerable<INavigationItem> Items { get; }
