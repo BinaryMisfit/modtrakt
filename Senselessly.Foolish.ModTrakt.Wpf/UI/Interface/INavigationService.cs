@@ -1,15 +1,21 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Interface
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows.Controls;
+    using Enum;
     using MaterialDesignExtensions.Model;
 
     public interface INavigationService
     {
         IEnumerable<INavigationItem> Items { get; }
 
-        IEnumerable<INavigationServiceItem> Modules { get; }
+        UserControl HiglightTarget { get; }
 
-        INavigationServiceItem FindItem(string label) => Modules.FirstOrDefault(module => module.Label == label);
+        UserControl NavigateTo { get; }
+
+        NavigationCommandType ExecuteCommand { get; }
+
+        Task<NavigationServiceType> SelectProcess(INavigationItem item, UserControl selected);
     }
 }

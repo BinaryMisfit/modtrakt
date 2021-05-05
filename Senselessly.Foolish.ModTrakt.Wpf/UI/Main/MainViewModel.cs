@@ -9,11 +9,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using Interface;
     using MaterialDesignExtensions.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
-    using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Module.ModList;
-    using Navigation;
 
     public sealed class MainViewModel : ObservableObject
     {
@@ -32,36 +29,27 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                     close: true,
                     shutdown: true)));
             });
-            NavigateTo = new RelayCommand<INavigationItem>(i => {
-                INavigationServiceItem current = null;
-                if (i is FirstLevelNavigationItem item) { current = _navigationService.FindItem(item.Label); }
-
-                if (current == null) { return; }
-
-                switch (current.Type)
+            NavigateTo = new RelayCommand<INavigationItem>(async i => {
+                var commandType = await _navigationService.SelectProcess(item: i, selected: _module);
+                switch (commandType)
                 {
-                    case NavigationServiceType.Module: {
-                        var type = ((NavigationServiceModule)current).Module;
-                        if (_module != null && type == _module.GetType()) { return; }
-
-                        if (type == typeof(ModListModule)) { Module = Ioc.Default.GetService<ModListModule>(); }
-
+                    case NavigationServiceType.Module:
+                        Module = _navigationService.NavigateTo;
                         break;
-                    }
                     case NavigationServiceType.Command: {
-                        i.IsSelected = false;
-                        var command = ((INavigationServiceCommand)current).CommandType;
-                        switch (command)
+                        switch (_navigationService.ExecuteCommand)
                         {
                             case NavigationCommandType.Exit:
                                 ExitCommand.Execute(null);
+                                Module = _navigationService.HiglightTarget;
                                 break;
                             default: return;
                         }
 
                         break;
                     }
-                    default: return;
+                    case NavigationServiceType.NotSet: return;
+                    default:                           return;
                 }
             });
         }
