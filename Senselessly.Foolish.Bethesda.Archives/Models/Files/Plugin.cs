@@ -4,7 +4,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
     using System.Linq;
     using Enums;
 
-    public class Plugin
+    public sealed class Plugin
     {
         public Plugin(string folderName)
         {

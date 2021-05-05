@@ -1,4 +1,4 @@
-﻿namespace Senselessly.Foolish.Bethesda.Archives.Helpers
+﻿namespace Senselessly.Foolish.Bethesda.Archives.Services
 {
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +8,7 @@
     using Interfaces.Services;
     using Models.Storage;
 
-    public class PluginLocatorServiceService : IPluginLocatorService
+    public sealed class PluginLocatorServiceService : IPluginLocatorService
     {
         private readonly IFileSystem _system;
 
