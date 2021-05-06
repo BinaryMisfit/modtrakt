@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
-    internal sealed class ConfigKeys
+    internal static class ConfigKeys
     {
-        public const string JSON_CONFIG = "Configuration";
-        public const string JSON_GAMES = "GameDictionary";
+        public const string JsonConfig = "Configuration";
+        public const string JsonGames = "GameDictionary";
     }
 }

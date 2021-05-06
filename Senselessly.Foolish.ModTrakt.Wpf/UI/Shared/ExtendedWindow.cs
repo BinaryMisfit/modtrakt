@@ -17,9 +17,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                 WeakReferenceMessenger.Default.Register<ShowWindowMessage>(recipient: this,
                     handler: (r, m) => {
                         var options = m.Value;
-                        if (options.Handled) { return; }
+                        if (options.Handled) return;
 
-                        if (options.Caller != r.GetType()) { return; }
+                        if (options.Caller != r.GetType()) return;
 
                         options.Handled = true;
                         var navigationService = Ioc.Default.GetService<INavigationService>();
@@ -27,52 +27,46 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
                         window?.Show();
 
                         if (options.CloseCaller)
-                        {
                             WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
                                 source: r.GetType(),
                                 close: true,
                                 shutdown: false)));
-                        }
                     });
                 WeakReferenceMessenger.Default.Register<ConfirmExitMessage>(recipient: this,
                     handler: async (r, m) => {
                         var options = m.Value;
-                        if (options.Handled) { return; }
+                        if (options.Handled) return;
 
                         options.Handled = true;
                         if (options.Shutdown && !string.IsNullOrEmpty(options.Host))
-                        {
                             await ExitDialog.PromptAsync(type: r.GetType(),
                                 host: options.Host,
                                 cancel: options.CancelAction);
-                        }
                         else
-                        {
                             WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
                                 source: r.GetType(),
                                 close: options.Close,
                                 shutdown: options.Shutdown)));
-                        }
                     });
                 WeakReferenceMessenger.Default.Register<WindowCloseMessage>(recipient: this,
                     handler: (r, m) => {
                         var options = m.Value;
-                        if (options.Handled) { return; }
+                        if (options.Handled) return;
 
-                        if (options.Source != r.GetType()) { return; }
+                        if (options.Source != r.GetType()) return;
 
                         options.Handled = true;
                         canClose = options.Close;
-                        if (options.Close) { Close(); }
+                        if (options.Close) Close();
 
-                        if (options.Shutdown) { Application.Current.Shutdown(); }
+                        if (options.Shutdown) Application.Current.Shutdown();
 
                         WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                     });
                 WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
                     handler: (r, m) => {
                         var ex = m.Value;
-                        if (ex.Handled) { return; }
+                        if (ex.Handled) return;
 
                         ex.Handled = true;
                     });

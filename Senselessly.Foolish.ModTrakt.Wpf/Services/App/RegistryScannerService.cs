@@ -39,12 +39,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                 };
                 using var registryLocal = _registry.OpenBaseKey(hKey: hive, view: RegistryView.Registry64);
                 using var registryGame = registryLocal.OpenSubKey(path);
-                if (registryGame == null) { return false; }
+                if (registryGame == null) return false;
 
                 await foreach (var key in keys.ToAsyncEnumerable().WithCancellation(cancel))
                 {
                     var registryValue = registryGame.GetValue(name: $"{key}", defaultValue: null);
-                    if (registryValue == null) { continue; }
+                    if (registryValue == null) continue;
 
                     var result = new RegistryResult(id: RegistryResult,
                         registry: new GameRegistry {Key = key, Path = path, Root = root}) {Value = registryValue};
@@ -59,7 +59,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                     e: e));
             }
 
-            if (!cancel.IsCancellationRequested) { Results = results; }
+            if (!cancel.IsCancellationRequested) Results = results;
 
             return Results != null;
         }

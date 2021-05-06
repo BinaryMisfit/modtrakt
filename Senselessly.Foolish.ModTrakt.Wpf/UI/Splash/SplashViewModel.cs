@@ -18,7 +18,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     {
         private readonly IAppSettings _appSettings;
         private readonly CancellationTokenSource _cancelTask;
-        private readonly IConfigurator _configurator;
+        private readonly IConfiguratorService _configurator;
         private readonly IGameLocatorService _gameLocatorService;
         private string _status;
 
@@ -26,7 +26,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         public SplashViewModel(
             IAppSettings appSettings,
-            IConfigurator configurator,
+            IConfiguratorService configurator,
             IGameLocatorService gameLocatorService)
         {
             _appSettings = appSettings;
@@ -38,7 +38,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(recipient: this,
                 handler: (r, m) => {
                     var status = m.Value;
-                    if (status.Clear) { Status = null; }
+                    if (status.Clear) Status = null;
 
                     Status = status.Message;
                 });
@@ -60,16 +60,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
         private async Task CheckStartupOptions(IAppSettings settings)
         {
             settings.Installed = await LocateSupportedGames();
-            settings.Configured = await _configurator.Check(ConfigKeys.JSON_CONFIG);
+            settings.Configured = await _configurator.Check(ConfigKeys.JsonConfig);
         }
 
         private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()
         {
-            var dictionaryLoaded = await _gameLocatorService.LoadAsync(ConfigKeys.JSON_GAMES);
-            if (dictionaryLoaded == 0) { return null; }
+            var dictionaryLoaded = await _gameLocatorService.LoadAsync(ConfigKeys.JsonGames);
+            if (dictionaryLoaded == 0) return null;
 
             var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
-            if (!_cancelTask.IsCancellationRequested && gamesFound > 0) { return _gameLocatorService.Found; }
+            if (!_cancelTask.IsCancellationRequested && gamesFound > 0) return _gameLocatorService.Found;
 
             return null;
         }

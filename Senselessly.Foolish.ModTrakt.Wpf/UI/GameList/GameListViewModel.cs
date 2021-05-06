@@ -46,7 +46,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
 
         private void GameSelectedCommand()
         {
-            if (_settings.Game == null) { return; }
+            if (_settings.Game == null) return;
 
             WeakReferenceMessenger.Default.Send(new ShowWindowMessage(
                 new ShowWindowOptions(caller: typeof(GameListWindow), window: typeof(MainWindow), closeCaller: true)));

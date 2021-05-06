@@ -17,7 +17,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
         public static async Task PromptAsync(Type type, string host, Action cancel = null)
         {
             var exit = Ioc.Default.GetService<ExitDialog>();
-            if (exit == null) { return; }
+            if (exit == null) return;
 
             var result = await DialogHost.Show(content: exit, dialogIdentifier: host);
             bool.TryParse(value: result?.ToString(), result: out var shutdown);

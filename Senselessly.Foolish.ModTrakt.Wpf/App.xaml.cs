@@ -11,10 +11,11 @@
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.App;
-    using Models.Navigation;
     using Models.Settings;
     using Services.App;
     using Services.Messaging;
+    using Services.Navigation;
+    using Services.Settings;
     using UI.Controls.ExceptionBox;
     using UI.Dialog.Exit;
     using UI.Dialog.Settings;
@@ -42,7 +43,7 @@
             services.AddScoped<IGameLocatorService, GameLocatorService>();
             services.AddScoped<IGameSettings, GameSettings>();
             services.AddSingleton<IAppSettings, AppSettings>();
-            services.AddSingleton<IConfigurator, Configurator>();
+            services.AddSingleton<IConfiguratorService, ConfiguratorService>();
             services.AddSingleton<IExceptionService, ExceptionService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();

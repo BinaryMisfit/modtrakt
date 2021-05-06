@@ -40,6 +40,7 @@ Apart from downloading, installing and managing mod files, ModTrakt can also:
 
 - [Material Design in XAML Toolkit](https://github.com/MaterialDesignInXAML)
 - [Material Design Extensions](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+- [SharpConfig](https://github.com/cemdervis/SharpConfig)
 - [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit)
 
 <sub>* from the time you are reading this</sub>

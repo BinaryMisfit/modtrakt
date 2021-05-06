@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
+namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Navigation
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
     using MaterialDesignExtensions.Model;
     using MaterialDesignThemes.Wpf;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
+    using Models.Navigation;
     using Properties;
     using UI.GameList;
     using UI.Main;
@@ -45,9 +46,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
 
         public ExtendedWindow CreateWindow(Type type)
         {
-            if (type == typeof(GameListWindow)) { return Ioc.Default.GetService<GameListWindow>(); }
+            if (type == typeof(GameListWindow)) return Ioc.Default.GetService<GameListWindow>();
 
-            if (type == typeof(MainWindow)) { return Ioc.Default.GetService<MainWindow>(); }
+            if (type == typeof(MainWindow)) return Ioc.Default.GetService<MainWindow>();
 
             return null;
         }
@@ -70,18 +71,18 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
         public async Task<NavigationServiceType> SelectProcess(INavigationItem i, UserControl selected)
         {
             INavigationServiceItem current = null;
-            if (i is FirstLevelNavigationItem item) { current = await FindItem(item.Label); }
+            if (i is FirstLevelNavigationItem item) current = await FindItem(item.Label);
 
-            if (current == null) { return NavigationServiceType.NotSet; }
+            if (current == null) return NavigationServiceType.NotSet;
 
             switch (current.Type)
             {
                 case NavigationServiceType.NotSet: { return NavigationServiceType.NotSet; }
                 case NavigationServiceType.Module: {
                     var type = ((NavigationServiceModule)current).Module;
-                    if (type == typeof(ModListModule)) { NavigateTo = Ioc.Default.GetService<ModListModule>(); }
+                    if (type == typeof(ModListModule)) NavigateTo = Ioc.Default.GetService<ModListModule>();
 
-                    if (type == typeof(PluginListModule)) { NavigateTo = Ioc.Default.GetService<PluginListModule>(); }
+                    if (type == typeof(PluginListModule)) NavigateTo = Ioc.Default.GetService<PluginListModule>();
 
                     return NavigationServiceType.Module;
                 }
@@ -103,15 +104,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Navigation
 
         private async ValueTask<INavigationItem> FindNavigation(UserControl control)
         {
-            if (control == null) { return null; }
+            if (control == null) return null;
 
             await foreach (var item in Items.ToAsyncEnumerable())
             {
-                if (!(item is FirstLevelNavigationItem navItem)) { return null; }
+                if (!(item is FirstLevelNavigationItem navItem)) return null;
 
                 var navModule = await _modules.ToAsyncEnumerable()
                                               .FirstOrDefaultAsync(module => module.Label == navItem.Label);
-                if (!(navModule is INavigationServiceModule)) { return null; }
+                if (!(navModule is INavigationServiceModule)) return null;
 
                 var found = await _modules.ToAsyncEnumerable()
                                           .FirstOrDefaultAsync(module => module.Type == navModule.Type);

@@ -24,7 +24,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
         {
             get => _active;
             set {
-                if (string.IsNullOrEmpty(value.Code)) { return; }
+                if (string.IsNullOrEmpty(value.Code)) return;
 
                 _active = value;
                 Settings.ActiveGame = _active.Code;

@@ -28,7 +28,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
                     close: true,
                     shutdown: true,
                     cancel: () => {
-                        if (_navigationService.HighlightTarget == null) { return; }
+                        if (_navigationService.HighlightTarget == null) return;
 
                         NavigateTo.Execute(_navigationService.HighlightTarget);
                     })));

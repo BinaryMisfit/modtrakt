@@ -45,7 +45,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
         public async Task<int> Locate(CancellationToken cancel = default)
         {
             Found = null;
-            if (_games == null) { return 0; }
+            if (_games == null) return 0;
 
             List<IGameSettings> games = null;
             // TODO Refactor for Async
@@ -56,7 +56,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                               .ToArray();
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {
-                if (cancel.IsCancellationRequested) { break; }
+                if (cancel.IsCancellationRequested) break;
 
                 try
                 {
@@ -67,7 +67,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                     {
                         result.Value = _registry.Results.First().Value;
                         var installed = _files.DirectoryInfo.FromDirectoryName(result.Value.ToString());
-                        if (!installed.Exists) { continue; }
+                        if (!installed.Exists) continue;
 
                         var game = _games.First(find => find.Code == result.Id);
                         var settings = new GameSettings {
@@ -86,7 +86,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                 }
             }
 
-            if (!cancel.IsCancellationRequested) { Found = games; }
+            if (!cancel.IsCancellationRequested) Found = games;
 
             return Found?.Count() ?? 0;
         }

@@ -22,7 +22,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
 
         public static async Task<T> JsonResourceAsync<T>(this IJsonSource sender, string resourceName)
         {
-            if (sender == null) { return default; }
+            if (sender == null) return default;
 
             var resourceSpace = Assembly.GetExecutingAssembly()
                                         .GetTypes()
@@ -41,7 +41,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
                 return default;
             }
 
-            if (resource == null) { return default; }
+            if (resource == null) return default;
 
             var jsonReader = new StreamReader(resource);
             var jsonText = await jsonReader.ReadToEndAsync();

@@ -40,11 +40,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
                 if (esl + esm + esp > 0)
                 {
                     modSource.TypeDict = new Dictionary<PluginType, int>();
-                    if (esl > 0) { modSource.TypeDict.Add(key: PluginType.Light, value: esl); }
+                    if (esl > 0) modSource.TypeDict.Add(key: PluginType.Light, value: esl);
 
-                    if (esm > 0) { modSource.TypeDict.Add(key: PluginType.Master, value: esm); }
+                    if (esm > 0) modSource.TypeDict.Add(key: PluginType.Master, value: esm);
 
-                    if (esp > 0) { modSource.TypeDict.Add(key: PluginType.Plugin, value: esp); }
+                    if (esp > 0) modSource.TypeDict.Add(key: PluginType.Plugin, value: esp);
                 }
 
                 files = files.Where(fi => !new[] {
