@@ -51,7 +51,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                     results ??= new List<RegistryResult>();
                     results.Add(result);
                 }
-            } catch (Exception e) { _ex?.Send(new ExceptionInfo(e)); }
+            }
+            catch (Exception e)
+            {
+                _ex?.Send(new ExceptionInfo(sourceName: nameof(RegistryScannerService),
+                    source: typeof(RegistryScannerService),
+                    e: e));
+            }
 
             if (!cancel.IsCancellationRequested) { Results = results; }
 

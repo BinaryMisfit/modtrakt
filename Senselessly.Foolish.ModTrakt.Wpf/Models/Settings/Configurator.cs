@@ -1,9 +1,11 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 {
+    using System;
     using System.Collections.Generic;
     using System.IO.Abstractions;
     using System.Linq;
     using System.Threading.Tasks;
+    using App;
     using Extensions.Messages;
     using Extensions.Storage;
     using Interfaces.Settings;
@@ -11,6 +13,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 
     internal sealed class Configurator : IConfigurator
     {
+        private const string ProductFolder = "{ProductFolder}";
+        private const string UserFolder = "{UserFolder}";
         private readonly IAppSettings _settings;
         private readonly IFileSystem _storage;
 
@@ -23,23 +27,28 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
         public async Task<bool> Check(string key)
         {
             this.SendStatusUpdate(Resources.Check_Start);
-            var config = await LoadConfigJson(key);
-            if (config == null)
+            var configs = await LoadConfigJson(key);
+            if (configs == null)
             {
                 this.SendStatusUpdate(Resources.Check_Failed);
                 return false;
             }
 
-            var update = string.Format(format: Resources.Check_Folders, arg0: config.Version);
-            this.SendStatusUpdate(update);
-            var configured = await CheckFolders(version: config.Version, folders: config.Folders);
-            if (!configured) { return false; }
+            var configured = false;
+            await foreach (var config in configs.ToAsyncEnumerable())
+            {
+                var update = string.Format(format: Resources.Check_Folders, arg0: config.Version);
+                this.SendStatusUpdate(update);
+                configured = await CheckFolders(version: config.Version, folders: config.Folders);
+                if (!configured) { break; }
 
-            configured = CheckConfigFile();
+                configured = CheckConfigFile();
+            }
+
             return configured;
         }
 
-        private async Task<bool> CheckFolders(int version, IEnumerable<FolderMap> folders)
+        private async Task<bool> CheckFolders(int version, IEnumerable<IFolderMap> folders)
         {
             if (folders == null)
             {
@@ -50,17 +59,55 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
             var update = string.Format(format: Resources.Check_Folders, arg0: version);
             this.SendStatusUpdate(update);
             var sorted = await folders.ToAsyncEnumerable().OrderBy(folder => folder.Name).ToListAsync();
-            var productFolder = _settings.ProductFolder;
-            var userFolder = _settings.UserFolder;
 
+            var valid = false;
             await foreach (var folder in sorted.ToAsyncEnumerable())
             {
-                var name = folder.Name;
-                var path = folder.Path;
-                if (path.Equals("productPath")) { path = "${productFolder}"; }
+                valid = await CheckFolderMap(folder);
+                if (!valid) { break; }
+            }
 
-                var checkPath = _storage.DirectoryInfo.FromDirectoryName(path);
-                if (!checkPath.Exists) { }
+            return valid;
+        }
+
+        private async Task<bool> CheckFolderMap(IFolderMap map, IFileSystemInfo parent = null)
+        {
+            var productFolder = _settings.ProductFolder;
+            var userFolder = _settings.UserFolder;
+            var name = map.Name;
+            var path = map.Path;
+            if (path.Contains(ProductFolder))
+            {
+                path = path.Replace(oldValue: ProductFolder, newValue: productFolder.FullName);
+            }
+
+            if (path.Contains(UserFolder)) { path = path.Replace(oldValue: UserFolder, newValue: userFolder.FullName); }
+
+            var checkPath = path;
+            if (parent != null) { checkPath = _storage.Path.Combine(path1: parent.FullName, path2: path); }
+
+            var pathInfo = _storage.DirectoryInfo.FromDirectoryName(checkPath);
+            if (!pathInfo.Exists)
+            {
+                try
+                {
+                    pathInfo.Create();
+                    pathInfo.Refresh();
+                    if (!pathInfo.Exists) { return false; }
+                }
+                catch (Exception e)
+                {
+                    var message = new ExceptionInfo(sourceName: $"Folder: {name}", source: typeof(Configurator), e: e);
+                    message.SendException();
+                    return false;
+                }
+            }
+
+            if (map.Folders == null || !map.Folders.Any()) { return true; }
+
+            await foreach (var folder in map.Folders.ToAsyncEnumerable())
+            {
+                await CheckFolderMap(map: folder, parent: pathInfo);
             }
 
             return true;
@@ -72,7 +119,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
             return false;
         }
 
-        private async Task<ConfigurationFile> LoadConfigJson(string key) =>
-            await this.JsonResourceAsync<ConfigurationFile>(key);
+        private async Task<IEnumerable<ConfigurationFile>> LoadConfigJson(string key) =>
+            await this.JsonResourceAsync<IEnumerable<ConfigurationFile>>(key);
     }
 }

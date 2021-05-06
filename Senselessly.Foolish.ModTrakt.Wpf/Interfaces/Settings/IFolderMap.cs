@@ -2,9 +2,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
     using System.Collections.Generic;
 
-    internal interface IConfigurationFile
+    internal interface IFolderMap
     {
-        int Version { get; set; }
+        string Name { get; set; }
+
+        string Path { get; set; }
 
         IEnumerable<IFolderMap> Folders { get; set; }
     }

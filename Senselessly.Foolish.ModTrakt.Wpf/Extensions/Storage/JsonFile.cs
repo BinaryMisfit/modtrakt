@@ -1,10 +1,12 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text.Json;
+    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
     using Converters.Json;
     using Interfaces.Extensions;
@@ -13,6 +15,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
 
     internal static class JsonFile
     {
+        private static readonly IList<JsonConverter> Converters = new JsonConverter[] {
+            new GameRegistryJson(),
+            new FolderMapJson()
+        };
+
         public static async Task<T> JsonResourceAsync<T>(this IJsonSource sender, string resourceName)
         {
             if (sender == null) { return default; }
@@ -29,7 +36,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             try { resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath); }
             catch (Exception e)
             {
-                var message = new ExceptionInfo(e);
+                var message = new ExceptionInfo(sourceName: nameof(JsonFile), source: typeof(JsonFile), e: e);
                 message.SendException();
                 return default;
             }
@@ -38,7 +45,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
 
             var jsonReader = new StreamReader(resource);
             var jsonText = await jsonReader.ReadToEndAsync();
-            var jsonOptions = new JsonSerializerOptions {Converters = {new GameRegistryJson()}};
+            var jsonOptions = new JsonSerializerOptions();
+            await Converters.ToAsyncEnumerable().ForEachAsync(convert => jsonOptions.Converters.Add(convert));
             try
             {
                 var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
@@ -46,7 +54,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             }
             catch (Exception e)
             {
-                var message = new ExceptionInfo(e);
+                var message = new ExceptionInfo(sourceName: nameof(JsonFile), source: typeof(JsonFile), e: e);
                 message.SendException();
                 return default;
             }

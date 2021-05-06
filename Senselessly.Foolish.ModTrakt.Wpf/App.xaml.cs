@@ -64,8 +64,10 @@
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            Current.DispatcherUnhandledException += (_, args) => {
-                WeakReferenceMessenger.Default.Send(new ExceptionInfo(args.Exception));
+            Current.DispatcherUnhandledException += (s, args) => {
+                WeakReferenceMessenger.Default.Send(new ExceptionInfo(sourceName: nameof(s),
+                    source: s.GetType(),
+                    e: args.Exception));
                 args.Handled = true;
             };
             var splashWindow = Ioc.Default.GetService<SplashWindow>();

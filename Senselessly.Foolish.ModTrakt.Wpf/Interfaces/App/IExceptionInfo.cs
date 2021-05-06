@@ -7,5 +7,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
         Exception Exception { get; }
 
         bool Handled { get; set; }
+
+        string SourceName { get; }
+
+        Type Source { get; }
+
+        DateTime Timestamp { get; }
     }
 }

@@ -7,6 +7,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
     {
         public int Version { get; set; }
 
-        public IEnumerable<FolderMap> Folders { get; set; }
+        public IEnumerable<IFolderMap> Folders { get; set; }
     }
 }

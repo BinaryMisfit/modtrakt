@@ -76,9 +76,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                         games ??= new List<IGameSettings>();
                         games.Add(settings);
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
-                    _ex.Send(new ExceptionInfo(e));
+                    _ex.Send(new ExceptionInfo(sourceName: nameof(GameLocatorService),
+                        source: typeof(GameLocatorService),
+                        e: e));
                     return 0;
                 }
             }
