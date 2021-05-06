@@ -142,7 +142,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verifying config file.
+        ///   Looks up a localized string similar to [CHECK] Verifying config file.
         /// </summary>
         public static string Check_Config_File {
             get {
@@ -151,7 +151,25 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verifying folders.
+        ///   Looks up a localized string similar to [CONFIG-V{0}] Applying configuration.
+        /// </summary>
+        public static string Check_Config_Version {
+            get {
+                return ResourceManager.GetString("Check_Config_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [CHECK] Configuration failed.
+        /// </summary>
+        public static string Check_Failed {
+            get {
+                return ResourceManager.GetString("Check_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [CONFIG-V{0}] Verifying folders.
         /// </summary>
         public static string Check_Folders {
             get {
@@ -160,7 +178,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuration check starting.
+        ///   Looks up a localized string similar to [CHECK] Configuration started.
         /// </summary>
         public static string Check_Start {
             get {
@@ -187,7 +205,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game Dictionary not found or empty.
+        ///   Looks up a localized string similar to [ERROR] Game Dictionary not found or empty.
         /// </summary>
         public static string Game_Dictionary_Empty {
             get {
@@ -232,34 +250,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searching {0} of {1}: {2}.
-        /// </summary>
-        public static string Splash_Status_Game_Progress {
-            get {
-                return ResourceManager.GetString("Splash_Status_Game_Progress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Found {0} supported game(s).
-        /// </summary>
-        public static string Splash_Status_Games_Found {
-            get {
-                return ResourceManager.GetString("Splash_Status_Games_Found", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locating supported games.
-        /// </summary>
-        public static string Splash_Status_Games_Locating {
-            get {
-                return ResourceManager.GetString("Splash_Status_Games_Locating", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Starting up.
+        ///   Looks up a localized string similar to [MODTRAKT] Starting up.
         /// </summary>
         public static string Splash_Status_Starting_Up {
             get {

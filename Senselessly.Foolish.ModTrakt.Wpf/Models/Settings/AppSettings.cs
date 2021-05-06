@@ -18,6 +18,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
             Settings = settings;
         }
 
+        public bool Configured { get; set; }
+
         public IGameSettings Game
         {
             get => _active;
@@ -33,8 +35,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 
         public IDirectoryInfo ProductFolder { get; }
 
-        public IDirectoryInfo UserFolder { get; }
-
         public ISettings Settings { get; }
+
+        public IDirectoryInfo UserFolder { get; }
     }
 }

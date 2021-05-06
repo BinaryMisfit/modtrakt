@@ -1,6 +1,7 @@
 <s:ExtendedWindow x:Class="Senselessly.Foolish.ModTrakt.Wpf.UI.Splash.SplashWindow"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ce="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                   xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
@@ -24,52 +25,55 @@
     <Window.DataContext>
         <sp:SplashViewModel />
     </Window.DataContext>
-    <DockPanel FlowDirection="LeftToRight">
-        <md:ColorZone FlowDirection="LeftToRight"
-                      DockPanel.Dock="Top"
-                      Mode="PrimaryDark"
-                      md:ShadowAssist.ShadowDepth="Depth2">
-            <DockPanel FlowDirection="LeftToRight">
+    <StackPanel FlowDirection="LeftToRight">
+        <DockPanel FlowDirection="LeftToRight">
+            <md:ColorZone FlowDirection="LeftToRight"
+                          DockPanel.Dock="Top"
+                          Mode="PrimaryDark"
+                          md:ShadowAssist.ShadowDepth="Depth2">
+                <DockPanel FlowDirection="LeftToRight">
+                    <Label FlowDirection="LeftToRight"
+                           Content="{x:Static p:Resources.Application_Name}"
+                           FontSize="{StaticResource CaptionSize}"
+                           FontWeight="Light"
+                           Margin="{StaticResource MarginAll}"
+                           Style="{DynamicResource MaterialDesignLabel}"
+                           VerticalAlignment="Top" />
+                    <Label FlowDirection="LeftToRight"
+                           Content="{x:Static p:Resources.Application_TagLine}"
+                           FontSize="{StaticResource TitleSize}"
+                           FontWeight="Light"
+                           HorizontalAlignment="Right"
+                           Margin="{StaticResource MarginAll}"
+                           Style="{StaticResource MaterialDesignLabel}"
+                           VerticalAlignment="Bottom" />
+                </DockPanel>
+            </md:ColorZone>
+            <md:ColorZone FlowDirection="LeftToRight"
+                          DockPanel.Dock="Bottom"
+                          Mode="PrimaryDark"
+                          md:ShadowAssist.ShadowDepth="Depth2">
                 <Label FlowDirection="LeftToRight"
-                       Content="{x:Static p:Resources.Application_Name}"
-                       FontSize="{StaticResource CaptionSize}"
+                       Content="{x:Static p:Resources.Application_Copyright}"
+                       FontSize="{StaticResource CopyrightSize}"
                        FontWeight="Light"
-                       Margin="{StaticResource MarginAll}"
-                       Style="{DynamicResource MaterialDesignLabel}"
-                       VerticalAlignment="Top" />
+                       HorizontalContentAlignment="Right"
+                       Margin="{StaticResource MarginSmallAll}"
+                       Style="{DynamicResource MaterialDesignLabel}" />
+            </md:ColorZone>
+            <StackPanel FlowDirection="LeftToRight"
+                        Margin="{StaticResource MarginTallAll}"
+                        Orientation="Vertical"
+                        VerticalAlignment="Stretch">
                 <Label FlowDirection="LeftToRight"
-                       Content="{x:Static p:Resources.Application_TagLine}"
-                       FontSize="{StaticResource TitleSize}"
-                       FontWeight="Light"
-                       HorizontalAlignment="Right"
-                       Margin="{StaticResource MarginAll}"
+                       Content="{Binding Path=Status, Mode=OneWay}"
+                       FontSize="{StaticResource DefaultSize}"
                        Style="{StaticResource MaterialDesignLabel}"
-                       VerticalAlignment="Bottom" />
-            </DockPanel>
-        </md:ColorZone>
-        <md:ColorZone FlowDirection="LeftToRight"
-                      DockPanel.Dock="Bottom"
-                      Mode="PrimaryDark"
-                      md:ShadowAssist.ShadowDepth="Depth2">
-            <Label FlowDirection="LeftToRight"
-                   Content="{x:Static p:Resources.Application_Copyright}"
-                   FontSize="{StaticResource CopyrightSize}"
-                   FontWeight="Light"
-                   HorizontalContentAlignment="Right"
-                   Margin="{StaticResource MarginSmallAll}"
-                   Style="{DynamicResource MaterialDesignLabel}" />
-        </md:ColorZone>
-        <StackPanel FlowDirection="LeftToRight"
-                    Margin="{StaticResource MarginTallAll}"
-                    Orientation="Vertical"
-                    VerticalAlignment="Stretch">
-            <Label FlowDirection="LeftToRight"
-                   Content="{Binding Path=Status, Mode=OneWay}"
-                   FontSize="{StaticResource DefaultSize}"
-                   Style="{StaticResource MaterialDesignLabel}"
-                   VerticalContentAlignment="Center" />
-        </StackPanel>
-    </DockPanel>
+                       VerticalContentAlignment="Center" />
+            </StackPanel>
+        </DockPanel>
+        <ce:ExceptionBox FlowDirection="LeftToRight" />
+    </StackPanel>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedAsync, Mode=OneTime}" />

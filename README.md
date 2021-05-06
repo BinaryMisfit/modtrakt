@@ -36,4 +36,10 @@ Apart from downloading, installing and managing mod files, ModTrakt can also:
 | --- | --- | --- |
 | 0.0.1 | Initial project creation | 2021-04-30 |
 
+## Third Party Libraries
+
+- [Material Design in XAML Toolkit](https://github.com/MaterialDesignInXAML)
+- [Material Design Extensions](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+- [Windows Community Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit)
+
 <sub>* from the time you are reading this</sub>

@@ -5,13 +5,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 
     internal interface IAppSettings
     {
-        ISettings Settings { get; }
+        bool Configured { get; set; }
 
         IGameSettings Game { get; set; }
 
         IEnumerable<IGameSettings> Installed { get; set; }
 
         IDirectoryInfo ProductFolder { get; }
+
+        ISettings Settings { get; }
 
         IDirectoryInfo UserFolder { get; }
     }

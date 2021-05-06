@@ -1,12 +1,12 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Extension.Messages
+namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Messages
 {
-    using Interfaces.Messaging;
+    using Interfaces.Extensions;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.Messaging;
 
     internal static class MessageStatusUpdate
     {
-        public static void SendUpdate(this IMessageStatusUpdate sender, string message)
+        public static void SendStatusUpdate(this IMessageStatusUpdate sender, string message)
         {
             if (sender == null) { return; }
 

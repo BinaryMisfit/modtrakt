@@ -30,22 +30,13 @@
         <value>Another Bethesda Mod Manager</value>
     </data>
     <data name="Splash_Status_Starting_Up" xml:space="preserve">
-        <value>Starting up</value>
+        <value>[MODTRAKT] Starting up</value>
     </data>
     <data name="Application_Copyright" xml:space="preserve">
         <value>Copyright (c) 2021 Senselessly Foolish (PTY) Ltd</value>
     </data>
-    <data name="Splash_Status_Games_Locating" xml:space="preserve">
-        <value>Locating supported games</value>
-    </data>
-    <data name="Splash_Status_Game_Progress" xml:space="preserve">
-        <value>Searching {0} of {1}: {2}</value>
-    </data>
     <data name="Game_Dictionary_Empty" xml:space="preserve">
-        <value>Game Dictionary not found or empty</value>
-    </data>
-    <data name="Splash_Status_Games_Found" xml:space="preserve">
-        <value>Found {0} supported game(s)</value>
+        <value>[ERROR] Game Dictionary not found or empty</value>
     </data>
     <data name="Game_List_Title" xml:space="preserve">
         <value>Select Game</value>
@@ -84,12 +75,18 @@
         <value>Plugins</value>
     </data>
     <data name="Check_Start" xml:space="preserve">
-        <value>Configuration check starting</value>
+        <value>[CHECK] Configuration started</value>
     </data>
     <data name="Check_Folders" xml:space="preserve">
-        <value>Verifying folders</value>
+        <value>[CONFIG-V{0}] Verifying folders</value>
     </data>
     <data name="Check_Config_File" xml:space="preserve">
-        <value>Verifying config file</value>
+        <value>[CHECK] Verifying config file</value>
+    </data>
+    <data name="Check_Failed" xml:space="preserve">
+        <value>[CHECK] Configuration failed</value>
+    </data>
+    <data name="Check_Config_Version" xml:space="preserve">
+        <value>[CONFIG-V{0}] Applying configuration</value>
     </data>
 </root>

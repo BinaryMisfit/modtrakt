@@ -2,9 +2,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Extensions;
     using Models.App;
 
-    internal interface IGameDictionary
+    internal interface IGameDictionary : IJsonSource
     {
         string Code { get; set; }
 

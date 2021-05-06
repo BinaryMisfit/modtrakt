@@ -42,12 +42,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
                     Status = status.Message;
                 });
-            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
-                handler: (r, m) => {
-                    var e = m.Value;
-                    Status = e.Exception.Message;
-                    _cancelTask.Cancel();
-                });
         }
 
         public string Status
@@ -66,7 +60,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
         private async Task CheckStartupOptions(IAppSettings settings)
         {
             settings.Installed = await LocateSupportedGames();
-            _configurator.Check(ConfigKeys.JSON_CONFIG);
+            settings.Configured = await _configurator.Check(ConfigKeys.JSON_CONFIG);
         }
 
         private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()

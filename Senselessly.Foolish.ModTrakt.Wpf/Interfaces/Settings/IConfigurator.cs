@@ -1,13 +1,10 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
-    using Messaging;
+    using System.Threading.Tasks;
+    using Extensions;
 
-    internal interface IConfigurator : IMessageStatusUpdate
+    internal interface IConfigurator : IMessageStatusUpdate, IJsonSource
     {
-        void Check(string key);
-
-        void CheckFolders();
-
-        void CheckConfigFile();
+        Task<bool> Check(string key);
     }
 }

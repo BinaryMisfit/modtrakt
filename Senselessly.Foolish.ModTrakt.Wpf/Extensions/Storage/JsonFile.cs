@@ -1,16 +1,22 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Storage
+namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text.Json;
     using System.Threading.Tasks;
     using Converters.Json;
+    using Interfaces.Extensions;
+    using Messages;
+    using Models.App;
 
     internal static class JsonFile
     {
-        public static async Task<T> LoadResourceAsync<T>(string resourceName)
+        public static async Task<T> JsonResourceAsync<T>(this IJsonSource sender, string resourceName)
         {
+            if (sender == null) { return default; }
+
             var resourceSpace = Assembly.GetExecutingAssembly()
                                         .GetTypes()
                                         .Where(
@@ -19,14 +25,31 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Storage
                                         .Distinct()
                                         .First();
             var resourcePath = $"{resourceSpace}.Resources.Json.{resourceName}.json";
-            var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
+            Stream resource;
+            try { resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath); }
+            catch (Exception e)
+            {
+                var message = new ExceptionInfo(e);
+                message.SendException();
+                return default;
+            }
+
             if (resource == null) { return default; }
 
             var jsonReader = new StreamReader(resource);
             var jsonText = await jsonReader.ReadToEndAsync();
             var jsonOptions = new JsonSerializerOptions {Converters = {new GameRegistryJson()}};
-            var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
-            return jsonData;
+            try
+            {
+                var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
+                return jsonData;
+            }
+            catch (Exception e)
+            {
+                var message = new ExceptionInfo(e);
+                message.SendException();
+                return default;
+            }
         }
     }
 }

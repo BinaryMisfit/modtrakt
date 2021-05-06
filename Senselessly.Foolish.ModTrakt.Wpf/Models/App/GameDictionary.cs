@@ -2,8 +2,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Extensions.Storage;
     using Interfaces.App;
-    using Services.Storage;
 
     internal sealed class GameDictionary : IGameDictionary
     {
@@ -16,6 +16,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
         public IEnumerable<IGameRegistry> Registry { get; set; }
 
         public async Task<IEnumerable<GameDictionary>> LoadAsync(string gameDictionaryKey) =>
-            await JsonFile.LoadResourceAsync<IEnumerable<GameDictionary>>(gameDictionaryKey);
+            await this.JsonResourceAsync<IEnumerable<GameDictionary>>(gameDictionaryKey);
     }
 }

@@ -15,6 +15,7 @@
     using Models.Settings;
     using Services.App;
     using Services.Messaging;
+    using UI.Controls.ExceptionBox;
     using UI.Dialog.Exit;
     using UI.Dialog.Settings;
     using UI.GameList;
@@ -45,6 +46,7 @@
             services.AddSingleton<IExceptionService, ExceptionService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IRegistryScannerService, RegistryScannerService>();
+            services.AddTransient<ExceptionViewModel>();
             services.AddTransient<ExitDialog>();
             services.AddTransient<GameListWindow>();
             services.AddTransient<GameListViewModel>();
