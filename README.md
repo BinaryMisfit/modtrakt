@@ -4,6 +4,7 @@
 
 [![App Analysis](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-analysis.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-analysis.yml) &nbsp; 
 [![App Build](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml) &nbsp;
+[![WakaTime](https://wakatime.com/badge/github/BinaryMisfit/modtrakt.svg)](https://wakatime.com/badge/github/BinaryMisfit/modtrakt)
 
 ModTrakt is a WPF based .Net Core 3.1 mod manager for Bethesda games. Most mod managers are focussed on downloading and
 installing mod files and enabling these mods. These managers are excellent at what they do.
