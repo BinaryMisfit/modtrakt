@@ -24,10 +24,26 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var fileInfo = storage.FileInfo.FromFileName(path);
             if (!fileInfo.Exists) return defaults;
 
+            var product = AppContext.BaseDirectory;
+            var userRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            userRoot = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPath);
             var configuration = Configuration.LoadFromFile(fileInfo.FullName);
+            if (configuration.Contains(sectionName: ConfigKeys.SectionFolders, settingName: ConfigKeys.FolderUserData))
+                userRoot = configuration[ConfigKeys.SectionFolders][ConfigKeys.FolderUserData].StringValue;
+
             var settings = new AppSettings {
-                General = new AppSettingsGeneral {
-                    ActiveGame = configuration[ConfigKeys.SectionGeneral][ConfigKeys.GeneralActiveGame].StringValue
+                General =
+                    new AppSettingsGeneral {
+                        ActiveGame = configuration[ConfigKeys.SectionGeneral][ConfigKeys.GeneralActiveGame].StringValue
+                    },
+                Folders = new AppSettingsFolders {
+                    User = userRoot,
+                    Data = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.DataPath),
+                    ExternalModules = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserModules),
+                    ExternalPlugins = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPlugins),
+                    Games = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreGames),
+                    Modules = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreModules),
+                    Plugins = storage.Path.Combine(path1: product, path2: ConfigKeys.CorePlugins)
                 },
                 FirstRun = false
             };
@@ -59,12 +75,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var userRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var settings = new AppSettings {
                 Folders = new AppSettingsFolders {
-                    Data = storage.Path.Combine(path1: userRoot, path2: "Data"),
-                    ExternalModules = storage.Path.Combine(path1: userRoot, path2: "Modules"),
-                    ExternalPlugins = storage.Path.Combine(path1: userRoot, path2: "Plugins"),
-                    Games = storage.Path.Combine(path1: product, path2: "Games"),
-                    Modules = storage.Path.Combine(path1: product, path2: "Modules"),
-                    Plugins = storage.Path.Combine(path1: product, path2: "Plugins"),
+                    Data = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.DataPath),
+                    ExternalModules = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserModules),
+                    ExternalPlugins = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPlugins),
+                    Games = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreGames),
+                    Modules = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreModules),
+                    Plugins = storage.Path.Combine(path1: product, path2: ConfigKeys.CorePlugins),
                     Product = product,
                     User = userRoot
                 },

@@ -5,6 +5,7 @@
              xmlns:ce="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
              Visibility="{Binding Show, Mode=OneWay}"
              mc:Ignorable="d"
              d:DesignHeight="300"
@@ -28,6 +29,7 @@
                        Style="{DynamicResource MaterialDesignLabel}" />
                 <Label FlowDirection="LeftToRight"
                        Content="{Binding ExceptionDetail.Timestamp, Mode=OneWay}"
+                       ContentStringFormat="{}{0:yyyy-MM-dd HH:mm:ss:ms}"
                        DockPanel.Dock="Right"
                        FontSize="{StaticResource SubscriptSize}"
                        HorizontalContentAlignment="Right"
@@ -39,18 +41,32 @@
                       DockPanel.Dock="Bottom"
                       Mode="Custom"
                       Background="DarkRed">
+            <Button FlowDirection="LeftToRight"
+                    HorizontalAlignment="Right"
+                    Background="Black"
+                    BorderBrush="Black"
+                    Content="{x:Static p:Resources.Button_Close}"
+                    Command="{Binding CloseCommand, Mode=OneTime}"
+                    FontSize="{StaticResource SubscriptSize}"
+                    Height="{StaticResource ButtonSmallHeight}"
+                    Margin="{StaticResource MarginSmallAll}"
+                    Width="{StaticResource ButtonSmallWidth}"
+                    Style="{DynamicResource MaterialDesignRaisedButton}" />
+        </md:ColorZone>
+        <StackPanel FlowDirection="LeftToRight">
+            <TextBlock FlowDirection="LeftToRight"
+                       FontSize="{StaticResource DefaultSize}"
+                       FontWeight="Light"
+                       Padding="{StaticResource PaddingTallAll}"
+                       Style="{DynamicResource MaterialDesignTextBlock}"
+                       Text="{Binding ExceptionDetail.Exception.Message, Mode=OneWay}"
+                       TextWrapping="Wrap" />
             <Label FlowDirection="LeftToRight"
-                   Content="{Binding ExceptionDetail.Source}"
+                   Content="{Binding ExceptionDetail.Source, Mode=OneWay}"
+                   ContentStringFormat="Source: {0}"
                    FontSize="{StaticResource SubscriptSize}"
                    Margin="{StaticResource MarginAll}"
                    Style="{DynamicResource MaterialDesignLabel}" />
-        </md:ColorZone>
-        <TextBlock FlowDirection="LeftToRight"
-                   FontSize="{StaticResource DefaultSize}"
-                   FontWeight="Light"
-                   Margin="{StaticResource MarginAll}"
-                   Style="{DynamicResource MaterialDesignTextBlock}"
-                   Text="{Binding ExceptionDetail.Exception.Message, Mode=OneWay}"
-                   TextWrapping="Wrap" />
+        </StackPanel>
     </DockPanel>
 </UserControl>

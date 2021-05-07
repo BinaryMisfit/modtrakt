@@ -10,8 +10,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
     using Extensions.Storage;
     using Interfaces.Services;
     using Interfaces.Settings;
+    using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.App;
     using Models.Exceptions.Settings;
+    using Models.Messaging.Messages.UI;
+    using Models.Messaging.Options.UI;
     using Models.Settings;
     using Properties;
 
@@ -29,6 +32,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
         }
 
         public async Task LoadAsync(string key)
+        {
+            await LoadConfigurationAsync(key);
+        }
+
+        public async Task CheckFoldersAsync(Guid identifier, IAppSettingsFolders folders)
+        {
+            await CheckConfigurationFoldersAsync(identifier: identifier, folders: folders);
+        }
+
+        private async Task LoadConfigurationAsync(string key)
         {
             this.SendStatusUpdate(Resources.Check_Start);
             var config = await LoadConfigJson(key);
@@ -57,12 +70,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             settings.SendSettings();
         }
 
-        public async Task<bool> CheckFolders(IAppSettingsFolders folders)
+        private async Task CheckConfigurationFoldersAsync(Guid identifier, IAppSettingsFolders folders)
         {
             if (folders == null)
             {
                 this.SendStatusUpdate(Resources.Internal_Corrupt);
-                return false;
+                return;
             }
 
             var update = Resources.Check_Folders;
@@ -73,10 +86,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             await foreach (var folder in sorted.ToAsyncEnumerable())
             {
                 valid = CheckFolder(folder);
-                if (!valid) break;
+                if (!valid) throw new ConfigurationCorruptException();
             }
 
-            return valid;
+            WeakReferenceMessenger.Default.Send(
+                new TaskCompletionMessage(new CompletionMessageOptions(identifier: identifier, isSuccessful: valid)));
         }
 
         private bool CheckFolder(string folder)

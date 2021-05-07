@@ -5,6 +5,10 @@
     <Thickness x:Key="MarginSmallAll">4</Thickness>
     <Thickness x:Key="MarginTallAll">12</Thickness>
     <Thickness x:Key="MarginLeft">8 0 0 0</Thickness>
+    <Thickness x:Key="PaddingAll">8</Thickness>
+    <Thickness x:Key="PaddingTallAll">12</Thickness>
+    <run:Double x:Key="ButtonSmallHeight">24</run:Double>
+    <run:Double x:Key="ButtonSmallWidth">65</run:Double>
     <run:Double x:Key="ButtonWidth">100</run:Double>
     <run:Double x:Key="DialogHeight">120</run:Double>
     <run:Double x:Key="DialogWidth">300</run:Double>

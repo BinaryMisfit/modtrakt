@@ -36,7 +36,7 @@
             <mde:AppBar FlowDirection="LeftToRight"
                         DockPanel.Dock="Top"
                         ShowShadow="True"
-                        Title="{Binding Game.Name, Mode=OneTime}" />
+                        Title="{Binding Game, Mode=OneTime}" />
             <mde:NavigationRail FlowDirection="LeftToRight"
                                 DockPanel.Dock="Left"
                                 Items="{Binding Navigation, Mode=OneTime}"

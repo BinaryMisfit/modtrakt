@@ -26,23 +26,23 @@
                       Mode="PrimaryDark">
             <DockPanel FlowDirection="LeftToRight"
                        Margin="{StaticResource MarginSmallAll}">
-                <Button DockPanel.Dock="Right"
-                        FlowDirection="LeftToRight"
+                <Button FlowDirection="LeftToRight"
+                        DockPanel.Dock="Right"
                         Content="{x:Static p:Resources.Button_Yes}"
+                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                        CommandParameter="{StaticResource TrueValue}"
                         Margin="{StaticResource MarginLeft}"
                         Width="{StaticResource ButtonWidth}"
-                        Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                        CommandParameter="{StaticResource TrueValue}" />
-                <Button DockPanel.Dock="Right"
-                        FlowDirection="LeftToRight"
+                        Style="{DynamicResource MaterialDesignRaisedLightButton}" />
+                <Button FlowDirection="LeftToRight"
+                        DockPanel.Dock="Right"
                         Content="{x:Static p:Resources.Button_No}"
+                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                        CommandParameter="{StaticResource FalseValue}"
+                        HorizontalAlignment="Right"
                         Margin="{StaticResource MarginLeft}"
                         Width="{StaticResource ButtonWidth}"
-                        Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                        HorizontalAlignment="Right"
-                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                        CommandParameter="{StaticResource FalseValue}" />
+                        Style="{DynamicResource MaterialDesignRaisedLightButton}" />
             </DockPanel>
         </md:ColorZone>
         <Label FlowDirection="LeftToRight"

@@ -1,5 +1,6 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
 {
+    using System;
     using System.Threading.Tasks;
     using Extensions;
     using Settings;
@@ -8,6 +9,6 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
     {
         Task LoadAsync(string key);
 
-        Task<bool> CheckFolders(IAppSettingsFolders folders);
+        Task CheckFoldersAsync(Guid identifier, IAppSettingsFolders folders);
     }
 }

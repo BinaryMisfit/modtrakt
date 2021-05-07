@@ -31,7 +31,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
                 if (value != null && !paths.Contains(value)) paths.Add(value);
             });
 
-            return paths.OrderBy(p => p);
+            return paths.OrderBy(p => p).Distinct();
         }
     }
 }

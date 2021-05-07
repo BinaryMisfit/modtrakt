@@ -63,7 +63,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
         {
             WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
                 close: true,
-                shutdown: _settings.General.ActiveGame == null)));
+                shutdown: string.IsNullOrEmpty(_settings.General.ActiveGame))));
         }
 
         private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()

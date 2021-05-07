@@ -4,6 +4,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.App
 
     internal interface IExceptionInfo
     {
+        Action Close { get; }
+
         Exception Exception { get; }
 
         bool Handled { get; set; }

@@ -6,11 +6,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
 
     internal sealed class ExceptionInfo : IExceptionInfo
     {
-        public ExceptionInfo(Exception e)
+        public ExceptionInfo(Exception e, Action close = null)
         {
+            Close = close;
             Exception = e;
             Timestamp = DateTime.Now;
         }
+
+        public Action Close { get; }
 
         public Exception Exception { get; }
 

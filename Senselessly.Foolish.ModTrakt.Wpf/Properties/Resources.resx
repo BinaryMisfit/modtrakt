@@ -98,4 +98,7 @@
     <data name="Exception_Config_Section_Missing" xml:space="preserve">
         <value>Section {0} is missing from the configuration</value>
     </data>
+    <data name="Button_Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
 </root>

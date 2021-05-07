@@ -48,31 +48,57 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private async Task StartAsync(EventArgs e)
         {
-            await CheckConfiguration(_settings);
+            await CheckConfigurationAsync(_settings);
         }
 
-        private async Task CheckConfiguration(IAppSettings settings)
+        private async Task CheckConfigurationAsync(IAppSettings settings)
         {
-            if (settings.FirstRun)
+            switch (settings.FirstRun)
             {
-                WeakReferenceMessenger.Default.Register<AppSettingsMessage>(recipient: this,
-                    handler: (s, e) => {
-                        var m = e.Value;
-                        if (m.Handled) return;
+                case false:
+                    await CheckFoldersAsync(settings);
+                    break;
+                case true:
+                    WeakReferenceMessenger.Default.Register<AppSettingsMessage>(recipient: this,
+                        handler: async (s, e) => {
+                            var m = e.Value;
+                            if (m.Handled) return;
 
-                        m.Handled = true;
-                        var config = m.Settings;
-                        if (config == null) return;
+                            m.Handled = true;
+                            var config = m.Settings;
+                            if (config == null) return;
 
-                        config.SaveConfigFile(ConfigKeys.FileAppConfig);
-                        settings = settings.LoadConfigFile(ConfigKeys.FileAppConfig);
-                        if (settings.IsConfigured) _settings = settings;
-                    });
-                await _configurator.LoadAsync(key: ConfigKeys.JsonConfig);
+                            config.SaveConfigFile(ConfigKeys.FileAppConfig);
+                            settings = settings.LoadConfigFile(ConfigKeys.FileAppConfig);
+                            if (!settings.IsConfigured) return;
+
+                            _settings = settings;
+                            WeakReferenceMessenger.Default.Unregister<AppSettingsMessage>(this);
+                            await CheckFoldersAsync(settings);
+                        });
+                    await _configurator.LoadAsync(key: ConfigKeys.JsonConfig);
+                    break;
             }
+        }
 
-            await _configurator.CheckFolders(settings.Folders);
-            if (settings.IsConfigured) ShowGameSelector();
+        private async Task CheckFoldersAsync(IAppSettings settings)
+        {
+            var identifier = Guid.NewGuid();
+            WeakReferenceMessenger.Default.Register<TaskCompletionMessage>(recipient: this,
+                handler: (s, e) => {
+                    var m = e.Value;
+                    if (identifier == Guid.Empty) return;
+
+                    if (m.Identifier != identifier) return;
+
+                    if (!m.IsSuccessful) return;
+
+                    if (!settings.IsConfigured) return;
+
+                    WeakReferenceMessenger.Default.Unregister<TaskCompletionMessage>(this);
+                    ShowGameSelector();
+                });
+            await _configurator.CheckFoldersAsync(identifier: identifier, folders: settings.Folders);
         }
 
         private static void ShowGameSelector()
