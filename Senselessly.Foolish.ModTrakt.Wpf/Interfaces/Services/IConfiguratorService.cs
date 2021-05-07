@@ -4,9 +4,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Services
     using Extensions;
     using Settings;
 
-    internal interface IConfiguratorService : IConfigSource, IMessageStatusUpdate, IJsonSource
+    internal interface IConfiguratorService : IMessageStatusUpdate, IJsonSource
     {
-        Task<IAppSettings> Load(string key);
+        Task LoadAsync(string key);
 
         Task<bool> CheckFolders(IAppSettingsFolders folders);
     }

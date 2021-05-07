@@ -5,7 +5,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 
     internal sealed class ConfigurationFile : IConfigurationFile
     {
-        public IConfigurationFileConfig FileConfig { get; set; }
+        public IConfigurationFileConfig Config { get; set; }
 
         public IEnumerable<IConfigurationFileFolder> Folders { get; set; }
     }

@@ -4,7 +4,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox
     using Interfaces.App;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messaging;
+    using Models.Messaging.Messages.Exceptions;
 
     internal sealed class ExceptionViewModel : ObservableObject
     {

@@ -2,13 +2,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Messages
 {
     using Interfaces.App;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messaging;
+    using Models.Messaging.Messages.Exceptions;
 
     internal static class MessageException
     {
         public static void SendException(this IExceptionInfo info)
         {
-            if (info == null) { return; }
+            if (info == null) return;
 
             WeakReferenceMessenger.Default.Send(new ExceptionRaisedMessage(info));
         }

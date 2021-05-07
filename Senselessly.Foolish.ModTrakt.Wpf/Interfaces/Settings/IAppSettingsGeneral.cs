@@ -1,8 +1,6 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
-    using System;
-
-    internal interface IAppSettingsGeneral : IComparable<IAppSettingsGeneral>
+    internal interface IAppSettingsGeneral : IAppSettingsSection
     {
         string ActiveGame { get; set; }
     }

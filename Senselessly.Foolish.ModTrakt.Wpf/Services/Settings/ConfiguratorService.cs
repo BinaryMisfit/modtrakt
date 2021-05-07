@@ -2,15 +2,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.IO.Abstractions;
     using System.Linq;
     using System.Threading.Tasks;
     using Extensions.Messages;
+    using Extensions.Settings;
     using Extensions.Storage;
     using Interfaces.Services;
     using Interfaces.Settings;
     using Models.App;
+    using Models.Exceptions.Settings;
     using Models.Settings;
     using Properties;
 
@@ -27,30 +28,33 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             _storage = storage;
         }
 
-        public async Task<IAppSettings> Load(string key)
+        public async Task LoadAsync(string key)
         {
             this.SendStatusUpdate(Resources.Check_Start);
             var config = await LoadConfigJson(key);
             if (config == null)
             {
                 this.SendStatusUpdate(Resources.Check_Failed);
-                return null;
+                throw new ConfigurationCorruptException();
             }
 
             var settings = new AppSettings();
             var folders = await LoadFolders(config.Folders);
             if (folders == null)
             {
-                var ex = new ExceptionInfo(sourceName: nameof(ConfiguratorService),
-                    source: typeof(ConfiguratorService),
-                    e: new InvalidDataException());
-                ex.SendException();
-                return null;
+                this.SendStatusUpdate(Resources.Check_Failed);
+                throw new ConfigurationSectionMissingException(ConfigKeys.SectionFolders);
+            }
+
+            var sections = await LoadConfig(config.Config);
+            if (sections != null)
+            {
+                settings.Folders = sections.Folders;
+                settings.General = sections.General;
             }
 
             settings.Folders = folders;
-            var check = await LoadConfigFiles(config.FileConfig);
-            return !check ? null : settings;
+            settings.SendSettings();
         }
 
         public async Task<bool> CheckFolders(IAppSettingsFolders folders)
@@ -88,7 +92,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             }
             catch (Exception e)
             {
-                var message = new ExceptionInfo(sourceName: folder, source: typeof(ConfiguratorService), e: e);
+                var message = new ExceptionInfo(e);
                 message.SendException();
                 return false;
             }
@@ -96,18 +100,43 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             return pathInfo.Exists;
         }
 
-        private async Task<bool> LoadConfigFiles(IConfigurationFileConfig fileConfig)
+        private async Task<IAppSettings> LoadConfig(IConfigurationFileConfig fileConfig)
         {
             this.SendStatusUpdate(Resources.Check_Config_File);
             if (fileConfig?.Sections == null)
             {
                 this.SendStatusUpdate(Resources.Internal_Corrupt);
-                return false;
+                return null;
             }
 
-            await foreach (var section in fileConfig.Sections.OrderBy(s => s.Name).ToAsyncEnumerable()) { }
+            IAppSettings settings = new AppSettings();
+            await foreach (var section in fileConfig.Sections.OrderBy(s => s.Name).ToAsyncEnumerable())
+            {
+                IAppSettingsSection configSection = section.Name switch {
+                    ConfigKeys.SectionGeneral => new AppSettingsGeneral(),
+                    ConfigKeys.SectionFolders => new AppSettingsFolders(),
+                    _                         => null
+                };
 
-            return false;
+                if (configSection == null) continue;
+
+                configSection = await configSection.LoadKeys(section.Keys);
+                if (configSection == null) continue;
+
+                await foreach (var property in configSection.GetType().GetProperties().ToAsyncEnumerable())
+                {
+                    var value = property.GetValue(configSection)?.ToString();
+                    if (string.IsNullOrEmpty(value)) continue;
+
+                    value = value.Replace(oldValue: ConfigKeys.ProductFolder, newValue: _productFolder);
+                    value = value.Replace(oldValue: ConfigKeys.UserFolder, newValue: _userFolder);
+                    property.SetValue(obj: configSection, value: value);
+                }
+
+                settings.GetType().GetProperty(section.Name)?.SetValue(obj: settings, value: configSection);
+            }
+
+            return settings;
         }
 
         private async Task<IConfigurationFile> LoadConfigJson(string key) =>

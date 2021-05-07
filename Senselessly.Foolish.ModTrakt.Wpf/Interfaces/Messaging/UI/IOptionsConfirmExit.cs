@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Messaging
+namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Messaging.UI
 {
     using System;
 

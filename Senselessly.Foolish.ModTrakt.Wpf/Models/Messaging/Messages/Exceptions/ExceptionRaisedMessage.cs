@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging
+namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging.Messages.Exceptions
 {
     using Interfaces.App;
     using Microsoft.Toolkit.Mvvm.Messaging.Messages;

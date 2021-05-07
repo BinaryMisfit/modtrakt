@@ -1,9 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 {
-    using System;
     using System.Collections.Generic;
 
-    internal interface IAppSettingsFolders : IComparable<IAppSettingsFolders>
+    internal interface IAppSettingsFolders : IAppSettingsSection
     {
         string Data { get; }
 

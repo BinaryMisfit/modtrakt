@@ -187,6 +187,24 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration corrupted. Reinstall ModTrakt..
+        /// </summary>
+        public static string Exception_Config_Corrupt {
+            get {
+                return ResourceManager.GetString("Exception_Config_Corrupt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Section {0} is missing from the configuration.
+        /// </summary>
+        public static string Exception_Config_Section_Missing {
+            get {
+                return ResourceManager.GetString("Exception_Config_Section_Missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to exit?.
         /// </summary>
         public static string Exit_Dialog_Prompt {

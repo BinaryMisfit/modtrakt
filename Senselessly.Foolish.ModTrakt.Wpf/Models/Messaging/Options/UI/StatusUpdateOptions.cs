@@ -1,6 +1,6 @@
-namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging
+namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Messaging.Options.UI
 {
-    using Interfaces.Messaging;
+    using Interfaces.Messaging.UI;
 
     public class StatusUpdateOptions : IOptionsStatusMessage
     {

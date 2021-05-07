@@ -52,12 +52,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                     results.Add(result);
                 }
             }
-            catch (Exception e)
-            {
-                _ex?.Send(new ExceptionInfo(sourceName: nameof(RegistryScannerService),
-                    source: typeof(RegistryScannerService),
-                    e: e));
-            }
+            catch (Exception e) { _ex?.Send(new ExceptionInfo(e)); }
 
             if (!cancel.IsCancellationRequested) Results = results;
 

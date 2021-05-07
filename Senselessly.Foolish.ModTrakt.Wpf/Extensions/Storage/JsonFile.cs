@@ -40,7 +40,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             try { resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath); }
             catch (Exception e)
             {
-                var message = new ExceptionInfo(sourceName: nameof(JsonFile), source: typeof(JsonFile), e: e);
+                var message = new ExceptionInfo(e);
                 message.SendException();
                 return default;
             }
@@ -58,7 +58,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             }
             catch (Exception e)
             {
-                var message = new ExceptionInfo(sourceName: nameof(JsonFile), source: typeof(JsonFile), e: e);
+                var message = new ExceptionInfo(e);
                 message.SendException();
                 return default;
             }

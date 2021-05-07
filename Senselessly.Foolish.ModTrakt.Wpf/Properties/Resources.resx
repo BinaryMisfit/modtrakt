@@ -92,4 +92,10 @@
     <data name="Internal_Corrupt" xml:space="preserve">
         <value>[CRITICAL] Setup corrupted. Application reinstall required.</value>
     </data>
+    <data name="Exception_Config_Corrupt" xml:space="preserve">
+        <value>Configuration corrupted. Reinstall ModTrakt.</value>
+    </data>
+    <data name="Exception_Config_Section_Missing" xml:space="preserve">
+        <value>Section {0} is missing from the configuration</value>
+    </data>
 </root>

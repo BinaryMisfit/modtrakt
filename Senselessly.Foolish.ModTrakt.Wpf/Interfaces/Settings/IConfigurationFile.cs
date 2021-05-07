@@ -4,7 +4,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Interfaces.Settings
 
     internal interface IConfigurationFile
     {
-        IConfigurationFileConfig FileConfig { get; }
+        IConfigurationFileConfig Config { get; }
 
         IEnumerable<IConfigurationFileFolder> Folders { get; }
     }

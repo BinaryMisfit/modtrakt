@@ -9,7 +9,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
-    using Models.Messaging;
+    using Models.Messaging.Messages.UI;
+    using Models.Messaging.Options.UI;
 
     internal sealed class MainViewModel : ObservableObject
     {

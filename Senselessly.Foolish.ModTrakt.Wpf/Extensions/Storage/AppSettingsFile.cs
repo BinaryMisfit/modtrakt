@@ -4,14 +4,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
     using System.IO.Abstractions;
     using Interfaces.Settings;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
+    using Models.App;
     using Models.Settings;
     using SharpConfig;
 
     internal static class AppSettingsFile
     {
-        private const string SectionGeneral = "General";
-        private const string GeneralActiveGame = "ActiveGame";
-
         public static AppSettings LoadConfigFile(this IAppSettings sender, string file)
         {
             if (sender == null) return null;
@@ -29,8 +27,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var configuration = Configuration.LoadFromFile(fileInfo.FullName);
             var settings = new AppSettings {
                 General = new AppSettingsGeneral {
-                    ActiveGame = configuration[SectionGeneral][GeneralActiveGame].StringValue
-                }
+                    ActiveGame = configuration[ConfigKeys.SectionGeneral][ConfigKeys.GeneralActiveGame].StringValue
+                },
+                FirstRun = false
             };
             return settings;
         }
@@ -42,11 +41,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var storage = Ioc.Default.GetService<IFileSystem>();
             if (storage == null) return;
 
-            var file = storage.FileInfo.FromFileName(filePath);
+            var saveFile = storage.Path.Combine(path1: sender.Folders.Product, path2: filePath);
+            var file = storage.FileInfo.FromFileName(saveFile);
             if (file.Directory?.Exists == false) file.Directory.Create();
+            file.Refresh();
 
             var configuration = new Configuration();
-            configuration.SaveToFile(filePath);
+            configuration[ConfigKeys.SectionGeneral][ConfigKeys.GeneralActiveGame].StringValue =
+                sender.General.ActiveGame ?? "";
+            configuration[ConfigKeys.SectionFolders][ConfigKeys.FolderUserData].StringValue = sender.Folders.User ?? "";
+            configuration.SaveToFile(file.FullName);
         }
 
         private static AppSettings DefaultConfig(IFileSystem storage)
@@ -63,7 +67,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
                     Plugins = storage.Path.Combine(path1: product, path2: "Plugins"),
                     Product = product,
                     User = userRoot
-                }
+                },
+                FirstRun = true
             };
             return settings;
         }

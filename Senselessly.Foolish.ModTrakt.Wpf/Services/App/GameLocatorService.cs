@@ -79,9 +79,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                 }
                 catch (Exception e)
                 {
-                    _ex.Send(new ExceptionInfo(sourceName: nameof(GameLocatorService),
-                        source: typeof(GameLocatorService),
-                        e: e));
+                    _ex.Send(new ExceptionInfo(e));
                     return 0;
                 }
             }

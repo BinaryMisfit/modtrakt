@@ -1,8 +1,11 @@
 ﻿namespace Senselessly.Foolish.ModTrakt.Wpf
 {
+    using System;
     using System.IO.Abstractions;
+    using System.Threading.Tasks;
     using System.Windows;
     using DotNetWindowsRegistry;
+    using Extensions.Messages;
     using Extensions.Storage;
     using Interfaces.App;
     using Interfaces.Navigation;
@@ -10,7 +13,6 @@
     using Interfaces.Settings;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Toolkit.Mvvm.DependencyInjection;
-    using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.App;
     using Models.Settings;
     using Services.App;
@@ -38,7 +40,7 @@
         private void ConfigureServices(IServiceCollection services)
         {
             var settings = new AppSettings();
-            settings.LoadConfigFile(ConfigKeys.FileAppConfig);
+            settings = settings.LoadConfigFile(ConfigKeys.FileAppConfig);
             services.AddSingleton<IAppSettings>(settings);
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IRegistry, WindowsRegistry>();
@@ -67,12 +69,12 @@
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            Current.DispatcherUnhandledException += (s, args) => {
-                WeakReferenceMessenger.Default.Send(new ExceptionInfo(sourceName: nameof(s),
-                    source: s.GetType(),
-                    e: args.Exception));
-                args.Handled = true;
+            AppDomain.CurrentDomain.FirstChanceException += (s, ex) => {
+                var info = new ExceptionInfo(ex.Exception);
+                info.SendException();
             };
+            Current.DispatcherUnhandledException += (s, ex) => { ex.Handled = true; };
+            TaskScheduler.UnobservedTaskException += (s, ex) => { ex.SetObserved(); };
             var splashWindow = Ioc.Default.GetService<SplashWindow>();
             splashWindow?.Show();
         }

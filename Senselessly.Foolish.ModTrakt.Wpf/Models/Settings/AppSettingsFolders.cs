@@ -1,6 +1,5 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Interfaces.Settings;
@@ -23,35 +22,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Settings
 
         public string User { get; set; }
 
-        public int CompareTo(IAppSettingsFolders other)
+        public IEnumerable<string> ToStringArray()
         {
-            if (other == null) return 1;
+            var paths = new List<string>();
+            var source = GetType().GetProperties().ToList();
+            source.ForEach(prop => {
+                var value = prop.GetValue(this)?.ToString();
+                if (value != null && !paths.Contains(value)) paths.Add(value);
+            });
 
-            var compare = string.Compare(strA: Data, strB: other.Data, comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: ExternalModules,
-                strB: other.ExternalModules,
-                comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: ExternalPlugins,
-                strB: other.ExternalPlugins,
-                comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: Games, strB: other.Games, comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: Modules, strB: other.Modules, comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: Plugins, strB: other.Plugins, comparisonType: StringComparison.Ordinal);
-            compare += string.Compare(strA: Product, strB: other.Product, comparisonType: StringComparison.Ordinal);
-            if (compare != 0) compare = compare > 0 ? 1 : -1;
-
-            return compare;
+            return paths.OrderBy(p => p);
         }
-
-        public IEnumerable<string> ToStringArray() =>
-            new[] {
-                Data,
-                ExternalModules,
-                ExternalPlugins,
-                Games,
-                Modules,
-                Plugins,
-                Product
-            }.Distinct();
     }
 }

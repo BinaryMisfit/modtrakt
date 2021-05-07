@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 {
     using System;
-    using System.IO.Abstractions;
     using System.Threading.Tasks;
+    using Extensions.Storage;
     using GameList;
     using Interfaces.Services;
     using Interfaces.Settings;
@@ -10,23 +10,23 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
     using Microsoft.Toolkit.Mvvm.Input;
     using Microsoft.Toolkit.Mvvm.Messaging;
     using Models.App;
-    using Models.Messaging;
+    using Models.Messaging.Messages.Settings;
+    using Models.Messaging.Messages.UI;
+    using Models.Messaging.Options.UI;
     using Properties;
 
     internal sealed class SplashViewModel : ObservableObject
     {
         private readonly IConfiguratorService _configurator;
-        private readonly IFileSystem _storage;
         private IAppSettings _settings;
         private string _status;
 
         public SplashViewModel() { }
 
-        public SplashViewModel(IAppSettings settings, IConfiguratorService configurator, IFileSystem storage)
+        public SplashViewModel(IAppSettings settings, IConfiguratorService configurator)
         {
             _configurator = configurator;
             _settings = settings;
-            _storage = storage;
             ContentRenderedAsync = new AsyncRelayCommand<EventArgs>(StartAsync);
             Status = Resources.Splash_Status_Starting_Up;
             WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(recipient: this,
@@ -48,15 +48,31 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private async Task StartAsync(EventArgs e)
         {
-            _settings = await CheckStartupOptions(_settings);
+            await CheckConfiguration(_settings);
         }
 
-        private async Task<IAppSettings> CheckStartupOptions(IAppSettings settings)
+        private async Task CheckConfiguration(IAppSettings settings)
         {
-            var configured = await _configurator.Load(key: ConfigKeys.JsonConfig);
-            if (settings.CompareTo(configured) != 0) { }
+            if (settings.FirstRun)
+            {
+                WeakReferenceMessenger.Default.Register<AppSettingsMessage>(recipient: this,
+                    handler: (s, e) => {
+                        var m = e.Value;
+                        if (m.Handled) return;
 
-            return settings;
+                        m.Handled = true;
+                        var config = m.Settings;
+                        if (config == null) return;
+
+                        config.SaveConfigFile(ConfigKeys.FileAppConfig);
+                        settings = settings.LoadConfigFile(ConfigKeys.FileAppConfig);
+                        if (settings.IsConfigured) _settings = settings;
+                    });
+                await _configurator.LoadAsync(key: ConfigKeys.JsonConfig);
+            }
+
+            await _configurator.CheckFolders(settings.Folders);
+            if (settings.IsConfigured) ShowGameSelector();
         }
 
         private static void ShowGameSelector()

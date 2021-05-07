@@ -7,12 +7,16 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.App
         public const string ExternalPluginsKey = "UserPlugins";
         public const string FileAppConfig = "ModTrakt.ini";
         public const string GamesKey = "CoreGames";
+        public const string GeneralActiveGame = "ActiveGame";
+        public const string FolderUserData = "User";
         public const string JsonConfig = "Configuration";
         public const string JsonGames = "GameDictionary";
         public const string ModulesKey = "CoreModules";
         public const string PluginsKey = "CorePlugins";
         public const string ProductFolder = "{ProductFolder}";
         public const string ProductKey = "Product";
+        public const string SectionFolders = "Folders";
+        public const string SectionGeneral = "General";
         public const string UserFolder = "{UserFolder}";
         public const string UserKey = "UserRoot";
     }
