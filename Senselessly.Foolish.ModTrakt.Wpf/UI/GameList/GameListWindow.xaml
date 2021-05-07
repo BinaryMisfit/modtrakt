@@ -2,16 +2,18 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:gl="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.GameList"
                   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  xmlns:l="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Converters.Loaders"
                   xmlns:p="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Properties"
                   xmlns:s="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.Shared"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-                  xmlns:l="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.Converters.Loaders"
+                  xmlns:gl="clr-namespace:Senselessly.Foolish.ModTrakt.Wpf.UI.GameList"
+                  xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
                   mc:Ignorable="d"
                   FlowDirection="LeftToRight"
                   Height="{StaticResource PopupHeight}"
+                  MinHeight="{StaticResource PopupMinHeight}"
                   SizeToContent="Height"
                   Style="{DynamicResource MaterialDesignWindow}"
                   Title="{x:Static p:Resources.Game_List_Title}"
@@ -49,9 +51,12 @@
                         Style="{DynamicResource MaterialDesignRaisedLightButton}"
                         Width="{StaticResource ButtonWidth}" />
             </md:ColorZone>
+            <mde:BusyOverlay FlowDirection="LeftToRight"
+                             IsBusy="{Binding IsBusy}"
+                             Style="{StaticResource MaterialBusyOverlayCircular}" />
             <ListView FlowDirection="LeftToRight"
                       HorizontalContentAlignment="Stretch"
-                      ItemsSource="{Binding Installed, Mode=OneTime}"
+                      ItemsSource="{Binding Installed, Mode=OneWay}"
                       SelectedItem="{Binding Active, Mode=TwoWay}"
                       Style="{DynamicResource MaterialDesignListView}">
                 <i:Interaction.Triggers>
@@ -90,4 +95,9 @@
             </ListView>
         </DockPanel>
     </md:DialogHost>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding ContentRenderedAsync, Mode=OneTime}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 </s:ExtendedWindow>

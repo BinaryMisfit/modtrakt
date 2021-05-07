@@ -16,7 +16,6 @@
                   SizeToContent="Height"
                   Style="{DynamicResource MaterialDesignWindow}"
                   Title="{x:Static p:Resources.Application_Name}"
-                  Topmost="True"
                   Width="{StaticResource PopupWidth}"
                   WindowStyle="None"
                   WindowStartupLocation="CenterScreen"

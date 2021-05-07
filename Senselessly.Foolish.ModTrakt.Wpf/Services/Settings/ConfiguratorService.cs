@@ -2,6 +2,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Abstractions;
     using System.Linq;
     using System.Threading.Tasks;
@@ -15,111 +16,133 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
 
     internal sealed class ConfiguratorService : IConfiguratorService
     {
-        private const string ProductFolder = "{ProductFolder}";
-        private const string UserFolder = "{UserFolder}";
-        private readonly IAppSettings _settings;
+        private readonly string _productFolder;
         private readonly IFileSystem _storage;
+        private readonly string _userFolder;
 
-        public ConfiguratorService(IAppSettings settings, IFileSystem storage)
+        public ConfiguratorService(IFileSystem storage)
         {
-            _settings = settings;
+            _productFolder = AppContext.BaseDirectory;
+            _userFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             _storage = storage;
         }
 
-        public async Task<bool> Check(string key)
+        public async Task<IAppSettings> Load(string key)
         {
             this.SendStatusUpdate(Resources.Check_Start);
-            var configs = await LoadConfigJson(key);
-            if (configs == null)
+            var config = await LoadConfigJson(key);
+            if (config == null)
             {
                 this.SendStatusUpdate(Resources.Check_Failed);
-                return false;
+                return null;
             }
 
-            var configured = false;
-            await foreach (var config in configs.ToAsyncEnumerable())
+            var settings = new AppSettings();
+            var folders = await LoadFolders(config.Folders);
+            if (folders == null)
             {
-                var update = string.Format(format: Resources.Check_Folders, arg0: config.Version);
-                this.SendStatusUpdate(update);
-                configured = await CheckFolders(version: config.Version, folders: config.Folders);
-                if (!configured) break;
-
-                configured = CheckConfigFile();
+                var ex = new ExceptionInfo(sourceName: nameof(ConfiguratorService),
+                    source: typeof(ConfiguratorService),
+                    e: new InvalidDataException());
+                ex.SendException();
+                return null;
             }
 
-            return configured;
+            settings.Folders = folders;
+            var check = await LoadConfigFiles(config.FileConfig);
+            return !check ? null : settings;
         }
 
-        private async Task<bool> CheckFolders(int version, IEnumerable<IFolderMap> folders)
+        public async Task<bool> CheckFolders(IAppSettingsFolders folders)
         {
             if (folders == null)
             {
-                this.SendStatusUpdate("Configuration file corrupted. Application reinstall required.");
+                this.SendStatusUpdate(Resources.Internal_Corrupt);
                 return false;
             }
 
-            var update = string.Format(format: Resources.Check_Folders, arg0: version);
+            var update = Resources.Check_Folders;
             this.SendStatusUpdate(update);
-            var sorted = await folders.ToAsyncEnumerable().OrderBy(folder => folder.Name).ToListAsync();
+            var sorted = await folders.ToStringArray().ToAsyncEnumerable().OrderBy(f => f).ToListAsync();
 
             var valid = false;
             await foreach (var folder in sorted.ToAsyncEnumerable())
             {
-                valid = await CheckFolderMap(folder);
+                valid = CheckFolder(folder);
                 if (!valid) break;
             }
 
             return valid;
         }
 
-        private async Task<bool> CheckFolderMap(IFolderMap map, IFileSystemInfo parent = null)
+        private bool CheckFolder(string folder)
         {
-            var productFolder = _settings.ProductFolder;
-            var userFolder = _settings.UserFolder;
-            var name = map.Name;
-            var path = map.Path;
-            if (path.Contains(ProductFolder))
-                path = path.Replace(oldValue: ProductFolder, newValue: productFolder.FullName);
+            var pathInfo = _storage.DirectoryInfo.FromDirectoryName(folder);
+            if (pathInfo.Exists) return pathInfo.Exists;
 
-            if (path.Contains(UserFolder)) path = path.Replace(oldValue: UserFolder, newValue: userFolder.FullName);
-
-            var checkPath = path;
-            if (parent != null) checkPath = _storage.Path.Combine(path1: parent.FullName, path2: path);
-
-            var pathInfo = _storage.DirectoryInfo.FromDirectoryName(checkPath);
-            if (!pathInfo.Exists)
-                try
-                {
-                    pathInfo.Create();
-                    pathInfo.Refresh();
-                    if (!pathInfo.Exists) return false;
-                }
-                catch (Exception e)
-                {
-                    var message = new ExceptionInfo(sourceName: $"Folder: {name}",
-                        source: typeof(ConfiguratorService),
-                        e: e);
-                    message.SendException();
-                    return false;
-                }
-
-            if (map.Folders == null || !map.Folders.Any()) return true;
-
-            await foreach (var folder in map.Folders.ToAsyncEnumerable())
+            try
             {
-                await CheckFolderMap(map: folder, parent: pathInfo);
+                pathInfo.Create();
+                pathInfo.Refresh();
+                if (!pathInfo.Exists) return false;
+            }
+            catch (Exception e)
+            {
+                var message = new ExceptionInfo(sourceName: folder, source: typeof(ConfiguratorService), e: e);
+                message.SendException();
+                return false;
             }
 
-            return true;
+            return pathInfo.Exists;
         }
 
-        private bool CheckConfigFile()
+        private async Task<bool> LoadConfigFiles(IConfigurationFileConfig fileConfig)
         {
             this.SendStatusUpdate(Resources.Check_Config_File);
+            if (fileConfig?.Sections == null)
+            {
+                this.SendStatusUpdate(Resources.Internal_Corrupt);
+                return false;
+            }
+
+            await foreach (var section in fileConfig.Sections.OrderBy(s => s.Name).ToAsyncEnumerable()) { }
+
             return false;
         }
 
-        private async Task<IEnumerable<ConfigurationFile>> LoadConfigJson(string key) =>
-            await this.JsonResourceAsync<IEnumerable<ConfigurationFile>>(key);
+        private async Task<IConfigurationFile> LoadConfigJson(string key) =>
+            await this.JsonResourceAsync<IConfigurationFile>(key);
+
+        private async Task<IAppSettingsFolders> LoadFolders(IEnumerable<IConfigurationFileFolder> maps)
+        {
+            if (maps == null) return null;
+
+            var folderMaps = maps as IConfigurationFileFolder[] ?? maps.ToArray();
+            var source = folderMaps.ToList();
+            var section = new AppSettingsFolders {
+                Data = await ReadFolderFromMap(maps: source, key: ConfigKeys.DataKey),
+                ExternalModules = await ReadFolderFromMap(maps: source, key: ConfigKeys.ExternalModulesKey),
+                ExternalPlugins = await ReadFolderFromMap(maps: source, key: ConfigKeys.ExternalPluginsKey),
+                Games = await ReadFolderFromMap(maps: source, key: ConfigKeys.GamesKey),
+                Modules = await ReadFolderFromMap(maps: source, key: ConfigKeys.ModulesKey),
+                Plugins = await ReadFolderFromMap(maps: source, key: ConfigKeys.PluginsKey),
+                Product = await ReadFolderFromMap(maps: source, key: ConfigKeys.ProductKey),
+                User = await ReadFolderFromMap(maps: source, key: ConfigKeys.UserKey)
+            };
+            return section;
+        }
+
+        private async Task<string> ReadFolderFromMap(IEnumerable<IConfigurationFileFolder> maps, string key)
+        {
+            var map = await maps.OrderBy(m => m.Name).ToAsyncEnumerable().FirstOrDefaultAsync(m => m.Name == key);
+            if (map == null) return null;
+
+            var path = map.Path;
+            if (path.Contains(ConfigKeys.ProductFolder))
+                path = path.Replace(oldValue: ConfigKeys.ProductFolder, newValue: _productFolder);
+            if (path.Contains(ConfigKeys.UserFolder))
+                path = path.Replace(oldValue: ConfigKeys.UserFolder, newValue: _userFolder);
+            return path;
+        }
     }
 }

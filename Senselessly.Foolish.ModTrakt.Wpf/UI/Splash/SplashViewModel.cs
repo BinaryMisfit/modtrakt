@@ -1,8 +1,7 @@
 namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading;
+    using System.IO.Abstractions;
     using System.Threading.Tasks;
     using GameList;
     using Interfaces.Services;
@@ -16,23 +15,18 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
     internal sealed class SplashViewModel : ObservableObject
     {
-        private readonly IAppSettings _appSettings;
-        private readonly CancellationTokenSource _cancelTask;
         private readonly IConfiguratorService _configurator;
-        private readonly IGameLocatorService _gameLocatorService;
+        private readonly IFileSystem _storage;
+        private IAppSettings _settings;
         private string _status;
 
         public SplashViewModel() { }
 
-        public SplashViewModel(
-            IAppSettings appSettings,
-            IConfiguratorService configurator,
-            IGameLocatorService gameLocatorService)
+        public SplashViewModel(IAppSettings settings, IConfiguratorService configurator, IFileSystem storage)
         {
-            _appSettings = appSettings;
             _configurator = configurator;
-            _gameLocatorService = gameLocatorService;
-            _cancelTask = new CancellationTokenSource();
+            _settings = settings;
+            _storage = storage;
             ContentRenderedAsync = new AsyncRelayCommand<EventArgs>(StartAsync);
             Status = Resources.Splash_Status_Starting_Up;
             WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(recipient: this,
@@ -54,24 +48,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
 
         private async Task StartAsync(EventArgs e)
         {
-            await CheckStartupOptions(_appSettings);
+            _settings = await CheckStartupOptions(_settings);
         }
 
-        private async Task CheckStartupOptions(IAppSettings settings)
+        private async Task<IAppSettings> CheckStartupOptions(IAppSettings settings)
         {
-            settings.Installed = await LocateSupportedGames();
-            settings.Configured = await _configurator.Check(ConfigKeys.JsonConfig);
-        }
+            var configured = await _configurator.Load(key: ConfigKeys.JsonConfig);
+            if (settings.CompareTo(configured) != 0) { }
 
-        private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()
-        {
-            var dictionaryLoaded = await _gameLocatorService.LoadAsync(ConfigKeys.JsonGames);
-            if (dictionaryLoaded == 0) return null;
-
-            var gamesFound = await _gameLocatorService.Locate(_cancelTask.Token);
-            if (!_cancelTask.IsCancellationRequested && gamesFound > 0) return _gameLocatorService.Found;
-
-            return null;
+            return settings;
         }
 
         private static void ShowGameSelector()

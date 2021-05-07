@@ -16,8 +16,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
     internal static class JsonFile
     {
         private static readonly IList<JsonConverter> Converters = new JsonConverter[] {
-            new GameRegistryJson(),
-            new FolderMapJson()
+            new ConfigurationFileConfigJson(),
+            new ConfigurationFileJson(),
+            new ConfigurationFileFolderJson(),
+            new ConfigurationFileSectionJson(),
+            new ConfigurationFileSectionKeyJson(),
+            new GameRegistryJson()
         };
 
         public static async Task<T> JsonResourceAsync<T>(this IJsonSource sender, string resourceName)

@@ -151,7 +151,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [CONFIG-V{0}] Applying configuration.
+        ///   Looks up a localized string similar to [CONFIG] Applying configuration.
         /// </summary>
         public static string Check_Config_Version {
             get {
@@ -169,7 +169,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [CONFIG-V{0}] Verifying folders.
+        ///   Looks up a localized string similar to [CONFIG] Verifying folders.
         /// </summary>
         public static string Check_Folders {
             get {
@@ -219,6 +219,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Properties {
         public static string Game_List_Title {
             get {
                 return ResourceManager.GetString("Game_List_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [CRITICAL] Setup corrupted. Application reinstall required..
+        /// </summary>
+        public static string Internal_Corrupt {
+            get {
+                return ResourceManager.GetString("Internal_Corrupt", resourceCulture);
             }
         }
         

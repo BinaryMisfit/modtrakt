@@ -1,80 +1,65 @@
-[
-  {
-    "Version": 1,
-    "Config": [
+{
+  "Config": {
+    "Sections": [
       {
-        "File": "ModTrakt.ini",
-        "Path": "{UserFolder}\\Data",
-        "Sections": [
+        "Name": "General",
+        "Keys": [
           {
-            "Name": "General",
-            "Keys": [
-              {
-                "Name": "ActiveGame"
-              }
-            ]
-          },
-          {
-            "Name": "Folders",
-            "Keys": [
-              {
-                "Name": "User",
-                "Value": "{UserFolder}"
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "Folders": [
-      {
-        "Name": "Product",
-        "Path": "{ProductFolder}",
-        "Folders": [
-          {
-            "Name": "Core",
-            "Path": "Core",
-            "Folders": [
-              {
-                "Name": "Games",
-                "Path": "Games"
-              },
-              {
-                "Name": "Modules",
-                "Path": "Modules"
-              },
-              {
-                "Name": "Plugins",
-                "Path": "Plugins"
-              }
-            ]
+            "Key": "ActiveGame"
           }
         ]
       },
       {
-        "Name": "UserData",
-        "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt",
-        "Folders": [
+        "Name": "Folders",
+        "Keys": [
           {
-            "Name": "Data",
-            "Path": "Data"
-          },
-          {
-            "Name": "User",
-            "Path": "User",
-            "Folders": [
-              {
-                "Name": "Modules",
-                "Path": "Modules"
-              },
-              {
-                "Name": "Plugins",
-                "Path": "Plugins"
-              }
-            ]
+            "Key": "User",
+            "Value": "{UserFolder}"
           }
         ]
       }
     ]
-  }
-]
+  },
+  "Folders": [
+    {
+      "Name": "Product",
+      "Path": "{ProductFolder}"
+    },
+    {
+      "Name": "Core",
+      "Path": "{ProductFolder}\\Core"
+    },
+    {
+      "Name": "CoreGames",
+      "Path": "{ProductFolder}\\Core\\Games"
+    },
+    {
+      "Name": "CoreModules",
+      "Path": "{ProductFolder}\\Core\\Modules"
+    },
+    {
+      "Name": "CorePlugins",
+      "Path": "{ProductFolder}\\Core\\Plugins"
+    },
+    {
+      "Name": "UserRoot",
+      "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt"
+    },
+    {
+      "Name": "UserData",
+      "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt\\Data"
+    },
+    {
+      "Name": "User",
+      "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt\\User"
+    },
+    {
+      "Name": "UserModules",
+      "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt\\User\\Modules"
+    },
+    {
+      "Name": "UserPlugins",
+      "Path": "{UserFolder}\\SenselesslyFoolish\\ModTrakt\\User\\Plugins"
+    }
+  ]
+}

@@ -78,7 +78,7 @@
         <value>[CHECK] Configuration started</value>
     </data>
     <data name="Check_Folders" xml:space="preserve">
-        <value>[CONFIG-V{0}] Verifying folders</value>
+        <value>[CONFIG] Verifying folders</value>
     </data>
     <data name="Check_Config_File" xml:space="preserve">
         <value>[CHECK] Verifying config file</value>
@@ -87,6 +87,9 @@
         <value>[CHECK] Configuration failed</value>
     </data>
     <data name="Check_Config_Version" xml:space="preserve">
-        <value>[CONFIG-V{0}] Applying configuration</value>
+        <value>[CONFIG] Applying configuration</value>
+    </data>
+    <data name="Internal_Corrupt" xml:space="preserve">
+        <value>[CRITICAL] Setup corrupted. Application reinstall required.</value>
     </data>
 </root>

@@ -9,6 +9,7 @@
     <run:Double x:Key="DialogHeight">120</run:Double>
     <run:Double x:Key="DialogWidth">300</run:Double>
     <run:Double x:Key="PopupHeight">140</run:Double>
+    <run:Double x:Key="PopupMinHeight">300</run:Double>
     <run:Double x:Key="PopupWidth">500</run:Double>
     <run:Double x:Key="Height">720</run:Double>
     <run:Double x:Key="Width">1280</run:Double>

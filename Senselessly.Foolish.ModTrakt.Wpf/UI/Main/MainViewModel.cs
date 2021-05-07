@@ -66,9 +66,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             get => _navigationService.Items;
         }
 
-        public IGameSettings Game
+        public string Game
         {
-            get => _appSettings.Game;
+            get => _appSettings.General.ActiveGame;
         }
 
         public UserControl Module

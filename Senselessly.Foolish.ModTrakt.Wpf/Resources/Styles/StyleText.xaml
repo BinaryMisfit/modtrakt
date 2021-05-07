@@ -5,5 +5,6 @@
     <run:Double x:Key="CopyrightSize">10</run:Double>
     <run:Double x:Key="DefaultSize">14</run:Double>
     <run:Double x:Key="DialogTitleSize">16</run:Double>
+    <run:Double x:Key="SubscriptSize">12</run:Double>
     <run:Double x:Key="TitleSize">18</run:Double>
 </ResourceDictionary>

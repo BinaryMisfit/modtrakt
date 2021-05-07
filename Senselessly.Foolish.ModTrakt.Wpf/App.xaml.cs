@@ -3,6 +3,7 @@
     using System.IO.Abstractions;
     using System.Windows;
     using DotNetWindowsRegistry;
+    using Extensions.Storage;
     using Interfaces.App;
     using Interfaces.Navigation;
     using Interfaces.Services;
@@ -36,13 +37,14 @@
 
         private void ConfigureServices(IServiceCollection services)
         {
+            var settings = new AppSettings();
+            settings.LoadConfigFile(ConfigKeys.FileAppConfig);
+            services.AddSingleton<IAppSettings>(settings);
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IRegistry, WindowsRegistry>();
-            services.AddScoped<ISettings, Settings>();
             services.AddScoped<IGameDictionary, GameDictionary>();
             services.AddScoped<IGameLocatorService, GameLocatorService>();
             services.AddScoped<IGameSettings, GameSettings>();
-            services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<IConfiguratorService, ConfiguratorService>();
             services.AddSingleton<IExceptionService, ExceptionService>();
             services.AddSingleton<INavigationService, NavigationService>();
