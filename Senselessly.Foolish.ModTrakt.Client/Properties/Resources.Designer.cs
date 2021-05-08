@@ -77,5 +77,14 @@ namespace Senselessly.Foolish.ModTrakt.Client.Properties {
                 return ResourceManager.GetString("Application_Name", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lists all plugins or archives in a directory.
+        /// </summary>
+        internal static string Command_List_Description {
+            get {
+                return ResourceManager.GetString("Command_List_Description", resourceCulture);
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
                 },
                 description: "Perform recursive search on path",
                 getDefaultValue: () => false);
-            var list = new Command(name: "list", description: "Lists all plugins or archives in a directory");
+            var list = new Command(name: "list", description: Properties.Resources.Command_List_Description);
             list.AddAlias("li");
             list.AddArgument(source);
             list.AddOption(type);

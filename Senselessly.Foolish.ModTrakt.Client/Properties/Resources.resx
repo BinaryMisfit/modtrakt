@@ -29,4 +29,7 @@
     <data name="Application_Description" xml:space="preserve">
         <value>Performs various command line tasks on Bethesda Archives</value>
     </data>
+    <data name="Command_List_Description" xml:space="preserve">
+        <value>Lists all plugins or archives in a directory</value>
+    </data>
 </root>
