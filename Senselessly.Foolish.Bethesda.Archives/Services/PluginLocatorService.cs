@@ -14,8 +14,11 @@
 
         public PluginLocatorService(IFileSystem system) => _system = system;
 
+        public bool IsLocatorReady() => _system != null;
+
         public IEnumerable<string> Locate(DirectoryInfo path, ModTypes type, bool recurse)
         {
+            SearchType = type;
             string[] filter;
             switch (type)
             {
@@ -42,5 +45,7 @@
                                .Where(f => filter.Contains(f.Extension));
             return plugins?.Select(f => f.Name);
         }
+
+        public ModTypes SearchType { get; private set; }
     }
 }
