@@ -17,6 +17,7 @@ jobs:
         if: success() || failure()
         with:
           artifact: modtrakt-xunit-results
-          name: ModTrakt Tests
-          reporter: dotnet-trx
           fail-on-error: true
+          name: ModTrakt Tests
+          path: '*.trx'
+          reporter: dotnet-trx
