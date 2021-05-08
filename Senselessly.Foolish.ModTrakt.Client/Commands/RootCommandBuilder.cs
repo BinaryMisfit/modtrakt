@@ -10,8 +10,6 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands
         public RootCommandBuilder(ICommandBuilder list) => _list = list;
 
         public RootCommand BuildCommand() =>
-            new RootCommand(description: "Performs various command line tasks on Bethesda Archives") {
-                _list.BuildCommand()
-            };
+            new RootCommand(description: Properties.Resources.Application_Description) {_list.BuildCommand()};
     }
 }

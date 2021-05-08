@@ -19,6 +19,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="NuGet.Frameworks" Version="5.10.0-preview.2.7185"/>
         <PackageReference Include="System.Collections.Immutable" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="13.2.31"/>
         <PackageReference Include="System.Reflection.Metadata" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Runtime" Version="4.3.1"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.3.21201.4"/>
@@ -41,6 +42,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Senselessly.Foolish.ModTrakt.Client\Senselessly.Foolish.ModTrakt.Client.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Senselessly.Foolish.ModTrakt.Client.Tests.xunit.runner.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
