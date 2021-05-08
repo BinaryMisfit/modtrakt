@@ -28,7 +28,6 @@
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IPluginLocatorService, PluginLocatorService>();
             services.AddScoped<ICommandBuilder, ListCommandBuilder>();
