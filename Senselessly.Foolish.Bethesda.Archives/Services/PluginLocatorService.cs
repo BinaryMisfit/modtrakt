@@ -16,9 +16,11 @@
 
         public bool IsLocatorReady() => _system != null;
 
-        public IEnumerable<string> Locate(DirectoryInfo path, ModTypes type, bool recurse)
+        public IEnumerable<string> Locate(IDirectoryInfo path, ModTypes type, bool recurse)
         {
+            SearchPath = path;
             SearchType = type;
+            SearchRecursive = recurse;
             string[] filter;
             switch (type)
             {
@@ -45,6 +47,10 @@
                                .Where(f => filter.Contains(f.Extension));
             return plugins?.Select(f => f.Name);
         }
+
+        public IDirectoryInfo SearchPath { get; private set; }
+
+        public bool SearchRecursive { get; private set; }
 
         public ModTypes SearchType { get; private set; }
     }

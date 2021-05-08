@@ -4,6 +4,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
     using System.CommandLine.Invocation;
     using System.CommandLine.IO;
     using System.IO;
+    using System.IO.Abstractions;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -38,12 +39,12 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
             list.AddOption(type);
             list.AddOption(recurse);
             list.Handler =
-                CommandHandler.Create<DirectoryInfo, ModTypes, bool, IConsole, CancellationToken>(ListCommandHandler);
+                CommandHandler.Create<IDirectoryInfo, ModTypes, bool, IConsole, CancellationToken>(ListCommandHandler);
             return list;
         }
 
         private async Task<int> ListCommandHandler(
-            DirectoryInfo path,
+            IDirectoryInfo path,
             ModTypes types,
             bool recurse,
             IConsole console,
