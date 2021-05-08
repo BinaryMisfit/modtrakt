@@ -1,7 +1,6 @@
 **/*.swp
 **/*.*~
-**/project.lock.json
-**/packages.lock.json
+**/*.lock.json
 **/.DS_Store
 **/*.pyc
 **/nupkg/
