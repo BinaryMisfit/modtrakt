@@ -2,9 +2,8 @@
 
 ## A Bethesda Mod Manager
 
-[![App Analysis](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-analysis.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-analysis.yml) &nbsp; 
-[![App Build](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml) &nbsp;
-[![App SonarCloud](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-sonarcloud.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-sonarcloud.yml)  &nbsp;
+[![Build](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml/badge.svg)](https://github.com/BinaryMisfit/modtrakt/actions/workflows/modtrakt-wpf-build.yml) &nbsp;
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=senselessly-foolish-modtrakt&metric=alert_status)](https://sonarcloud.io/dashboard?id=senselessly-foolish-modtrakt) &nbsp;
 [![WakaTime](https://wakatime.com/badge/github/BinaryMisfit/modtrakt.svg)](https://wakatime.com/badge/github/BinaryMisfit/modtrakt)
 
 ModTrakt is a WPF based .Net Core 3.1 mod manager for Bethesda games. Most mod managers are focussed on downloading and
