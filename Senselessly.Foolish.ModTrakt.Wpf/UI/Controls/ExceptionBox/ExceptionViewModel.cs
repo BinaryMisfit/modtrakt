@@ -21,7 +21,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox
                     var e = m.Value;
                     Show = e != null ? Visibility.Visible : Visibility.Collapsed;
                     ExceptionDetail = e;
-                    _action = e.Close;
+                    _action = e?.Close;
                 });
             CloseCommand = new RelayCommand<EventArgs>(args => {
                 Show = Visibility.Collapsed;

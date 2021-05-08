@@ -6,6 +6,6 @@ namespace Senselessly.Foolish.Bethesda.Archives.Interfaces.Services
 
     public interface IPluginLocatorService
     {
-        IEnumerable<string> Locate(DirectoryInfo path, ModType type, bool recurse);
+        IEnumerable<string> Locate(DirectoryInfo path, ModTypes type, bool recurse);
     }
 }

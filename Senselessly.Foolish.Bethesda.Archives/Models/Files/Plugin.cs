@@ -13,7 +13,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
             ModId = ParseModId(folderName);
         }
 
-        public ArchiveType Archives { get; set; }
+        public ArchiveTypes Archives { get; set; }
 
         public string ExtraFolders
         {
@@ -35,15 +35,15 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
 
         public int ModId { get; }
 
-        public LooseType Loose { get; set; }
+        public LooseTypes Loose { get; set; }
 
-        public Dictionary<PluginType, int> TypeDict { get; set; }
+        public Dictionary<PluginTypes, int> TypeDict { get; set; }
 
         public string Types
         {
             get =>
                 TypeDict == null
-                    ? $"{PluginType.None}"
+                    ? $"{PluginTypes.None}"
                     : string.Join(separator: ", ",
                         values: TypeDict.OrderBy(kv => $"{kv.Key}").Select(kv => $"{kv.Key}: {kv.Value}"));
         }
@@ -51,7 +51,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
         private static string ParseModName(string folderName)
         {
             var separator = folderName.IndexOf('-');
-            if (separator <= 0) { return folderName; }
+            if (separator <= 0) return folderName;
 
             var modName = folderName[..separator];
             var modPart = folderName[separator..];
@@ -62,7 +62,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
             while (!isNumeric && index + 1 < max)
             {
                 isNumeric = int.TryParse(s: parts[index], result: out var _);
-                if (!isNumeric) { modName += $"{parts[index]}"; }
+                if (!isNumeric) modName = $"{modName}{parts[index]}";
 
                 index++;
             }
@@ -73,7 +73,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
         private static int ParseModId(string folderName)
         {
             var separator = folderName.IndexOf('-');
-            if (separator <= 0) { return 0; }
+            if (separator <= 0) return 0;
 
             var modId = 0;
             var modPart = folderName[separator..];

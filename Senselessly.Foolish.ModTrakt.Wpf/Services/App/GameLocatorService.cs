@@ -48,12 +48,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
             if (_games == null) return 0;
 
             List<IGameSettings> games = null;
-            // TODO Refactor for Async
-            var check = _games.OrderBy(game => game.Code)
-                              .SelectMany(game =>
-                                   game.Registry.Take(1)
-                                       .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
-                              .ToArray();
+            var check = await _games.OrderBy(game => game.Code)
+                                    .SelectMany(game =>
+                                         game.Registry.Take(1)
+                                             .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
+                                    .ToAsyncEnumerable()
+                                    .ToArrayAsync(cancellationToken: cancel);
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {
                 if (cancel.IsCancellationRequested) break;

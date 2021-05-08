@@ -53,9 +53,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             var dialogArgs = new OpenDirectoryDialogArguments {
                 Width = 600, Height = 400, CreateNewDirectoryEnabled = false, CurrentDirectory = _stagingFolder
             };
-            var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
-            if (!result.Canceled) { }
-
+            await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             _canBrowse = true;
         }
 
@@ -67,9 +65,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             var dialogArgs = new OpenDirectoryDialogArguments {
                 Width = 600, Height = 400, CreateNewDirectoryEnabled = true, CurrentDirectory = _workingFolder
             };
-            var result = await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
-            if (!result.Canceled) { }
-
+            await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
             _canBrowse = true;
         }
 

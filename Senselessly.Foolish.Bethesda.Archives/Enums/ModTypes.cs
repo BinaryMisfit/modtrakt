@@ -1,6 +1,6 @@
 namespace Senselessly.Foolish.Bethesda.Archives.Enums
 {
-    public enum ModType
+    public enum ModTypes
     {
         Archive,
         Both,

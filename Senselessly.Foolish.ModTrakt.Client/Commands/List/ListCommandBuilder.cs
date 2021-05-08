@@ -20,12 +20,12 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
         public Command BuildCommand()
         {
             var source = new Argument<DirectoryInfo>("path").ExistingOnly();
-            var type = new Option<ModType>(aliases: new[] {
+            var type = new Option<ModTypes>(aliases: new[] {
                     "-t",
                     "--type"
                 },
                 description: "Type of items to search for",
-                getDefaultValue: () => ModType.Both);
+                getDefaultValue: () => ModTypes.Both);
             var recurse = new Option<bool>(aliases: new[] {
                     "-r",
                     "--recurse"
@@ -38,28 +38,26 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
             list.AddOption(type);
             list.AddOption(recurse);
             list.Handler =
-                CommandHandler.Create<DirectoryInfo, ModType, bool, IConsole, CancellationToken>(ListCommandHandler);
+                CommandHandler.Create<DirectoryInfo, ModTypes, bool, IConsole, CancellationToken>(ListCommandHandler);
             return list;
         }
 
         private async Task<int> ListCommandHandler(
             DirectoryInfo path,
-            ModType type,
+            ModTypes types,
             bool recurse,
             IConsole console,
             CancellationToken cancel)
         {
             console.Out.WriteLine($"[list] Starting search in {path.FullName}");
-            var files = _locatorService.Locate(path: path, type: type, recurse: recurse).ToList();
+            var files = _locatorService.Locate(path: path, type: types, recurse: recurse).ToList();
             if (files.Count > 0)
-            {
                 await foreach (var file in files.OrderBy(f => f).ToAsyncEnumerable().WithCancellation(cancel))
                 {
-                    if (cancel.IsCancellationRequested) { break; }
+                    if (cancel.IsCancellationRequested) break;
 
                     console.Out.WriteLine($"[list] {file}");
                 }
-            }
 
             console.Out.WriteLine($"[list] Found {files.Count}");
             return files.Count;

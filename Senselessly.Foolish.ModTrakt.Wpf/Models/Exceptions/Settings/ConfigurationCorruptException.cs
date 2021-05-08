@@ -4,7 +4,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Exceptions.Settings
     using System.Runtime.Serialization;
     using Properties;
 
-    internal sealed class ConfigurationCorruptException : Exception
+    [Serializable]
+    public sealed class ConfigurationCorruptException : Exception
     {
         public ConfigurationCorruptException() : base(Resources.Exception_Config_Corrupt) { }
 

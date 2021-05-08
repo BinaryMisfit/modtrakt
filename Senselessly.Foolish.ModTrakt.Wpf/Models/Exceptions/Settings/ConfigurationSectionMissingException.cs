@@ -5,7 +5,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Exceptions.Settings
     using Properties;
 
     [Serializable]
-    internal sealed class ConfigurationSectionMissingException : Exception
+    public sealed class ConfigurationSectionMissingException : Exception
     {
         private ConfigurationSectionMissingException() { }
 

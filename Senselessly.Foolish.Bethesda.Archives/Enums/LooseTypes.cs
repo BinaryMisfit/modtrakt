@@ -3,7 +3,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Enums
     using System;
 
     [Flags]
-    public enum LooseType
+    public enum LooseTypes
     {
         None = 0,
         Aaf = 1,

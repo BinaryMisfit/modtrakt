@@ -8,25 +8,25 @@
     using Interfaces.Services;
     using Models.Storage;
 
-    public sealed class PluginLocatorServiceService : IPluginLocatorService
+    public sealed class PluginLocatorService : IPluginLocatorService
     {
         private readonly IFileSystem _system;
 
-        public PluginLocatorServiceService(IFileSystem system) => _system = system;
+        public PluginLocatorService(IFileSystem system) => _system = system;
 
-        public IEnumerable<string> Locate(DirectoryInfo path, ModType type, bool recurse)
+        public IEnumerable<string> Locate(DirectoryInfo path, ModTypes type, bool recurse)
         {
             string[] filter;
             switch (type)
             {
-                case ModType.Archive:
+                case ModTypes.Archive:
                     filter = FileTypes.ArchiveTypes;
                     break;
-                case ModType.Both:
+                case ModTypes.Both:
                     filter = FileTypes.PluginTypes;
                     filter = filter.Concat(FileTypes.ArchiveTypes).ToArray();
                     break;
-                case ModType.Plugin:
+                case ModTypes.Plugin:
                     filter = FileTypes.PluginTypes;
                     break;
                 default:
@@ -35,7 +35,7 @@
             }
 
             var options = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            if (filter == null) { return null; }
+            if (filter == null) return default;
 
             var root = _system.DirectoryInfo.FromDirectoryName(path.FullName);
             var plugins = root?.EnumerateFiles(searchPattern: "*", searchOption: options)

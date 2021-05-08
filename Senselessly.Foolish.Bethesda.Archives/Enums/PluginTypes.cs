@@ -3,7 +3,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Enums
     using System;
 
     [Flags]
-    public enum PluginType
+    public enum PluginTypes
     {
         None = 0,
         Plugin = 1,

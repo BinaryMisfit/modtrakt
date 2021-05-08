@@ -68,10 +68,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Navigation
             ExecuteCommand = NavigationCommandType.NotSet;
         }
 
-        public async Task<NavigationServiceType> SelectProcess(INavigationItem i, UserControl selected)
+        public async Task<NavigationServiceType> SelectProcess(INavigationItem item, UserControl selected)
         {
             INavigationServiceItem current = null;
-            if (i is FirstLevelNavigationItem item) current = await FindItem(item.Label);
+            if (item is FirstLevelNavigationItem i) current = await FindItem(i.Label);
 
             if (current == null) return NavigationServiceType.NotSet;
 
@@ -87,7 +87,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Navigation
                     return NavigationServiceType.Module;
                 }
                 case NavigationServiceType.Command: {
-                    i.IsSelected = false;
+                    item.IsSelected = false;
                     HighlightTarget = await FindNavigation(selected);
                     var command = ((INavigationServiceCommand)current).CommandType;
                     ExecuteCommand = command;
@@ -106,20 +106,23 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Navigation
         {
             if (control == null) return null;
 
+            INavigationItem navigationItem = null;
             await foreach (var item in Items.ToAsyncEnumerable())
             {
-                if (!(item is FirstLevelNavigationItem navItem)) return null;
+                if (navigationItem != null) break;
+
+                if (!(item is FirstLevelNavigationItem navItem)) continue;
 
                 var navModule = await _modules.ToAsyncEnumerable()
                                               .FirstOrDefaultAsync(module => module.Label == navItem.Label);
-                if (!(navModule is INavigationServiceModule)) return null;
+                if (!(navModule is INavigationServiceModule)) continue;
 
                 var found = await _modules.ToAsyncEnumerable()
                                           .FirstOrDefaultAsync(module => module.Type == navModule.Type);
-                return found == null ? null : item;
+                navigationItem = found == null ? null : item;
             }
 
-            return null;
+            return navigationItem;
         }
     }
 }
