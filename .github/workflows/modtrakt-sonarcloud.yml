@@ -48,34 +48,22 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: ${{ runner.os }}-nuget
-      - name: Cache Coverlet packages
-        id: cache-coverlet-console
-        uses: actions/cache@v2
-        with:
-          path: .\.coverlet\console
-          key: ${{ runner.os }}-coverlet
-          restore-keys: ${{ runner.os }}-coverlet
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Add Coverlet Console
-        if: steps.cache-coverlet-console.outputs.cache-hit != 'true'
-        run: |
-          dotnet tool update coverlet.console --tool-path .\.coverlet\console
       - name: Restore
         run: |
           dotnet restore
-          cd Senselessly.Foolish.Bethesda.Archives.Tests && dotnet add package coverlet.msbuild && cd..
       - name: Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.xunit.reportsPaths="test-results\*.trx"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths="test-results\*.trx" /d:sonar.cs.vscoveragexml.reportsPaths="test-result\*.xml"
           dotnet build --no-restore
-          dotnet test --no-build --verbosity normal --logger trx --results-directory "test-results" --collect="XPlat Code Coverage"
+          dotnet test --no-build --verbosity normal --logger trx --results-directory "test-results" --collect="Code Coverage"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
