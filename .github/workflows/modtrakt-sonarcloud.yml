@@ -48,8 +48,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish"
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.xunit
+          .reportsPaths="test-results"
           dotnet restore
           dotnet build --no-restore
-          dotnet test --no-build --verbosity detailed --logger trx --results-directory "test-results"
+          dotnet test --no-build --verbosity normal --logger trx --results-directory "test-results"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
