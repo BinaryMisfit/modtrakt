@@ -23,3 +23,11 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
+      - name: Report
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          artifact: 'ModTrakt'
+          fail-on-error: 'true'
+          name: test-results
+          path: jest-junit.xml

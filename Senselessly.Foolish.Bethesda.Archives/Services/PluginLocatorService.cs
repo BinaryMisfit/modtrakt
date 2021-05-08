@@ -21,27 +21,14 @@
             SearchPath = path;
             SearchType = type;
             SearchRecursive = recurse;
-            string[] filter;
-            switch (type)
+            var filter = type == ModTypes.Archive ? FileTypes.ArchiveTypes : FileTypes.PluginTypes;
+            if (type == ModTypes.Both)
             {
-                case ModTypes.Archive:
-                    filter = FileTypes.ArchiveTypes;
-                    break;
-                case ModTypes.Both:
-                    filter = FileTypes.PluginTypes;
-                    filter = filter.Concat(FileTypes.ArchiveTypes).ToArray();
-                    break;
-                case ModTypes.Plugin:
-                    filter = FileTypes.PluginTypes;
-                    break;
-                default:
-                    filter = null;
-                    break;
+                filter = FileTypes.ArchiveTypes;
+                filter = filter.Concat(FileTypes.PluginTypes).ToArray();
             }
 
             var options = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            if (filter == null) return default;
-
             var root = _system.DirectoryInfo.FromDirectoryName(path.FullName);
             var plugins = root?.EnumerateFiles(searchPattern: "*", searchOption: options)
                                .Where(f => filter.Contains(f.Extension));

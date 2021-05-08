@@ -8,7 +8,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Storage
 
         public static readonly string[] PluginTypes = {
             ".esl",
-            ".esp",
+            ".esm",
             ".esp"
         };
     }
