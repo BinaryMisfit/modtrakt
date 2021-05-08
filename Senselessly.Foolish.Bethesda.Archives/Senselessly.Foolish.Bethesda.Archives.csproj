@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <ProjectGuid>{34203e53-74f3-4d12-a612-666a0fe6690b}</ProjectGuid>
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>BethesdaArchivesLibrary</AssemblyName>
         <PackageVersion>0.0.1</PackageVersion>
