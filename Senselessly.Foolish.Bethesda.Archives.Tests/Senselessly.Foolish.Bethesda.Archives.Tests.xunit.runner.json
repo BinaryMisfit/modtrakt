@@ -1,5 +1,9 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
+  "$schema": "https://xunit.net/schema/current/xunit.runner.schema.json",
   "appDomain": "denied",
-  "diagnosticMessages": "true"
+  "diagnosticMessages": true,
+  "longRunningTestSeconds": 5,
+  "methodDisplay": "method",
+  "methodDisplayOptions": "all",
+  "parallelizeAssembly": true
 }
