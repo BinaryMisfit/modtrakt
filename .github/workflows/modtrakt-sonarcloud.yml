@@ -67,5 +67,11 @@ jobs:
             /d:sonar.cs.vstest.reportsPaths="test-results\*.trx" `
             /d:sonar.cs.opencover.reportsPaths="**.Tests\**\*.xml"
           dotnet build --no-restore
-          dotnet test --no-build --verbosity normal --logger trx --results-directory "test-results" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover"
+          dotnet test `
+            --no-build `
+            --verbosity normal `
+            --logger trx `
+            --results-directory "test-results" `
+            /p:CollectCoverage=true `
+            /p:CoverletOutputFormat="opencover"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
