@@ -38,9 +38,18 @@ jobs:
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
       - name: Cache NuGet packages
+        id: cache-nuget-packages
         uses: actions/cache@v2
         with:
           path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+      - name: Cache Coverlet packages
+        id: cache-coverlet-console
+        uses: actions/cache@v2
+        with:
+          path: .\.coverlet\console
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
@@ -50,14 +59,23 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Add Coverlet Console
+        if: steps.cache-coverlet-console.outputs.cache-hit != 'true'
+        run: |
+          dotnet tool update coverlet.console --tool-path .\.coverlet\console
+      - name: Restore
+        if: steps.cache-nuget-packages.outputs.cache-hit != 'true'
+        run: |
+          dotnet restore
+          cd Senselessly.Foolish.Bethesda.Archives.Tests && dotnet add package coverlet.msbuild && cd..
       - name: Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.xunit.reportsPaths="test-results"
-          dotnet restore
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.xunit .reportsPaths="test-results\*.trx"
           dotnet build --no-restore
           dotnet test --no-build --verbosity normal --logger trx --results-directory "test-results"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          dir test-results
