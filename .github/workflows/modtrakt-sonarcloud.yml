@@ -68,7 +68,6 @@ jobs:
         run: |
           dotnet tool update coverlet.console --tool-path .\.coverlet\console
       - name: Restore
-        if: steps.cache-nuget-packages.outputs.cache-hit != 'true'
         run: |
           dotnet restore
           cd Senselessly.Foolish.Bethesda.Archives.Tests && dotnet add package coverlet.msbuild && cd..
