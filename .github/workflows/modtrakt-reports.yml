@@ -1,0 +1,23 @@
+name: Reports
+
+on:
+  workflow_run:
+    workflows: [ 'CI' ]
+    types:
+      - completed
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          artifact: ModTrakt
+          name: xUnit Tests
+          path: modtrakt-xunit-results
+          reporter: dotnet-trx
+          fail-on-error: true
