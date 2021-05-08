@@ -33,7 +33,7 @@ jobs:
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sona
+          restore-keys: ${{ runner.os }}-sonar
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -47,16 +47,14 @@ jobs:
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget
+          restore-keys: ${{ runner.os }}-nuget
       - name: Cache Coverlet packages
         id: cache-coverlet-console
         uses: actions/cache@v2
         with:
           path: .\.coverlet\console
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget
+          key: ${{ runner.os }}-coverlet
+          restore-keys: ${{ runner.os }}-coverlet
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
