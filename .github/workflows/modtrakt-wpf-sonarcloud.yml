@@ -1,2 +1,22 @@
-- name: SonarCloud Scan
-  uses: SonarSource/sonarcloud-github-action@v1.6
+name: App SonarCloud
+
+on:
+  push:
+    branches: [ feature ]
+  pull_request:
+    branches: [ feature ]
+
+jobs:
+  sonarcloud:
+    name: Sonar
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
