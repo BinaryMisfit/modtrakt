@@ -51,4 +51,5 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"senselessly-foolish-modtrakt" /o:"senselessly-foolish" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore
           dotnet build --no-restore
+          dotnet test --no-build --verbosity detailed --logger trx --results-directory "test-results"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
