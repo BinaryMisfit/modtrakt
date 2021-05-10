@@ -1,7 +1,7 @@
-namespace Senselessly.Foolish.Bethesda.Archives.Tests.Services.PluginLocatorService
+namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocatorService
 {
     using Archives.Services;
-    using Fixtures;
+    using Helpers.Fixtures;
     using Xunit;
 
     [Collection("PluginLocationServiceInit")]

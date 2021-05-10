@@ -1,9 +1,9 @@
-namespace Senselessly.Foolish.Bethesda.Archives.Tests.Services.PluginLocatorService
+namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocatorService
 {
     using System.Linq;
     using Archives.Services;
     using Enums;
-    using Fixtures;
+    using Helpers.Fixtures;
     using Xunit;
 
     [Collection("PluginLocationServiceLocatePlugins")]

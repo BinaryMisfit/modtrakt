@@ -1,4 +1,4 @@
-namespace Senselessly.Foolish.Bethesda.Archives.Tests.Fixtures
+namespace Senselessly.Foolish.Bethesda.Archives.Tests.Helpers.Fixtures
 {
     using System;
     using System.Collections.Generic;
@@ -7,25 +7,25 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Fixtures
     public sealed class FileSystemFixture : IDisposable
     {
         public const string ModRoot = "C:\\Mods\\All";
-        public const string ModRootSub01 = "C:\\Mods\\All\\Plugins02";
-        public const string ModRootSub02 = "C:\\Mods\\All\\Plugins06";
+        public const string ModRootSub01 = "C:\\Mods\\All\\Plugin Two - 2 - 1-0-1";
+        public const string ModRootSub02 = "C:\\Mods\\All\\Plugin06";
         public const string ModArchivesRoot = "C:\\Mods\\Archives";
         public const string ModEmptyRoot = "C:\\Mods\\None";
         public const string ModPluginsRoot = "C:\\Mods\\Plugins";
-        public const string ModPlugin01 = "Plugins01.esm";
-        public const string ModPlugin02 = "Plugins02.esl";
-        public const string ModPlugin03 = "Plugins03.esl";
-        public const string ModPlugin04 = "Plugins04.esp";
-        public const string ModPlugin05 = "Plugins05.esp";
-        public const string ModPlugin06 = "Plugins06.esp";
-        public const string ModArchive01 = "Plugins01 - Main.ba2";
-        public const string ModArchive02 = "Plugins01 - Sounds.ba2";
-        public const string ModArchive03 = "Plugins01 - Textures.ba2";
-        public const string ModArchive04 = "Plugins02 - Main.ba2";
-        public const string ModArchive05 = "Plugins04 - Main.ba2";
-        public const string ModArchive06 = "Plugins05 - Main.ba2";
-        public const string ModArchive07 = "Plugins05 - Textures.ba2";
-        public const string ModArchive08 = "Plugins06 - Textures.ba2";
+        public const string ModPlugin01 = "Plugin01.esm";
+        public const string ModPlugin02 = "Plugin02.esl";
+        public const string ModPlugin03 = "Plugin03.esl";
+        public const string ModPlugin04 = "Plugin04.esp";
+        public const string ModPlugin05 = "Plugin05.esp";
+        public const string ModPlugin06 = "Plugin06.esp";
+        public const string ModArchive01 = "Plugin01 - Main.ba2";
+        public const string ModArchive02 = "Plugin01 - Sounds.ba2";
+        public const string ModArchive03 = "Plugin01 - Textures.ba2";
+        public const string ModArchive04 = "Plugin02 - Main.ba2";
+        public const string ModArchive05 = "Plugin04 - Main.ba2";
+        public const string ModArchive06 = "Plugin05 - Main.ba2";
+        public const string ModArchive07 = "Plugin05 - Textures.ba2";
+        public const string ModArchive08 = "Plugin06 - Textures.ba2";
 
         public FileSystemFixture()
         {

@@ -6,6 +6,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
     using System.Linq;
     using System.Threading.Tasks;
     using Bethesda.Archives.Enums;
+    using Bethesda.Archives.Interfaces.Extensions;
     using Bethesda.Archives.Models.Files;
     using Shared;
 
@@ -13,13 +14,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
     {
         private readonly IFileSystem _storage;
 
-        private IEnumerable<Plugin> _modSources;
+        private IEnumerable<IPlugin> _modSources;
 
         public ModListViewModel() { }
 
         public ModListViewModel(IFileSystem storage) => _storage = storage;
 
-        public IEnumerable<Plugin> Sources
+        public IEnumerable<IPlugin> Sources
         {
             get => _modSources;
             private set => SetProperty(field: ref _modSources, newValue: value);
@@ -29,7 +30,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
         {
             var pathInfo = _storage.DirectoryInfo.FromDirectoryName(path.FullName);
             var parent = pathInfo.GetDirectories();
-            var sources = new List<Plugin>();
+            var sources = new List<IPlugin>();
             await foreach (var folder in parent.OrderBy(folder => folder.Name).ToAsyncEnumerable())
             {
                 var folders = folder.GetDirectories();
