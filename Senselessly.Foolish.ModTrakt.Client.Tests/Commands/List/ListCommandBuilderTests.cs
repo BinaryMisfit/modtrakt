@@ -45,7 +45,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         }
 
         [Fact]
-        public void ListCommand_Contains_Arguments()
+        public void ListCommand_Has_Correct_Argument_Count()
         {
             const int expected = 1;
             var command = _builder.BuildCommand();
@@ -53,7 +53,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         }
 
         [Fact]
-        public void ListCommand_Contains_Argument_Path()
+        public void ListCommand_Has_Correct_Arguments()
         {
             var command = _builder.BuildCommand();
             var arg = command.Arguments.Where(a => a.Name == "Path");
@@ -61,7 +61,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         }
 
         [Fact]
-        public void ListCommand_Contains_Correct_Option_Count()
+        public void ListCommand_Has_Correct_Option_Count()
         {
             const int expected = 2;
             var command = _builder.BuildCommand();
