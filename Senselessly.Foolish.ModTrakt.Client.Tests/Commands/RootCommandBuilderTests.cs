@@ -30,14 +30,14 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands
         }
 
         [Fact]
-        public void RootCommandBuilder_Has_Correct_Command_Count()
+        public void RootCommand_Has_Correct_Command_Count()
         {
             var command = _builder.BuildCommand();
             Assert.Single(command.Children);
         }
 
         [Fact]
-        public void RootCommandBuilder_Has_Command_List()
+        public void RootCommand_Has_Command_List()
         {
             var command = _builder.BuildCommand();
             var list = command.Children.FirstOrDefault(c => c.Name == "list");
