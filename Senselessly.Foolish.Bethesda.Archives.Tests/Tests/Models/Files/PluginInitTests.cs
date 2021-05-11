@@ -1,5 +1,6 @@
 namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
 {
+    using System.Collections.Generic;
     using Archives.Models.Files;
     using Enums;
     using Helpers.Fixtures;
@@ -42,6 +43,26 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
         }
 
         [Fact]
+        public void Plugin_Can_Set_Loose_Types()
+        {
+            const LooseTypes expected = LooseTypes.Meshes & LooseTypes.Materials & LooseTypes.Textures;
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01) {Loose = expected};
+            Assert.Equal(expected: expected, actual: plugin.Loose);
+        }
+
+        [Fact]
+        public void Plugin_Can_Set_Type_Dictionary()
+        {
+            IDictionary<PluginTypes, int> expected = new Dictionary<PluginTypes, int> {
+                {PluginTypes.Plugin, 1}, {PluginTypes.Light, 0}
+            };
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01) {TypeDict = expected};
+            Assert.Collection(collection: plugin.TypeDict,
+                t => Assert.Equal(expected: PluginTypes.Plugin, actual: t.Key),
+                t => Assert.Equal(expected: PluginTypes.Light, actual: t.Key));
+        }
+
+        [Fact]
         public void Plugin_Sets_ExtraFolders_None()
         {
             const string expected = "None";
@@ -51,10 +72,27 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
         }
 
         [Fact]
+        public void Plugin_Sets_ExtraFolders()
+        {
+            const string expected = "FoldersIsSet";
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01) {Folders = expected};
+            Assert.Equal(expected: expected, actual: plugin.ExtraFolders);
+        }
+
+        [Fact]
         public void Plugin_Sets_ExtraFiles_None()
         {
             const string expected = "None";
             var plugin = new Plugin(FileSystemFixture.ModRootSub01);
+            var actual = plugin.ExtraFiles;
+            Assert.Equal(expected: expected, actual: actual);
+        }
+
+        [Fact]
+        public void Plugin_Sets_ExtraFiles()
+        {
+            const string expected = "FilesIsSet";
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01) {Files = expected};
             var actual = plugin.ExtraFiles;
             Assert.Equal(expected: expected, actual: actual);
         }
@@ -89,6 +127,17 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
             const string expected = "Plugin06";
             var plugin = new Plugin(FileSystemFixture.ModRootSub02);
             Assert.Equal(expected: expected, actual: plugin.ModName);
+        }
+
+        [Fact]
+        public void Plugin_Set_Types()
+        {
+            const string expected = "Light: 0, Plugin: 1";
+            IDictionary<PluginTypes, int> types = new Dictionary<PluginTypes, int> {
+                {PluginTypes.Plugin, 1}, {PluginTypes.Light, 0}
+            };
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01) {TypeDict = types};
+            Assert.Equal(expected: expected, actual: plugin.Types);
         }
     }
 }

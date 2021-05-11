@@ -24,7 +24,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Extensions
                 index++;
             }
 
-            return modId == 0 ? -1 : modId;
+            return modId;
         }
 
         public static string ParseModName(this IPlugin plugin)
