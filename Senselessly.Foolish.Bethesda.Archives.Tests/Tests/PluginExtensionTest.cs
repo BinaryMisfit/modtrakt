@@ -10,7 +10,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
     public class PluginExtensionTest
     {
         [Fact]
-        public void Plugin_ModId_Returns_Id()
+        public void Plugin_ParseModId_Returns_Id()
         {
             const int expected = 2;
             var plugin = new Plugin(FileSystemFixture.ModRootSub01);
@@ -19,7 +19,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
         }
 
         [Fact]
-        public void Plugin_ModId_Returns_Negative_On_Null()
+        public void Plugin_ParseModId_Returns_Negative_On_Null()
         {
             const int expected = -1;
             var plugin = new Plugin(null);
@@ -28,7 +28,16 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
         }
 
         [Fact]
-        public void Plugin_ModName_Returns_Name()
+        public void Plugin_ParseModId_Returns_Negative_On_Missing()
+        {
+            const int expected = -1;
+            var plugin = new Plugin(FileSystemFixture.ModRootSub02);
+            var actual = plugin.ParseModId();
+            Assert.Equal(expected: expected, actual: actual);
+        }
+
+        [Fact]
+        public void Plugin_ParseModName_Returns_Name()
         {
             const string expected = "Plugin Two";
             var plugin = new Plugin(FileSystemFixture.ModRootSub01);
@@ -37,7 +46,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
         }
 
         [Fact]
-        public void Plugin_ModName_Returns_Null()
+        public void Plugin_ParseModName_Returns_Null()
         {
             var plugin = new Plugin(null);
             var actual = plugin.ParseModName();

@@ -8,13 +8,10 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
 
     public sealed class Plugin : IPlugin
     {
+        private int _modId;
         private string _modName;
 
-        public Plugin(string folderName)
-        {
-            FolderName = folderName;
-            ModId = this.ParseModId();
-        }
+        public Plugin(string folderName) => FolderName = folderName;
 
         public ArchiveTypes Archives { get; set; }
 
@@ -34,7 +31,14 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
 
         public string Files { get; set; }
 
-        public int ModId { get; }
+        public int ModId
+        {
+            get {
+                if (_modId == 0) _modId = this.ParseModId();
+
+                return _modId;
+            }
+        }
 
         public string ModName
         {
