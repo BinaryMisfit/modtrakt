@@ -8,10 +8,11 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
 
     public sealed class Plugin : IPlugin
     {
+        private string _modName;
+
         public Plugin(string folderName)
         {
             FolderName = folderName;
-            ModName = this.ParseModName();
             ModId = this.ParseModId();
         }
 
@@ -35,7 +36,14 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
 
         public int ModId { get; }
 
-        public string ModName { get; }
+        public string ModName
+        {
+            get {
+                if (string.IsNullOrEmpty(_modName)) _modName = this.ParseModName();
+
+                return _modName;
+            }
+        }
 
         public LooseTypes Loose { get; set; }
 
