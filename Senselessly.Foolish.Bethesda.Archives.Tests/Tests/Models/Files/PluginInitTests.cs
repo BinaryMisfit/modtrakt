@@ -130,7 +130,15 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
         }
 
         [Fact]
-        public void Plugin_Set_Types()
+        public void Plugin_Sets_Types_None()
+        {
+            const string expected = "None";
+            var plugin = new Plugin(FileSystemFixture.ModRootSub01);
+            Assert.Equal(expected: expected, actual: plugin.Types);
+        }
+
+        [Fact]
+        public void Plugin_Sets_Types()
         {
             const string expected = "Light: 0, Plugin: 1";
             IDictionary<PluginTypes, int> types = new Dictionary<PluginTypes, int> {

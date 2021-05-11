@@ -30,9 +30,9 @@
 
             var options = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             var root = _system.DirectoryInfo.FromDirectoryName(path.FullName);
-            var plugins = root?.EnumerateFiles(searchPattern: "*", searchOption: options)
-                               .Where(f => filter.Contains(f.Extension));
-            return plugins?.Select(f => f.Name);
+            var plugins = root.EnumerateFiles(searchPattern: "*", searchOption: options)
+                              .Where(f => filter.Contains(f.Extension));
+            return plugins.Select(f => f.Name);
         }
 
         public IDirectoryInfo SearchPath { get; private set; }
