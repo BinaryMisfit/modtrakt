@@ -1,8 +1,8 @@
 namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocatorService
 {
-    using System.Linq;
     using Archives.Services;
     using Enums;
+    using FluentAssertions;
     using Helpers.Fixtures;
     using Xunit;
 
@@ -20,7 +20,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModEmptyRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: false);
-            Assert.Empty(results);
+            results.Should().BeEmpty();
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModArchivesRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: false);
-            Assert.Empty(results);
+            results.Should().BeEmpty();
         }
 
         [Fact]
@@ -39,20 +39,23 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: false);
-            Assert.Equal(expected: expected, actual: results.Count());
+            results.Should().HaveCount(expected);
         }
 
         [Fact]
         public void PluginLocatorService_Locate_Returns_Plugin_Results_Are_Correct()
         {
+            const int expectedCount = 4;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: false);
-            Assert.Collection(collection: results,
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin01, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin03, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin04, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin05, actual: result));
+            results.Should()
+                   .NotBeEmpty()
+                   .And.HaveCount(expectedCount)
+                   .And.SatisfyRespectively(result => result.Should().Match(FileSystemFixture.ModPlugin01),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin03),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin04),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin05));
         }
 
         [Fact]
@@ -62,22 +65,25 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: true);
-            Assert.Equal(expected: expected, actual: results.Count());
+            results.Should().HaveCount(expected);
         }
 
         [Fact]
         public void PluginLocatorService_Locate_Returns_Plugin_Recursive_Results_Are_Correct()
         {
+            const int expectedCount = 6;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var results = service.Locate(path: path, type: ModTypes.Plugin, recurse: true);
-            Assert.Collection(collection: results,
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin01, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin02, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin03, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin04, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin05, actual: result),
-                result => Assert.Equal(expected: FileSystemFixture.ModPlugin06, actual: result));
+            results.Should()
+                   .NotBeEmpty()
+                   .And.HaveCount(expectedCount)
+                   .And.SatisfyRespectively(result => result.Should().Match(FileSystemFixture.ModPlugin01),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin02),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin03),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin04),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin05),
+                        result => result.Should().Match(FileSystemFixture.ModPlugin06));
         }
     }
 }

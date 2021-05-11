@@ -2,6 +2,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
 {
     using Archives.Models.Files;
     using Extensions;
+    using FluentAssertions;
     using Helpers.Fixtures;
     using Xunit;
 
@@ -15,7 +16,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
             const int expected = 2;
             var plugin = new Plugin(FileSystemFixture.ModRootSub01);
             var actual = plugin.ParseModId();
-            Assert.Equal(expected: expected, actual: actual);
+            actual.Should<int>().Be(expected);
         }
 
         [Fact]
@@ -24,7 +25,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
             const int expected = -1;
             var plugin = new Plugin(null);
             var actual = plugin.ParseModId();
-            Assert.Equal(expected: expected, actual: actual);
+            actual.Should<int>().Be(expected);
         }
 
         [Fact]
@@ -33,7 +34,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
             const int expected = -1;
             var plugin = new Plugin(FileSystemFixture.ModRootSub02);
             var actual = plugin.ParseModId();
-            Assert.Equal(expected: expected, actual: actual);
+            actual.Should<int>().Be(expected);
         }
 
         [Fact]
@@ -42,7 +43,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
             const string expected = "Plugin Two";
             var plugin = new Plugin(FileSystemFixture.ModRootSub01);
             var actual = plugin.ParseModName();
-            Assert.Equal(expected: expected, actual: actual);
+            actual.Should<string>().Be(expected);
         }
 
         [Fact]
@@ -50,7 +51,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
         {
             var plugin = new Plugin(null);
             var actual = plugin.ParseModName();
-            Assert.Null(actual);
+            actual.Should().BeNull();
         }
     }
 }

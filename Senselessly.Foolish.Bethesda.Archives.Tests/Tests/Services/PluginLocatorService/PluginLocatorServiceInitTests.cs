@@ -1,6 +1,7 @@
 namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocatorService
 {
     using Archives.Services;
+    using FluentAssertions;
     using Helpers.Fixtures;
     using Xunit;
 
@@ -16,7 +17,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
         public void PluginLocatorService_Accepts_IFileSystem()
         {
             var service = new PluginLocatorService(_fileSystem.Storage);
-            Assert.True(service.IsLocatorReady());
+            service.IsLocatorReady().Should().BeTrue();
         }
     }
 }

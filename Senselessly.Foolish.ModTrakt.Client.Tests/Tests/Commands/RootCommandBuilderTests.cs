@@ -1,10 +1,11 @@
-namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands
+namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands
 {
     using System.IO.Abstractions.TestingHelpers;
     using System.Linq;
     using Bethesda.Archives.Services;
     using Client.Commands;
     using Client.Commands.List;
+    using FluentAssertions;
     using Properties;
     using Xunit;
 
@@ -19,21 +20,22 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands
         public void RootCommandBuilder_Builds_Command()
         {
             var command = _builder.BuildCommand();
-            Assert.NotNull(command);
+            command.Should().NotBeNull();
         }
 
         [Fact]
         public void RootCommandBuilder_Sets_Description()
         {
             var command = _builder.BuildCommand();
-            Assert.Equal(expected: Resources.Application_Description, actual: command.Description);
+            command.Description.Should().Be(Resources.Application_Description);
         }
 
         [Fact]
         public void RootCommand_Has_Correct_Command_Count()
         {
+            const int expected = 1;
             var command = _builder.BuildCommand();
-            Assert.Single(command.Children);
+            command.Children.Should().HaveCount(expected);
         }
 
         [Fact]
@@ -41,7 +43,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands
         {
             var command = _builder.BuildCommand();
             var list = command.Children.FirstOrDefault(c => c.Name == "list");
-            Assert.NotNull(list);
+            list.Should().NotBeNull();
         }
     }
 }

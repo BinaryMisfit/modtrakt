@@ -12,6 +12,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="FluentAssertions" Version="6.0.0-alpha0002"/>
         <PackageReference Include="Microsoft.CodeCoverage" Version="16.10.0-release-20210429-01"/>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0-release-20210429-01"/>
@@ -20,10 +21,13 @@
         <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.10.0-release-20210429-01"/>
         <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.10.0-release-20210429-01"/>
         <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0"/>
+        <PackageReference Include="Microsoft.Win32.SystemEvents" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="NETStandard.Library" Version="2.0.3"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="NuGet.Frameworks" Version="5.10.0-preview.2.7185"/>
         <PackageReference Include="System.Collections.Immutable" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Drawing.Common" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.IO.Abstractions" Version="13.2.31"/>
         <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="13.2.31"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
@@ -31,7 +35,10 @@
         <PackageReference Include="System.Runtime" Version="4.3.1"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Security.AccessControl" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Security.Permissions" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Security.Principal.Windows" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Windows.Extensions" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="xunit" Version="2.4.1"/>
         <PackageReference Include="xunit.abstractions" Version="2.0.3"/>
         <PackageReference Include="xunit.analyzers" Version="0.10.0"/>

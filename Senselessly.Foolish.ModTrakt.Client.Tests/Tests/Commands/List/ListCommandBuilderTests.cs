@@ -1,9 +1,11 @@
-namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
+namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
 {
+    using System.Collections.Generic;
     using System.IO.Abstractions.TestingHelpers;
     using System.Linq;
     using Bethesda.Archives.Services;
     using Client.Commands.List;
+    using FluentAssertions;
     using Properties;
     using Xunit;
 
@@ -18,30 +20,30 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         public void ListCommandBuilder_Builds_Command()
         {
             var command = _builder.BuildCommand();
-            Assert.NotNull(command);
+            command.Should().NotBeNull();
         }
 
         [Fact]
         public void ListCommandBuilder_Sets_Description()
         {
             var command = _builder.BuildCommand();
-            Assert.Equal(expected: Resources.Command_List_Description, actual: command.Description);
+            command.Description.Should().Match(Resources.Command_List_Description);
         }
 
         [Fact]
         public void ListCommandBuilder_Sets_Alias()
         {
+            const int expectedCount = 2;
+            var expectedList = new List<string> {"list", "li"};
             var command = _builder.BuildCommand();
-            Assert.Collection(collection: command.Aliases,
-                a => Assert.Equal(expected: "list", actual: a),
-                a => Assert.Equal(expected: "li", actual: a));
+            command.Aliases.Should().NotBeEmpty().And.HaveCount(expectedCount).And.ContainInOrder(expectedList);
         }
 
         [Fact]
         public void ListCommandBuilder_Sets_Handler()
         {
             var command = _builder.BuildCommand();
-            Assert.NotNull(command.Handler);
+            command.Should().NotBeNull();
         }
 
         [Fact]
@@ -49,7 +51,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         {
             const int expected = 1;
             var command = _builder.BuildCommand();
-            Assert.Equal(expected: expected, actual: command.Arguments.Count);
+            command.Arguments.Should().HaveCount(expected);
         }
 
         [Fact]
@@ -57,7 +59,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         {
             var command = _builder.BuildCommand();
             var arg = command.Arguments.Where(a => a.Name == "Path");
-            Assert.NotNull(arg);
+            arg.Should().NotBeNull();
         }
 
         [Fact]
@@ -65,24 +67,19 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Commands.List
         {
             const int expected = 2;
             var command = _builder.BuildCommand();
-            Assert.Equal(expected: expected, actual: command.Options.Count);
+            command.Options.Should().HaveCount(expected);
         }
 
         [Fact]
         public void ListCommand_Has_Correct_Options()
         {
+            const int expectedCount = 2;
             var command = _builder.BuildCommand();
-            Assert.Collection(collection: command.Options,
-                o => {
-                    Assert.Collection(collection: o.Aliases,
-                        a => Assert.Equal(expected: "-t", actual: a),
-                        a => Assert.Equal(expected: "--type", actual: a));
-                },
-                o => {
-                    Assert.Collection(collection: o.Aliases,
-                        a => Assert.Equal(expected: "-r", actual: a),
-                        a => Assert.Equal(expected: "--recurse", actual: a));
-                });
+            command.Options.Should()
+                   .NotBeEmpty()
+                   .And.HaveCount(expectedCount)
+                   .And.SatisfyRespectively(option => option.Name.Should().Match("type"),
+                        option => option.Name.Should().Match("recurse"));
         }
     }
 }

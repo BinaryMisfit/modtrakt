@@ -2,6 +2,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
 {
     using Archives.Services;
     using Enums;
+    using FluentAssertions;
     using Helpers.Fixtures;
     using Xunit;
 
@@ -20,7 +21,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             service.Locate(path: path, type: expected, recurse: false);
-            Assert.Equal(expected: expected, actual: service.SearchType);
+            service.SearchType.Should().Be(expected);
         }
 
         [Fact]
@@ -29,7 +30,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var expected = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var service = new PluginLocatorService(_fileSystem.Storage);
             service.Locate(path: expected, type: ModTypes.Both, recurse: false);
-            Assert.Equal(expected: expected, actual: service.SearchPath);
+            service.SearchPath.Should().Be(expected);
         }
 
         [Fact]
@@ -39,7 +40,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             service.Locate(path: path, type: ModTypes.Both, recurse: expected);
-            Assert.True(service.SearchRecursive);
+            service.SearchRecursive.Should().Be(expected);
         }
     }
 }
