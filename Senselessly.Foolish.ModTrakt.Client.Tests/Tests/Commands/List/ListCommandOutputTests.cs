@@ -8,16 +8,21 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
     using Client.Commands;
     using Client.Commands.List;
     using FluentAssertions;
+    using Helpers;
     using Xunit;
 
     [Collection("ProgramListOutput")]
     [Trait(name: "Category", value: "ProgramTests")]
-    public class ListCommandOutputTests
+    public class ListCommandOutputTests : IClassFixture<FileSystemFixture>
     {
         private readonly RootCommandBuilder _builder =
             new RootCommandBuilder(new ListCommandBuilder(new PluginLocatorService(new MockFileSystem())));
 
         private readonly IConsole _console = new TestConsole();
+
+        private readonly FileSystemFixture _fileSystem;
+
+        public ListCommandOutputTests(FileSystemFixture fileSystem) => _fileSystem = fileSystem;
 
         [Fact]
         public async Task Program_Arg_Alias_Li_Returns_Help()
