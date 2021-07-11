@@ -28,7 +28,7 @@
         <PackageReference Include="System.Collections.Immutable" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Drawing.Common" Version="6.0.0-preview.3.21201.4"/>
-        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="13.2.33"/>
+        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="13.2.38"/>
         <PackageReference Include="System.Reflection.Metadata" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Runtime" Version="4.3.1"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.3.21201.4"/>
