@@ -22,9 +22,9 @@
 
     <ItemGroup>
         <PackageReference Include="DotNetWindowsRegsitry" Version="0.1.0-alpha1"/>
-        <PackageReference Include="MaterialDesignColors" Version="2.0.1"/>
+        <PackageReference Include="MaterialDesignColors" Version="2.0.3"/>
         <PackageReference Include="MaterialDesignExtensions" Version="3.3.0"/>
-        <PackageReference Include="MaterialDesignThemes" Version="4.1.0"/>
+        <PackageReference Include="MaterialDesignThemes" Version="4.2.1"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2"/>
