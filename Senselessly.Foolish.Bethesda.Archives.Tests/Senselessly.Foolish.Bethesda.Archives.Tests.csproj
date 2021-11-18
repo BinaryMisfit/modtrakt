@@ -33,7 +33,7 @@
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Reflection.Metadata" Version="6.0.0"/>
         <PackageReference Include="System.Runtime" Version="4.3.1"/>
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0"/>
         <PackageReference Include="System.Security.AccessControl" Version="6.0.0"/>
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0"/>
         <PackageReference Include="System.Security.Permissions" Version="6.0.0"/>
