@@ -23,7 +23,7 @@
         <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.11.0"/>
         <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.0.0"/>
         <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0"/>
-        <PackageReference Include="Microsoft.Win32.SystemEvents" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="Microsoft.Win32.SystemEvents" Version="6.0.0"/>
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31"/>
         <PackageReference Include="NETStandard.Library" Version="2.0.3"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
