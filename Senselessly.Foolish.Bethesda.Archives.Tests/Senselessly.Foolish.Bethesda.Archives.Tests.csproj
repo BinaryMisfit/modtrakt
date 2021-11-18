@@ -16,7 +16,7 @@
         <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0"/>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0"/>
-        <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.0"/>
         <PackageReference Include="Microsoft.NETCore.Targets" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.0.0"/>
         <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.0.0"/>
