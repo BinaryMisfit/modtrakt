@@ -27,7 +27,7 @@
         <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.0"/>
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21216.1"/>
         <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.0"/>
-        <PackageReference Include="System.IO.Abstractions" Version="14.0.3"/>
+        <PackageReference Include="System.IO.Abstractions" Version="14.0.13"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Linq.Async" Version="5.1.0"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0"/>
