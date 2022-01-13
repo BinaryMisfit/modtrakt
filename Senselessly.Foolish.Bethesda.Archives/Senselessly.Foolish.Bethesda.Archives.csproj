@@ -19,7 +19,7 @@
 
     <ItemGroup>
         <PackageReference Include="System.Buffers" Version="4.5.1"/>
-        <PackageReference Include="System.IO.Abstractions" Version="14.0.13"/>
+        <PackageReference Include="System.IO.Abstractions" Version="16.1.4"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Linq.Async" Version="5.1.0"/>
         <PackageReference Include="System.Memory" Version="4.5.4"/>
