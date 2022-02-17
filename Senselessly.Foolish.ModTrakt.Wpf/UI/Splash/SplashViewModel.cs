@@ -29,8 +29,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
             _settings = settings;
             ContentRenderedAsync = new AsyncRelayCommand<EventArgs>(StartAsync);
             Status = Resources.Splash_Status_Starting_Up;
-            WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(recipient: this,
-                handler: (r, m) => {
+            WeakReferenceMessenger.Default.Register<StatusUpdateMessage>(this,
+                (r, m) => {
                     var status = m.Value;
                     if (status.Clear) Status = null;
 
@@ -41,7 +41,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
         public string Status
         {
             get => _status;
-            private set => SetProperty(field: ref _status, newValue: value);
+            private set => SetProperty(ref _status, value);
         }
 
         public IAsyncRelayCommand<EventArgs> ContentRenderedAsync { get; }
@@ -59,8 +59,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
                     await CheckFoldersAsync(settings);
                     break;
                 case true:
-                    WeakReferenceMessenger.Default.Register<AppSettingsMessage>(recipient: this,
-                        handler: async (s, e) => {
+                    WeakReferenceMessenger.Default.Register<AppSettingsMessage>(this,
+                        async (s, e) => {
                             var m = e.Value;
                             if (m.Handled) return;
 
@@ -76,7 +76,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
                             WeakReferenceMessenger.Default.Unregister<AppSettingsMessage>(this);
                             await CheckFoldersAsync(settings);
                         });
-                    await _configurator.LoadAsync(key: ConfigKeys.JsonConfig);
+                    await _configurator.LoadAsync(ConfigKeys.JsonConfig);
                     break;
             }
         }
@@ -84,8 +84,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
         private async Task CheckFoldersAsync(IAppSettings settings)
         {
             var identifier = Guid.NewGuid();
-            WeakReferenceMessenger.Default.Register<TaskCompletionMessage>(recipient: this,
-                handler: (s, e) => {
+            WeakReferenceMessenger.Default.Register<TaskCompletionMessage>(this,
+                (s, e) => {
                     var m = e.Value;
                     if (identifier == Guid.Empty) return;
 
@@ -98,15 +98,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Splash
                     WeakReferenceMessenger.Default.Unregister<TaskCompletionMessage>(this);
                     ShowGameSelector();
                 });
-            await _configurator.CheckFoldersAsync(identifier: identifier, folders: settings.Folders);
+            await _configurator.CheckFoldersAsync(identifier, settings.Folders);
         }
 
         private static void ShowGameSelector()
         {
             WeakReferenceMessenger.Default.Send(new ShowWindowMessage(
-                new ShowWindowOptions(caller: typeof(SplashWindow),
-                    window: typeof(GameListWindow),
-                    closeCaller: true)));
+                new ShowWindowOptions(typeof(SplashWindow),
+                    typeof(GameListWindow),
+                    true)));
         }
     }
 }

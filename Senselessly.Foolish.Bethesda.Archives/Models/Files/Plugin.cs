@@ -58,8 +58,8 @@ namespace Senselessly.Foolish.Bethesda.Archives.Models.Files
             get =>
                 TypeDict == null
                     ? $"{PluginTypes.None}"
-                    : string.Join(separator: ", ",
-                        values: TypeDict.OrderBy(kv => $"{kv.Key}").Select(kv => $"{kv.Key}: {kv.Value}"));
+                    : string.Join(", ",
+                        TypeDict.OrderBy(kv => $"{kv.Key}").Select(kv => $"{kv.Key}: {kv.Value}"));
         }
     }
 }

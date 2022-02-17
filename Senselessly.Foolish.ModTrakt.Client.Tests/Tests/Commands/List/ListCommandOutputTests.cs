@@ -12,7 +12,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
     using Xunit;
 
     [Collection("ProgramListOutput")]
-    [Trait(name: "Category", value: "ProgramTests")]
+    [Trait("Category", "ProgramTests")]
     public class ListCommandOutputTests : IClassFixture<FileSystemFixture>
     {
         private readonly RootCommandBuilder _builder =
@@ -29,7 +29,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
         {
             var expected = $"list*{Properties.Resources.Command_List_Description}*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "li", console: _console);
+            await rootCommand.InvokeAsync("li", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -38,7 +38,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
         {
             var expected = $"list*{Properties.Resources.Command_List_Description}*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "list", console: _console);
+            await rootCommand.InvokeAsync("list", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -47,7 +47,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands.List
         {
             const string expected = "Directory does not exist: C:\\Mods\\\r\n\r\n";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "list C:\\Mods\\", console: _console);
+            await rootCommand.InvokeAsync("list C:\\Mods\\", _console);
             _console.Error.ToString().Should().Match(expected);
         }
     }

@@ -13,13 +13,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Converters.Json
             Type typeToConvert,
             JsonSerializerOptions options)
         {
-            var configurationFile = JsonSerializer.Deserialize<ConfigurationFile>(reader: ref reader, options: options);
+            var configurationFile = JsonSerializer.Deserialize<ConfigurationFile>(ref reader, options);
             return configurationFile;
         }
 
         public override void Write(Utf8JsonWriter writer, IConfigurationFile value, JsonSerializerOptions options)
         {
-            var configurationFile = JsonSerializer.Serialize(value: value, options: options);
+            var configurationFile = JsonSerializer.Serialize(value, options);
             writer.WriteStringValue(configurationFile);
         }
     }

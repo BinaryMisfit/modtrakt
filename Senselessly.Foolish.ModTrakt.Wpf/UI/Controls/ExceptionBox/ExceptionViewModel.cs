@@ -16,8 +16,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox
 
         public ExceptionViewModel()
         {
-            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
-                handler: (r, m) => {
+            WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(this,
+                (r, m) => {
                     var e = m.Value;
                     Show = e != null ? Visibility.Visible : Visibility.Collapsed;
                     ExceptionDetail = e;
@@ -32,13 +32,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Controls.ExceptionBox
         public Visibility Show
         {
             get => _visible;
-            private set => SetProperty(field: ref _visible, newValue: value);
+            private set => SetProperty(ref _visible, value);
         }
 
         public IExceptionInfo ExceptionDetail
         {
             get => _exception;
-            private set => SetProperty(field: ref _exception, newValue: value);
+            private set => SetProperty(ref _exception, value);
         }
 
         public IRelayCommand<EventArgs> CloseCommand { get; }

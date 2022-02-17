@@ -8,7 +8,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Models.Files
     using Xunit;
 
     [Collection("PluginInit")]
-    [Trait(name: "Category", value: "PluginInit")]
+    [Trait("Category", "PluginInit")]
     public class PluginInitTests
     {
         [Fact]

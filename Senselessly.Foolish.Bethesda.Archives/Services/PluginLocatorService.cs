@@ -30,7 +30,7 @@
 
             var options = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             var root = _system.DirectoryInfo.FromDirectoryName(path.FullName);
-            var plugins = root.EnumerateFiles(searchPattern: "*", searchOption: options)
+            var plugins = root.EnumerateFiles("*", options)
                               .Where(f => filter.Contains(f.Extension));
             return plugins.Select(f => f.Name);
         }

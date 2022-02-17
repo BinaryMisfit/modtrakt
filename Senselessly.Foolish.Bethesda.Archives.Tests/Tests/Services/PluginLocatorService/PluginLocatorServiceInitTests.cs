@@ -6,7 +6,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
     using Xunit;
 
     [Collection("PluginLocationServiceInit")]
-    [Trait(name: "Category", value: "PluginLocatorService")]
+    [Trait("Category", "PluginLocatorService")]
     public sealed class PluginLocatorServiceInitTests : IClassFixture<FileSystemFixture>
     {
         private readonly FileSystemFixture _fileSystem;

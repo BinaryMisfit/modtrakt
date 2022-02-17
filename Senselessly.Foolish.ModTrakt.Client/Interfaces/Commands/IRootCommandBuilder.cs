@@ -4,6 +4,6 @@ namespace Senselessly.Foolish.ModTrakt.Client.Interfaces.Commands
 
     internal interface IRootCommandBuilder
     {
-        public RootCommand BuildCommand();
+        RootCommand BuildCommand();
     }
 }

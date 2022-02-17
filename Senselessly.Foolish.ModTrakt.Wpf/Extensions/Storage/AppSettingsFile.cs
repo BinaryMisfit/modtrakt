@@ -20,15 +20,15 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             finally { storage ??= new FileSystem(); }
 
             var defaults = DefaultConfig(storage);
-            var path = storage.Path.Combine(path1: AppContext.BaseDirectory, path2: file);
+            var path = storage.Path.Combine(AppContext.BaseDirectory, file);
             var fileInfo = storage.FileInfo.FromFileName(path);
             if (!fileInfo.Exists) return defaults;
 
             var product = AppContext.BaseDirectory;
             var userRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            userRoot = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPath);
+            userRoot = storage.Path.Combine(userRoot, ConfigKeys.UserPath);
             var configuration = Configuration.LoadFromFile(fileInfo.FullName);
-            if (configuration.Contains(sectionName: ConfigKeys.SectionFolders, settingName: ConfigKeys.FolderUserData))
+            if (configuration.Contains(ConfigKeys.SectionFolders, ConfigKeys.FolderUserData))
                 userRoot = configuration[ConfigKeys.SectionFolders][ConfigKeys.FolderUserData].StringValue;
 
             var settings = new AppSettings {
@@ -38,12 +38,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
                     },
                 Folders = new AppSettingsFolders {
                     User = userRoot,
-                    Data = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.DataPath),
-                    ExternalModules = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserModules),
-                    ExternalPlugins = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPlugins),
-                    Games = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreGames),
-                    Modules = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreModules),
-                    Plugins = storage.Path.Combine(path1: product, path2: ConfigKeys.CorePlugins)
+                    Data = storage.Path.Combine(userRoot, ConfigKeys.DataPath),
+                    ExternalModules = storage.Path.Combine(userRoot, ConfigKeys.UserModules),
+                    ExternalPlugins = storage.Path.Combine(userRoot, ConfigKeys.UserPlugins),
+                    Games = storage.Path.Combine(product, ConfigKeys.CoreGames),
+                    Modules = storage.Path.Combine(product, ConfigKeys.CoreModules),
+                    Plugins = storage.Path.Combine(product, ConfigKeys.CorePlugins)
                 },
                 FirstRun = false
             };
@@ -57,7 +57,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var storage = Ioc.Default.GetService<IFileSystem>();
             if (storage == null) return;
 
-            var saveFile = storage.Path.Combine(path1: sender.Folders.Product, path2: filePath);
+            var saveFile = storage.Path.Combine(sender.Folders.Product, filePath);
             var file = storage.FileInfo.FromFileName(saveFile);
             if (file.Directory?.Exists == false) file.Directory.Create();
             file.Refresh();
@@ -75,12 +75,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             var userRoot = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var settings = new AppSettings {
                 Folders = new AppSettingsFolders {
-                    Data = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.DataPath),
-                    ExternalModules = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserModules),
-                    ExternalPlugins = storage.Path.Combine(path1: userRoot, path2: ConfigKeys.UserPlugins),
-                    Games = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreGames),
-                    Modules = storage.Path.Combine(path1: product, path2: ConfigKeys.CoreModules),
-                    Plugins = storage.Path.Combine(path1: product, path2: ConfigKeys.CorePlugins),
+                    Data = storage.Path.Combine(userRoot, ConfigKeys.DataPath),
+                    ExternalModules = storage.Path.Combine(userRoot, ConfigKeys.UserModules),
+                    ExternalPlugins = storage.Path.Combine(userRoot, ConfigKeys.UserPlugins),
+                    Games = storage.Path.Combine(product, ConfigKeys.CoreGames),
+                    Modules = storage.Path.Combine(product, ConfigKeys.CoreModules),
+                    Plugins = storage.Path.Combine(product, ConfigKeys.CorePlugins),
                     Product = product,
                     User = userRoot
                 },

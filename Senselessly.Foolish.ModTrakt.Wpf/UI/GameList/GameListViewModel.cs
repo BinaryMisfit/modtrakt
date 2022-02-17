@@ -48,22 +48,22 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
         public bool IsBusy
         {
             get => _isBusy;
-            set => SetProperty(field: ref _isBusy, newValue: value);
+            set => SetProperty(ref _isBusy, value);
         }
 
         public IEnumerable<IGameSettings> Installed
         {
             get => _installed.OrderBy(g => g.Code);
-            private set => SetProperty(field: ref _installed, newValue: value);
+            private set => SetProperty(ref _installed, value);
         }
 
         public RelayCommand GameSelected { get; }
 
         private void CancelCommand()
         {
-            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "GameListDialog",
-                close: true,
-                shutdown: string.IsNullOrEmpty(_settings.General.ActiveGame))));
+            WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions("GameListDialog",
+                true,
+                string.IsNullOrEmpty(_settings.General.ActiveGame))));
         }
 
         private async Task<IEnumerable<IGameSettings>> LocateSupportedGames()
@@ -82,7 +82,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.GameList
             if (_settings.General.ActiveGame == null) return;
 
             WeakReferenceMessenger.Default.Send(new ShowWindowMessage(
-                new ShowWindowOptions(caller: typeof(GameListWindow), window: typeof(MainWindow), closeCaller: true)));
+                new ShowWindowOptions(typeof(GameListWindow), typeof(MainWindow), true)));
         }
 
         private async Task StartAsync(EventArgs e)

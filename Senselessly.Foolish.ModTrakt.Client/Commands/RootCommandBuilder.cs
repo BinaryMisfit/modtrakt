@@ -7,9 +7,9 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands
     {
         private readonly ICommandBuilder _list;
 
-        public RootCommandBuilder(ICommandBuilder list) => _list = list;
+         internal RootCommandBuilder(ICommandBuilder list) => _list = list;
 
-        public RootCommand BuildCommand() =>
-            new RootCommand(description: Properties.Resources.Application_Description) {_list.BuildCommand()};
+         public RootCommand BuildCommand() =>
+            new RootCommand(Properties.Resources.Application_Description) {_list.BuildCommand()};
     }
 }

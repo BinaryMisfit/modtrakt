@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
     using Xunit;
 
     [Collection("PluginLocationServiceLocateInit")]
-    [Trait(name: "Category", value: "PluginLocatorService")]
+    [Trait("Category", "PluginLocatorService")]
     public sealed class PluginLocatorServiceLocateInitTests : IClassFixture<FileSystemFixture>
     {
         private readonly FileSystemFixture _fileSystem;
@@ -20,7 +20,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const ModTypes expected = ModTypes.Plugin;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            service.Locate(path: path, type: expected, recurse: false);
+            service.Locate(path, expected, false);
             service.SearchType.Should().Be(expected);
         }
 
@@ -29,7 +29,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
         {
             var expected = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
             var service = new PluginLocatorService(_fileSystem.Storage);
-            service.Locate(path: expected, type: ModTypes.Both, recurse: false);
+            service.Locate(expected, ModTypes.Both, false);
             service.SearchPath.Should().Be(expected);
         }
 
@@ -39,7 +39,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const bool expected = true;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            service.Locate(path: path, type: ModTypes.Both, recurse: expected);
+            service.Locate(path, ModTypes.Both, expected);
             service.SearchRecursive.Should().Be(expected);
         }
     }

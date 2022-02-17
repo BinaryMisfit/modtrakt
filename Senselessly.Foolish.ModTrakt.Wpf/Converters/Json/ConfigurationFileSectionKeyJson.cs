@@ -13,7 +13,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Converters.Json
             Type typeToConvert,
             JsonSerializerOptions options)
         {
-            var keys = JsonSerializer.Deserialize<ConfigurationFileSectionKey>(reader: ref reader, options: options);
+            var keys = JsonSerializer.Deserialize<ConfigurationFileSectionKey>(ref reader, options);
             return keys;
         }
 
@@ -22,7 +22,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Converters.Json
             IConfigurationFileSectionKey value,
             JsonSerializerOptions options)
         {
-            var keys = JsonSerializer.Serialize(value: value, options: options);
+            var keys = JsonSerializer.Serialize(value, options);
             writer.WriteStringValue(keys);
         }
     }

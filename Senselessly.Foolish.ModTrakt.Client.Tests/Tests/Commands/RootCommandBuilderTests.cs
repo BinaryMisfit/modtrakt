@@ -10,7 +10,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests.Commands
     using Xunit;
 
     [Collection("RootCommandBuilder")]
-    [Trait(name: "Category", value: "CommandOptionsBuilderTests")]
+    [Trait("Category", "CommandOptionsBuilderTests")]
     public sealed class RootCommandBuilderTests
     {
         private readonly RootCommandBuilder _builder =

@@ -18,8 +18,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
 
         public SettingsViewModel(IAppSettings settings)
         {
-            _browseStaging = new RelayCommand(execute: OnBrowseStaging, canExecute: CanBrowseStaging);
-            _browseWorking = new RelayCommand(execute: OnBrowseWorking, canExecute: CanBrowseWorking);
+            _browseStaging = new RelayCommand(OnBrowseStaging, CanBrowseStaging);
+            _browseWorking = new RelayCommand(OnBrowseWorking, CanBrowseWorking);
             AppSettings = SetProperties(settings);
         }
 
@@ -36,13 +36,13 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
         public string StagingFolder
         {
             get => _stagingFolder;
-            set => SetProperty(field: ref _stagingFolder, newValue: value);
+            set => SetProperty(ref _stagingFolder, value);
         }
 
         public string WorkingFolder
         {
             get => _workingFolder;
-            set => SetProperty(field: ref _workingFolder, newValue: value);
+            set => SetProperty(ref _workingFolder, value);
         }
 
         public IAppSettings AppSettings { get; }
@@ -53,7 +53,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             var dialogArgs = new OpenDirectoryDialogArguments {
                 Width = 600, Height = 400, CreateNewDirectoryEnabled = false, CurrentDirectory = _stagingFolder
             };
-            await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
+            await OpenDirectoryDialog.ShowDialogAsync("SettingsDialog", dialogArgs);
             _canBrowse = true;
         }
 
@@ -65,7 +65,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Settings
             var dialogArgs = new OpenDirectoryDialogArguments {
                 Width = 600, Height = 400, CreateNewDirectoryEnabled = true, CurrentDirectory = _workingFolder
             };
-            await OpenDirectoryDialog.ShowDialogAsync(dialogHostName: "SettingsDialog", args: dialogArgs);
+            await OpenDirectoryDialog.ShowDialogAsync("SettingsDialog", dialogArgs);
             _canBrowse = true;
         }
 

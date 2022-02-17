@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests
     using Xunit;
 
     [Collection("PluginExtension")]
-    [Trait(name: "Category", value: "PluginExtension")]
+    [Trait("Category", "PluginExtension")]
     public class PluginExtensionTest
     {
         [Fact]

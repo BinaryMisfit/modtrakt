@@ -37,17 +37,17 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
                     "HKEY_LOCAL_MACHINE" => RegistryHive.LocalMachine,
                     var _                => RegistryHive.CurrentUser
                 };
-                using var registryLocal = _registry.OpenBaseKey(hKey: hive, view: RegistryView.Registry64);
+                using var registryLocal = _registry.OpenBaseKey(hive, RegistryView.Registry64);
                 using var registryGame = registryLocal.OpenSubKey(path);
                 if (registryGame == null) return false;
 
                 await foreach (var key in keys.ToAsyncEnumerable().WithCancellation(cancel))
                 {
-                    var registryValue = registryGame.GetValue(name: $"{key}", defaultValue: null);
+                    var registryValue = registryGame.GetValue($"{key}", null);
                     if (registryValue == null) continue;
 
-                    var result = new RegistryResult(id: RegistryResult,
-                        registry: new GameRegistry {Key = key, Path = path, Root = root}) {Value = registryValue};
+                    var result = new RegistryResult(RegistryResult,
+                        new GameRegistry {Key = key, Path = path, Root = root}) {Value = registryValue};
                     results ??= new List<RegistryResult>();
                     results.Add(result);
                 }

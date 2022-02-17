@@ -20,7 +20,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Extensions
             var index = 0;
             while (!isNumeric && index + 1 < max)
             {
-                isNumeric = int.TryParse(s: parts[index], result: out modId);
+                isNumeric = int.TryParse(parts[index], out modId);
                 index++;
             }
 
@@ -45,7 +45,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Extensions
             var index = 0;
             while (!isNumeric && index + 1 < max)
             {
-                isNumeric = int.TryParse(s: parts[index], result: out _);
+                isNumeric = int.TryParse(parts[index], out _);
                 if (!isNumeric) modName = $"{modName}{parts[index]}";
 
                 index++;

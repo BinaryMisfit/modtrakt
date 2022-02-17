@@ -16,8 +16,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
         {
             var canClose = false;
             Loaded += (s, e) => {
-                WeakReferenceMessenger.Default.Register<ShowWindowMessage>(recipient: this,
-                    handler: (r, m) => {
+                WeakReferenceMessenger.Default.Register<ShowWindowMessage>(this,
+                    (r, m) => {
                         var options = m.Value;
                         if (options.Handled) return;
 
@@ -30,28 +30,28 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
 
                         if (options.CloseCaller)
                             WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
-                                source: r.GetType(),
-                                close: true,
-                                shutdown: false)));
+                                r.GetType(),
+                                true,
+                                false)));
                     });
-                WeakReferenceMessenger.Default.Register<ConfirmExitMessage>(recipient: this,
-                    handler: async (r, m) => {
+                WeakReferenceMessenger.Default.Register<ConfirmExitMessage>(this,
+                    async (r, m) => {
                         var options = m.Value;
                         if (options.Handled) return;
 
                         options.Handled = true;
                         if (options.Shutdown && !string.IsNullOrEmpty(options.Host))
-                            await ExitDialog.PromptAsync(type: r.GetType(),
-                                host: options.Host,
-                                cancel: options.CancelAction);
+                            await ExitDialog.PromptAsync(r.GetType(),
+                                options.Host,
+                                options.CancelAction);
                         else
                             WeakReferenceMessenger.Default.Send(new WindowCloseMessage(new WindowCloseOptions(
-                                source: r.GetType(),
-                                close: options.Close,
-                                shutdown: options.Shutdown)));
+                                r.GetType(),
+                                options.Close,
+                                options.Shutdown)));
                     });
-                WeakReferenceMessenger.Default.Register<WindowCloseMessage>(recipient: this,
-                    handler: (r, m) => {
+                WeakReferenceMessenger.Default.Register<WindowCloseMessage>(this,
+                    (r, m) => {
                         var options = m.Value;
                         if (options.Handled) return;
 
@@ -65,8 +65,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Shared
 
                         WeakReferenceMessenger.Default.Unregister<WindowCloseMessage>(this);
                     });
-                WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(recipient: this,
-                    handler: (r, m) => {
+                WeakReferenceMessenger.Default.Register<ExceptionRaisedMessage>(this,
+                    (r, m) => {
                         var ex = m.Value;
                         if (ex.Handled) return;
 

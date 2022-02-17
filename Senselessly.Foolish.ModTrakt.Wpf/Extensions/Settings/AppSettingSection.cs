@@ -18,7 +18,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Settings
             await foreach (var key in keys.OrderBy(k => k.Key).ToAsyncEnumerable())
             {
                 var property = section.GetType().GetProperty(key.Key);
-                if (property != null && key.Value != null) property.SetValue(obj: section, value: key.Value);
+                if (property != null && key.Value != null) property.SetValue(section, key.Value);
             }
 
             return section;

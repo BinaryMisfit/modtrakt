@@ -70,7 +70,7 @@
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.FirstChanceException += (s, ex) => {
-                var info = new ExceptionInfo(e: ex.Exception, close: () => { Current.Shutdown(); });
+                var info = new ExceptionInfo(ex.Exception, () => { Current.Shutdown(); });
                 info.SendException();
             };
             Current.DispatcherUnhandledException += (s, ex) => { ex.Handled = true; };

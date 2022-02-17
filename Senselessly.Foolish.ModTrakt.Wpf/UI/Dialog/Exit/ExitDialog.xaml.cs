@@ -20,8 +20,8 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
             var exit = Ioc.Default.GetService<ExitDialog>();
             if (exit == null) return;
 
-            var result = await DialogHost.Show(content: exit, dialogIdentifier: host);
-            bool.TryParse(value: result?.ToString(), result: out var shutdown);
+            var result = await DialogHost.Show(exit, host);
+            bool.TryParse(result?.ToString(), out var shutdown);
             if (!shutdown)
             {
                 cancel?.Invoke();
@@ -29,7 +29,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Dialog.Exit
             }
 
             WeakReferenceMessenger.Default.Send(
-                new WindowCloseMessage(new WindowCloseOptions(source: type, close: true, shutdown: true)));
+                new WindowCloseMessage(new WindowCloseOptions(type, true, true)));
         }
     }
 }

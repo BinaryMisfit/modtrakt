@@ -53,7 +53,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Extensions.Storage
             await Converters.ToAsyncEnumerable().ForEachAsync(convert => jsonOptions.Converters.Add(convert));
             try
             {
-                var jsonData = JsonSerializer.Deserialize<T>(json: jsonText, options: jsonOptions);
+                var jsonData = JsonSerializer.Deserialize<T>(jsonText, jsonOptions);
                 return jsonData;
             }
             catch (Exception e)

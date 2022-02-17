@@ -23,7 +23,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
         public IEnumerable<IPlugin> Sources
         {
             get => _modSources;
-            private set => SetProperty(field: ref _modSources, newValue: value);
+            private set => SetProperty(ref _modSources, value);
         }
 
         private async Task FindPlugins(FileSystemInfo path)
@@ -42,11 +42,11 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
                 if (esl + esm + esp > 0)
                 {
                     modSource.TypeDict = new Dictionary<PluginTypes, int>();
-                    if (esl > 0) modSource.TypeDict.Add(key: PluginTypes.Light, value: esl);
+                    if (esl > 0) modSource.TypeDict.Add(PluginTypes.Light, esl);
 
-                    if (esm > 0) modSource.TypeDict.Add(key: PluginTypes.Master, value: esm);
+                    if (esm > 0) modSource.TypeDict.Add(PluginTypes.Master, esm);
 
-                    if (esp > 0) modSource.TypeDict.Add(key: PluginTypes.Plugin, value: esp);
+                    if (esp > 0) modSource.TypeDict.Add(PluginTypes.Plugin, esp);
                 }
 
                 files = files.Where(fi => !new[] {
@@ -83,7 +83,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
                       });
                 modSource.Archives = archives;
                 files = files.Where(fi => !fi.Extension.ToLowerInvariant().Equals(".ba2")).ToArray();
-                modSource.Files = string.Join(separator: ", ", values: files.Select(fi => $"{fi.Name}"));
+                modSource.Files = string.Join(", ", files.Select(fi => $"{fi.Name}"));
                 var loose = LooseTypes.None;
                 folders.ToList()
                        .ForEach(fo => {
@@ -130,7 +130,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Modules.ModList
                                       "vis"
                                   }.Contains(fo.Name.ToLowerInvariant()))
                                  .ToArray();
-                modSource.Folders = string.Join(separator: ", ", values: folders.Select(fo => $"{fo.Name}"));
+                modSource.Folders = string.Join(", ", folders.Select(fo => $"{fo.Name}"));
                 sources.Add(modSource);
             }
 

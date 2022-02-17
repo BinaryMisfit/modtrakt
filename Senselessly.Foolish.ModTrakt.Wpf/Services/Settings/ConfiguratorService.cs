@@ -38,7 +38,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
 
         public async Task CheckFoldersAsync(Guid identifier, IAppSettingsFolders folders)
         {
-            await CheckConfigurationFoldersAsync(identifier: identifier, folders: folders);
+            await CheckConfigurationFoldersAsync(identifier, folders);
         }
 
         private async Task LoadConfigurationAsync(string key)
@@ -90,7 +90,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             }
 
             WeakReferenceMessenger.Default.Send(
-                new TaskCompletionMessage(new CompletionMessageOptions(identifier: identifier, isSuccessful: valid)));
+                new TaskCompletionMessage(new CompletionMessageOptions(identifier, valid)));
         }
 
         private bool CheckFolder(string folder)
@@ -142,12 +142,12 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
                     var value = property.GetValue(configSection)?.ToString();
                     if (string.IsNullOrEmpty(value)) continue;
 
-                    value = value.Replace(oldValue: ConfigKeys.ProductFolder, newValue: _productFolder);
-                    value = value.Replace(oldValue: ConfigKeys.UserFolder, newValue: _userFolder);
-                    property.SetValue(obj: configSection, value: value);
+                    value = value.Replace(ConfigKeys.ProductFolder, _productFolder);
+                    value = value.Replace(ConfigKeys.UserFolder, _userFolder);
+                    property.SetValue(configSection, value);
                 }
 
-                settings.GetType().GetProperty(section.Name)?.SetValue(obj: settings, value: configSection);
+                settings.GetType().GetProperty(section.Name)?.SetValue(settings, configSection);
             }
 
             return settings;
@@ -163,14 +163,14 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
             var folderMaps = maps as IConfigurationFileFolder[] ?? maps.ToArray();
             var source = folderMaps.ToList();
             var section = new AppSettingsFolders {
-                Data = await ReadFolderFromMap(maps: source, key: ConfigKeys.DataKey),
-                ExternalModules = await ReadFolderFromMap(maps: source, key: ConfigKeys.ExternalModulesKey),
-                ExternalPlugins = await ReadFolderFromMap(maps: source, key: ConfigKeys.ExternalPluginsKey),
-                Games = await ReadFolderFromMap(maps: source, key: ConfigKeys.GamesKey),
-                Modules = await ReadFolderFromMap(maps: source, key: ConfigKeys.ModulesKey),
-                Plugins = await ReadFolderFromMap(maps: source, key: ConfigKeys.PluginsKey),
-                Product = await ReadFolderFromMap(maps: source, key: ConfigKeys.ProductKey),
-                User = await ReadFolderFromMap(maps: source, key: ConfigKeys.UserKey)
+                Data = await ReadFolderFromMap(source, ConfigKeys.DataKey),
+                ExternalModules = await ReadFolderFromMap(source, ConfigKeys.ExternalModulesKey),
+                ExternalPlugins = await ReadFolderFromMap(source, ConfigKeys.ExternalPluginsKey),
+                Games = await ReadFolderFromMap(source, ConfigKeys.GamesKey),
+                Modules = await ReadFolderFromMap(source, ConfigKeys.ModulesKey),
+                Plugins = await ReadFolderFromMap(source, ConfigKeys.PluginsKey),
+                Product = await ReadFolderFromMap(source, ConfigKeys.ProductKey),
+                User = await ReadFolderFromMap(source, ConfigKeys.UserKey)
             };
             return section;
         }
@@ -182,9 +182,9 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.Settings
 
             var path = map.Path;
             if (path.Contains(ConfigKeys.ProductFolder))
-                path = path.Replace(oldValue: ConfigKeys.ProductFolder, newValue: _productFolder);
+                path = path.Replace(ConfigKeys.ProductFolder, _productFolder);
             if (path.Contains(ConfigKeys.UserFolder))
-                path = path.Replace(oldValue: ConfigKeys.UserFolder, newValue: _userFolder);
+                path = path.Replace(ConfigKeys.UserFolder, _userFolder);
             return path;
         }
     }

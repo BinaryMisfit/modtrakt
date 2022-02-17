@@ -7,7 +7,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
     using Xunit;
 
     [Collection("PluginLocationServiceLocateArchive")]
-    [Trait(name: "Category", value: "PluginLocatorService")]
+    [Trait("Category", "PluginLocatorService")]
     public class PluginLocatorServiceLocateArchiveResultTests : IClassFixture<FileSystemFixture>
     {
         private readonly FileSystemFixture _fileSystem;
@@ -19,7 +19,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
         {
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModEmptyRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: false);
+            var results = service.Locate(path, ModTypes.Archive, false);
             results.Should().BeEmpty();
         }
 
@@ -28,7 +28,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
         {
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModPluginsRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: false);
+            var results = service.Locate(path, ModTypes.Archive, false);
             results.Should().BeEmpty();
         }
 
@@ -38,7 +38,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const int expected = 6;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: false);
+            var results = service.Locate(path, ModTypes.Archive, false);
             results.Should().HaveCount(expected);
         }
 
@@ -48,7 +48,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const int expectedCount = 6;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: false);
+            var results = service.Locate(path, ModTypes.Archive, false);
             results.Should()
                    .NotBeEmpty()
                    .And.HaveCount(expectedCount)
@@ -66,7 +66,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const int expected = 8;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: true);
+            var results = service.Locate(path, ModTypes.Archive, true);
             results.Should().HaveCount(expected);
         }
 
@@ -76,7 +76,7 @@ namespace Senselessly.Foolish.Bethesda.Archives.Tests.Tests.Services.PluginLocat
             const int expectedCount = 8;
             var service = new PluginLocatorService(_fileSystem.Storage);
             var path = _fileSystem.Storage.DirectoryInfo.FromDirectoryName(FileSystemFixture.ModRoot);
-            var results = service.Locate(path: path, type: ModTypes.Archive, recurse: true);
+            var results = service.Locate(path, ModTypes.Archive, true);
             results.Should()
                    .NotBeEmpty()
                    .And.HaveCount(expectedCount)

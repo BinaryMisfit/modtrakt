@@ -51,19 +51,19 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Services.App
             var check = await _games.OrderBy(game => game.Code)
                                     .SelectMany(game =>
                                          game.Registry.Take(1)
-                                             .Select(entry => new RegistryResult(id: game.Code, registry: entry)))
+                                             .Select(entry => new RegistryResult(game.Code, entry)))
                                     .ToAsyncEnumerable()
-                                    .ToArrayAsync(cancellationToken: cancel);
+                                    .ToArrayAsync(cancel);
             await foreach (var result in check.ToAsyncEnumerable().WithCancellation(cancel))
             {
                 if (cancel.IsCancellationRequested) break;
 
                 try
                 {
-                    if (await _registry.ReadAsync(root: result.Registry.Root,
-                            path: result.Registry.Path,
-                            cancel: cancel,
-                            keys: result.Registry.Key))
+                    if (await _registry.ReadAsync(result.Registry.Root,
+                            result.Registry.Path,
+                            cancel,
+                            result.Registry.Key))
                     {
                         result.Value = _registry.Results.First().Value;
                         var installed = _files.DirectoryInfo.FromDirectoryName(result.Value.ToString());

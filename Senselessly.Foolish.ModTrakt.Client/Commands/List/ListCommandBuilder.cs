@@ -21,19 +21,19 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
         public Command BuildCommand()
         {
             var source = new Argument<DirectoryInfo>("path").ExistingOnly();
-            var type = new Option<ModTypes>(aliases: new[] {
+            var type = new Option<ModTypes>(new[] {
                     "-t",
                     "--type"
                 },
                 description: "Type of items to search for",
                 getDefaultValue: () => ModTypes.Both);
-            var recurse = new Option<bool>(aliases: new[] {
+            var recurse = new Option<bool>(new[] {
                     "-r",
                     "--recurse"
                 },
                 description: "Perform recursive search on path",
                 getDefaultValue: () => false);
-            var list = new Command(name: "list", description: Properties.Resources.Command_List_Description);
+            var list = new Command("list", Properties.Resources.Command_List_Description);
             list.AddAlias("li");
             list.AddArgument(source);
             list.AddOption(type);
@@ -57,7 +57,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Commands.List
                 return 0;
             }
 
-            var files = _locatorService.Locate(path: path, type: types, recurse: recurse).ToList();
+            var files = _locatorService.Locate(path, types, recurse).ToList();
             if (files.Count > 0)
                 await foreach (var file in files.OrderBy(f => f).ToAsyncEnumerable().WithCancellation(cancel))
                 {

@@ -11,10 +11,10 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Exceptions.Settings
 
         public ConfigurationCorruptException(string message) : base(message) { }
 
-        public ConfigurationCorruptException(string message, Exception inner) : base(message: message,
-            innerException: inner) { }
+        public ConfigurationCorruptException(string message, Exception inner) : base(message,
+            inner) { }
 
-        private ConfigurationCorruptException(SerializationInfo info, StreamingContext context) : base(info: info,
-            context: context) { }
+        private ConfigurationCorruptException(SerializationInfo info, StreamingContext context) : base(info,
+            context) { }
     }
 }

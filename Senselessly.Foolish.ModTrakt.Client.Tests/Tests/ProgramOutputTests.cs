@@ -12,7 +12,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
     using Xunit;
 
     [Collection("ProgramOutput")]
-    [Trait(name: "Category", value: "ProgramTests")]
+    [Trait("Category", "ProgramTests")]
     public class ProgramOutputTests
     {
         private static readonly string Version = (Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly())
@@ -29,7 +29,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
         {
             const string expected = "*Options:*--version*Show version information*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "-?", console: _console);
+            await rootCommand.InvokeAsync("-?", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -38,7 +38,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
         {
             const string expected = "*Options:*--version*Show version information*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "-h", console: _console);
+            await rootCommand.InvokeAsync("-h", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -47,7 +47,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
         {
             const string expected = "*Options:*--version*Show version information*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "--help", console: _console);
+            await rootCommand.InvokeAsync("--help", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -56,7 +56,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
         {
             const string expected = "*Options:*--version*Show version information*";
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "", console: _console);
+            await rootCommand.InvokeAsync("", _console);
             _console.Out.ToString().Should().Match(expected);
         }
 
@@ -64,7 +64,7 @@ namespace Senselessly.Foolish.ModTrakt.Client.Tests.Tests
         public async Task Program_Arg_Version_Returns_Version()
         {
             var rootCommand = _builder.BuildCommand();
-            await rootCommand.InvokeAsync(commandLine: "--version", console: _console);
+            await rootCommand.InvokeAsync("--version", _console);
             _console.Out.ToString().Should().Match($"{Version}\r\n");
         }
     }

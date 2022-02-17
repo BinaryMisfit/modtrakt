@@ -10,20 +10,20 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.Models.Exceptions.Settings
         private ConfigurationSectionMissingException() { }
 
         public ConfigurationSectionMissingException(string section) : base(
-            string.Format(format: Resources.Exception_Config_Section_Missing, arg0: section)) =>
+            string.Format(Resources.Exception_Config_Section_Missing, section)) =>
             Section = section;
 
         public ConfigurationSectionMissingException(string section, string message) : base(message) =>
             Section = section;
 
         public ConfigurationSectionMissingException(string section, string message, Exception inner) : base(
-            message: message,
-            innerException: inner) =>
+            message,
+            inner) =>
             Section = section;
 
         private ConfigurationSectionMissingException(SerializationInfo info, StreamingContext context) : base(
-            info: info,
-            context: context) { }
+            info,
+            context) { }
 
         public string Section { get; }
     }

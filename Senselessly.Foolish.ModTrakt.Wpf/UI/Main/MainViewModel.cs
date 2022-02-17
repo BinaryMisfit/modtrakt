@@ -25,17 +25,17 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
             _appSettings = appSettings;
             _navigationService = navigationService;
             ExitCommand = new RelayCommand(() => {
-                WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions(host: "MainDialog",
-                    close: true,
-                    shutdown: true,
-                    cancel: () => {
+                WeakReferenceMessenger.Default.Send(new ConfirmExitMessage(new ConfirmExitOptions("MainDialog",
+                    true,
+                    true,
+                    () => {
                         if (_navigationService.HighlightTarget == null) return;
 
                         NavigateTo.Execute(_navigationService.HighlightTarget);
                     })));
             });
             NavigateTo = new RelayCommand<INavigationItem>(async i => {
-                var commandType = await _navigationService.SelectProcess(item: i, selected: _module);
+                var commandType = await _navigationService.SelectProcess(i, _module);
                 switch (commandType)
                 {
                     case NavigationServiceType.Module:
@@ -75,7 +75,7 @@ namespace Senselessly.Foolish.ModTrakt.Wpf.UI.Main
         public UserControl Module
         {
             get => _module;
-            private set => SetProperty(field: ref _module, newValue: value);
+            private set => SetProperty(ref _module, value);
         }
 
         public IRelayCommand ExitCommand { get; }
