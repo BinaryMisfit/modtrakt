@@ -28,7 +28,7 @@
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21216.1"/>
         <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.0"/>
         <PackageReference Include="System.IO.Abstractions" Version="17.1.1"/>
-        <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
+        <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.5.21301.5"/>
         <PackageReference Include="System.Linq.Async" Version="6.0.1"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0"/>
         <PackageReference Include="System.Security.AccessControl" Version="6.0.0"/>
