@@ -24,10 +24,10 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Primitives" Version="6.0.0"/>
-        <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.5"/>
         <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21216.1"/>
         <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.0"/>
-        <PackageReference Include="System.IO.Abstractions" Version="16.1.10"/>
+        <PackageReference Include="System.IO.Abstractions" Version="17.1.1"/>
         <PackageReference Include="System.IO.FileSystem.AccessControl" Version="6.0.0-preview.3.21201.4"/>
         <PackageReference Include="System.Linq.Async" Version="6.0.1"/>
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0"/>
